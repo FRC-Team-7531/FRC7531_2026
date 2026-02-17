@@ -45,7 +45,7 @@
     "rotation": -51.34019174590992
   },
   "reversed": false,
-  "folder": "Blue Depot",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": -0.8524713846903069

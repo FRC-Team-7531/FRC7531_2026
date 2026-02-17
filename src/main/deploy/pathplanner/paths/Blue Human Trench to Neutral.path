@@ -66,7 +66,7 @@
     "rotation": 91.12330271407531
   },
   "reversed": false,
-  "folder": "Blue Human",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

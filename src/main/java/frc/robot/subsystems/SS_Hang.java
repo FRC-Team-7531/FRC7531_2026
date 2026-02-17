@@ -4,21 +4,11 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.hardware.TalonFX;
-
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class SS_Throat extends SubsystemBase {
-  public Timer timer = new Timer();
-  public TalonFX throatMotor;
-
-  /** Creates a new SS_Throat. */
-  public SS_Throat() 
-  {
-    
-  }
+public class SS_Hang extends SubsystemBase {
+  /** Creates a new SS_Hang. */
+  public SS_Hang() {}
 
   @Override
   public void periodic() {

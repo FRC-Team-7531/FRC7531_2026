@@ -12,13 +12,13 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.vision.flipTurret;
+//import frc.robot.commands.vision.flipTurret;
 
 public class SS_Turret extends SubsystemBase {
   public CANcoder encoder = new CANcoder(43);
   public TalonFX turretMotor = new TalonFX(40);
   public Pigeon2 pidgey = new Pigeon2(50);
-  public flipTurret flippy;
+  //public flipTurret flippy;
   public final double leftMaximum = 0.4;
   public final double rightMaximum = -0.15;
 

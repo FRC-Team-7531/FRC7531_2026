@@ -2,45 +2,28 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Intake;
+package frc.robot.commands.Hang;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SS_Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class intake_cmd extends Command {
-  /** Creates a new foldIntake. */
-  public SS_Intake intake;
-  //public Timer timer = new Timer();
-  private boolean isDone = false;
-
-  public intake_cmd(SS_Intake ss_intake) {
+public class HangLevel2_cmd extends Command {
+  /** Creates a new HangLevel2_cmd. */
+  public HangLevel2_cmd() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(ss_intake);
-    this.intake = ss_intake;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() 
-  {
-    //timer.start();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() 
-  {
-    intake.IntakeOn(0.5);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) 
-  {
-
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

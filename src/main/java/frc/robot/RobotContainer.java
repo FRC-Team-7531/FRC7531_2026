@@ -19,9 +19,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-
+import frc.robot.commands.Hopper.rollersOff_cmd;
+import frc.robot.commands.Hopper.rollersOn_cmd;
+import frc.robot.commands.Intake.foldIntake_cmd;
+import frc.robot.commands.Intake.intake_cmd;
 import frc.robot.generated.TunerConstants;
-import frc.robot.subsystems.SS_Drivetrain;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.SS_Hopper;
+import frc.robot.subsystems.SS_Intake;
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -40,19 +45,24 @@ public class RobotContainer {
 
     private final CommandXboxController joystick = new CommandXboxController(0);
 
-    public final SS_Drivetrain drivetrain = TunerConstants.createDrivetrain();
+    public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     /* Path follower */
-    //private final SendableChooser<Command> autoChooser;
+    private final SendableChooser<Command> autoChooser;
+
+    private final SS_Intake intake = new SS_Intake();
+    private final SS_Hopper hopper = new SS_Hopper();
 
     public RobotContainer() {
-        //autoChooser = AutoBuilder.buildAutoChooser("None");
-        ///SmartDashboard.putData("Auto Mode", autoChooser);
+        autoChooser = AutoBuilder.buildAutoChooser("Tests");
+        SmartDashboard.putData("Auto Mode", autoChooser);
 
         configureBindings();
 
         // Warmup PathPlanner to avoid Java pauses
         FollowPathCommand.warmupCommand().schedule();
+
+        
     }
 
     private void configureBindings() {
@@ -74,7 +84,7 @@ public class RobotContainer {
             drivetrain.applyRequest(() -> idle).ignoringDisable(true)
         );
 
-        joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
+        // joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
         joystick.b().whileTrue(drivetrain.applyRequest(() ->
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         ));
@@ -97,10 +107,15 @@ public class RobotContainer {
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        joystick.a().whileTrue(new intake_cmd(intake));
+        joystick.b().whileTrue(new foldIntake_cmd(intake));
+        joystick.x().whileTrue(new rollersOn_cmd());
+        joystick.y().whileTrue(new rollersOff_cmd());
     }
 
-    /*public Command getAutonomousCommand() {
-        //Run the path selected from the auto chooser
+    public Command getAutonomousCommand() {
+        /* Run the path selected from the auto chooser */
         return autoChooser.getSelected();
-    }*/
+    }
 }

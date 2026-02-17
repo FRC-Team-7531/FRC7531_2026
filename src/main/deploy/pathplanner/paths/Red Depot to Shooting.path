@@ -45,7 +45,7 @@
     "rotation": 118.61045966596501
   },
   "reversed": false,
-  "folder": "Red Depot",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

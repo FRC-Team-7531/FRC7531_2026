@@ -24,7 +24,10 @@ public class outtake_cmd extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() 
+  {
+    intake.IntakeOn(-.5);
+  }
 
   // Called once the command ends or is interrupted.
   @Override

@@ -45,7 +45,7 @@
     "rotation": -147.1714582085876
   },
   "reversed": false,
-  "folder": "Red Hub",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 178.45184230102208
