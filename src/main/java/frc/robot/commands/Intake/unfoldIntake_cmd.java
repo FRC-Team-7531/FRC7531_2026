@@ -22,7 +22,6 @@ public class unfoldIntake_cmd extends Command {
   @Override
   public void initialize() 
   {
-    intake.PivotOn(-.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -26,7 +26,6 @@ public class foldIntake_cmd extends Command {
   @Override
   public void execute() 
   {
-    intake.PivotOn(.5);
   }
 
   // Called once the command ends or is interrupted.
@@ -39,3 +38,4 @@ public class foldIntake_cmd extends Command {
     return false;
   }
 }
+

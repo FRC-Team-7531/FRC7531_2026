@@ -19,10 +19,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.commands.Hopper.rollersOff_cmd;
-import frc.robot.commands.Hopper.rollersOn_cmd;
-import frc.robot.commands.Intake.foldIntake_cmd;
 import frc.robot.commands.Intake.intake_cmd;
+import frc.robot.commands.Intake.outtake_cmd;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.SS_Hopper;
@@ -44,6 +42,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandXboxController joystick2 = new CommandXboxController(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -65,6 +64,9 @@ public class RobotContainer {
         
     }
 
+
+
+    
     private void configureBindings() {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
@@ -106,16 +108,15 @@ public class RobotContainer {
         // Reset the field-centric heading on left bumper press.
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
-        drivetrain.registerTelemetry(logger::telemeterize);
+        joystick2.a().onTrue(new intake_cmd(intake));
+        joystick2.b().onTrue(new outtake_cmd(intake));
 
-        joystick.a().whileTrue(new intake_cmd(intake));
-        joystick.b().whileTrue(new foldIntake_cmd(intake));
-        joystick.x().whileTrue(new rollersOn_cmd());
-        joystick.y().whileTrue(new rollersOff_cmd());
+        drivetrain.registerTelemetry(logger::telemeterize);
     }
 
     public Command getAutonomousCommand() {
-        /* Run the path selected from the auto chooser */
+        /* Run the path selected from ;;t;he auto chooser */
         return autoChooser.getSelected();
     }
 }
+;

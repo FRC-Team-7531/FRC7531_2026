@@ -11,9 +11,8 @@ import frc.robot.subsystems.SS_Intake;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class intake_cmd extends Command {
   /** Creates a new foldIntake. */
+  public Timer timerIntake = new Timer();
   public SS_Intake intake;
-  //public Timer timer = new Timer();
-  private boolean isDone = false;
 
   public intake_cmd(SS_Intake ss_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -23,28 +22,35 @@ public class intake_cmd extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() 
-  {
-    //timer.start();
+  public void initialize() {
+    timerIntake.start();
+    System.out.println("In");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() 
-  {
-    intake.IntakeOn(0.5);
+  public void execute() {
+    intake.makeRollerGo();
+    System.out.println("In Running " + timerIntake.get());
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) 
-  {
+  public void end(boolean interrupted) {
 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (timerIntake.hasElapsed(5)) {
+      timerIntake.restart();
+      timerIntake.stop();
+      intake.makeRollerStop();
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }
