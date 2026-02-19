@@ -19,8 +19,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.commands.Intake.foldIntake_cmd;
 import frc.robot.commands.Intake.intake_cmd;
 import frc.robot.commands.Intake.outtake_cmd;
+import frc.robot.commands.Intake.rollersOff_cmd;
+import frc.robot.commands.Intake.rollersOn_cmd;
+import frc.robot.commands.Intake.unfoldIntake_cmd;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.SS_Hopper;
@@ -110,6 +114,10 @@ public class RobotContainer {
 
         joystick2.a().onTrue(new intake_cmd(intake));
         joystick2.b().onTrue(new outtake_cmd(intake));
+        joystick2.rightBumper().onTrue(new unfoldIntake_cmd(intake));
+        joystick2.leftBumper().onTrue(new foldIntake_cmd(intake));
+        joystick2.x().onTrue(new rollersOn_cmd(intake));
+        joystick2.y().onTrue(new rollersOff_cmd(intake));
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }

@@ -2,29 +2,33 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Hopper;
+package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SS_Hopper;
+import frc.robot.subsystems.SS_Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class rollersOff_cmd extends Command {
-  /** Creates a new rollersOff_cmd. */
-  public SS_Hopper hopper;
+public class rollersOn_cmd extends Command {
+  /** Creates a new rollersOn_cmd. */
+  public SS_Intake intake;
 
-  public rollersOff_cmd() {
+  public rollersOn_cmd(SS_Intake ss_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(ss_intake);
+    this.intake = ss_intake;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    intake.hotDogRollersOn();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-    hopper.StopRollers();
+
   }
 
   // Called once the command ends or is interrupted.
@@ -34,6 +38,6 @@ public class rollersOff_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
