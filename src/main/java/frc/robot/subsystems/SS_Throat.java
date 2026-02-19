@@ -4,21 +4,19 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SS_Throat extends SubsystemBase {
+  public CANBus canivore = new CANBus("CANivore");
   public Timer timer = new Timer();
-  public TalonFX throatMotor;
+  public TalonFX throatMotor = new TalonFX(43, canivore);
 
   /** Creates a new SS_Throat. */
-  public SS_Throat() 
-  {
-    
-  }
+  public SS_Throat() {}
 
   @Override
   public void periodic() {

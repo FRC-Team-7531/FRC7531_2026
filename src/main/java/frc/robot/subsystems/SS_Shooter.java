@@ -46,10 +46,12 @@ public class SS_Shooter extends SubsystemBase {
 
   public NetworkTableInstance inst = NetworkTableInstance.getDefault();
   public NetworkTableEntry actuatorPosition = inst.getTable("Shooter").getEntry("Actuator Position");
+  public NetworkTableEntry shooterSpeed = inst.getTable("Shooter").getEntry("Shooter Speed");
 
   /** Creates a new SS_Shooter. */
   public SS_Shooter() {
     actuatorPosition.setDouble(0.0);
+    shooterSpeed.setDouble(0.0);
     leftShooter.setNeutralMode(NeutralModeValue.Coast);
     rightShooter.setNeutralMode(NeutralModeValue.Coast);
   }
@@ -57,7 +59,8 @@ public class SS_Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    inst.getTable("Shooter").getEntry("Actuator Position");
+    actuatorPosition = inst.getTable("Shooter").getEntry("Actuator Position");
+    shooterSpeed = inst.getTable("Shooter").getEntry("Shooter Speed");
   }
 
   public double calculateGoalAngle(double distance) {
@@ -75,10 +78,10 @@ public class SS_Shooter extends SubsystemBase {
 
   public void setHoodAngle(double angle) {
     targetPosition = ((hoodArmRadius*Math.sin(angle) - heightDifference)/Math.sin(linearActuatorAngle))/maxExtension;
-    if ((targetPosition < 0.01) || (targetPosition > 0.99)) {
+    if ((targetPosition < 0.01) || (targetPosition > 0.79)) {
       System.out.println("Clamping Hood Angle!!!");
-      leftHoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.99));
-      rightHoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.99));
+      leftHoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.79));
+      rightHoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.79));
     } else {
       leftHoodLifter.setPosition(targetPosition);
       rightHoodLifter.setPosition(targetPosition);
