@@ -64,8 +64,8 @@ public class aimTurretToTarget extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (targetPose != drivetrain.hubPose) {
-      targetPose = drivetrain.hubPose;
+    if (targetPose != drivetrain.targetPose) {
+      targetPose = drivetrain.targetPose;
     }
 
     estimatedPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();

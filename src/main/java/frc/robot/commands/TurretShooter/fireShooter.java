@@ -17,7 +17,7 @@ public class fireShooter extends Command {
   public double distance;
   public double hoodAngle;
   public Translation2d botPose;
-  public Translation2d hubPose;
+  public Translation2d targetPose;
   public double targetAngle;
 
   /** Creates a new startShooter. */
@@ -31,14 +31,18 @@ public class fireShooter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    hubPose = drivetrain.hubPose;
+    targetPose = drivetrain.targetPose;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (targetPose != drivetrain.targetPose) {
+      targetPose = drivetrain.targetPose;
+    }
+    
     botPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
-    distance = botPose.getDistance(hubPose);
+    distance = botPose.getDistance(targetPose);
     targetAngle = shooter.calculateGoalAngle(distance);
     shooter.setHoodAngle(targetAngle);
     hoodAngle = shooter.leftHoodLifter.getPosition();

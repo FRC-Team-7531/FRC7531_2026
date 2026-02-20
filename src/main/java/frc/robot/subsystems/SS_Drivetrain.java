@@ -104,7 +104,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         kinematics, 
         kBlueAlliancePerspectiveRotation,
         modulePositions, 
-        new Pose2d(1.40, 4.84, new Rotation2d(0)), 
+        new Pose2d(0.4318, 4.021328, new Rotation2d(0)), 
         new Matrix<N3, N1>(Nat.N3(), Nat.N1(), new double[] {0.2, 0.2, 0.2}), 
         new Matrix<N3, N1>(Nat.N3(), Nat.N1(), new double[] {0.6, 0.6, 0.5})
     );
@@ -133,6 +133,9 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     SwerveModule<TalonFX, TalonFX, CANcoder> module3 = getModule(3);
     public Translation2d hubPose = new Translation2d(4.625594, 4.034536);
     public Translation2d towerPose = new Translation2d(1.7113, 4.162044);
+    public Translation2d depotPose = new Translation2d(1.651, 6.391656);
+    public Translation2d stationPose = new Translation2d(1.651, 1.651);
+    public Translation2d targetPose;
     public DriverStation.Alliance alliance;
     NetworkTable limelightTableAntigua = NetworkTableInstance.getDefault().getTable("limelight-antigua");
     NetworkTable limelightTableBarbuda = NetworkTableInstance.getDefault().getTable("limelight-barbuda");
@@ -224,7 +227,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
         poseEstimateAntigua = limelightTableAntigua.getEntry("botpose_orb_wpiblue").getDoubleArray(new double[6]);
         poseEstimateBarbuda = limelightTableBarbuda.getEntry("botpose_orb_wpiblue").getDoubleArray(new double[6]);
-        shooter.getEntry("testYaw").setDouble(0.0);
+        targetPose = hubPose;
     }
 
     /**
@@ -367,7 +370,6 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         }
 
         alliance = DriverStation.getAlliance().get();
-        // testYaw = shooter.getEntry("testYaw").getDouble(0.0);
 
         SmartDashboard.putNumber("pidgeonYaw", pidgey.getYaw().getValueAsDouble());
         SmartDashboard.putNumber("drivetrainYaw", this.getState().Pose.getRotation().getDegrees());

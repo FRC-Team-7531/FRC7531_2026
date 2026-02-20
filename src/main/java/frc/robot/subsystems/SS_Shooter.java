@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -38,11 +39,13 @@ public class SS_Shooter extends SubsystemBase {
   public double targetAngle;
   public double targetPosition;
 
+  public CANBus canivore = new CANBus("CANivore");
+
   // Hard goods
   public PWM leftHoodLifter = new PWM(0);
   public PWM rightHoodLifter = new PWM(1);
-  public TalonFX leftShooter = new TalonFX(42);
-  public TalonFX rightShooter = new TalonFX(41);
+  public TalonFX leftShooter = new TalonFX(42, canivore);
+  public TalonFX rightShooter = new TalonFX(41, canivore);
 
   public NetworkTableInstance inst = NetworkTableInstance.getDefault();
   public NetworkTableEntry actuatorPosition = inst.getTable("Shooter").getEntry("Actuator Position");
