@@ -3,61 +3,61 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.625,
-        "y": 1.5653373493975913
+        "x": 4.061722123444247,
+        "y": 5.039
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.493862740778756,
-        "y": 0.9861697454588874
+        "x": 4.267799739805012,
+        "y": 4.6820630981604685
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.281156626506024,
-        "y": 0.669265060240964
+        "x": 5.292790014151457,
+        "y": 4.494829275372837
       },
       "prevControl": {
-        "x": 7.166301204819277,
-        "y": 0.691120481927711
+        "x": 4.519661364176327,
+        "y": 4.494829275372837
       },
       "nextControl": {
-        "x": 5.33288307874135,
-        "y": 0.6458508985677621
+        "x": 5.980046769810262,
+        "y": 4.494829275372837
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.560156626506024,
-        "y": 0.669265060240964
+        "x": 6.152,
+        "y": 5.296
       },
       "prevControl": {
-        "x": 4.467156626506024,
-        "y": 0.6583373493975899
+        "x": 6.066179328079686,
+        "y": 4.809286783590948
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BHumanTrench"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.3247244094488264,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": 90.0
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0,
+    "maxVelocity": 3.5,
+    "maxAcceleration": 7.0,
+    "maxAngularVelocity": 540,
+    "maxAngularAcceleration": 720,
     "nominalVoltage": 12.0,
     "unlimited": false
   },
@@ -66,10 +66,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Red Human",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 91.12330271407531
+    "rotation": 0.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

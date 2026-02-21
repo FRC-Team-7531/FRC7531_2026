@@ -30,8 +30,8 @@ public class SS_Intake extends SubsystemBase {
   }
 
   public void makeRollerGo() {
-    roller.set(0.1);
-    System.out.println("Motor In " + roller.get());
+    roller.set(0.5);
+    //System.out.println("Motor In " + roller.get());
   }
 
   public void makeRollerStop() {
@@ -41,12 +41,12 @@ public class SS_Intake extends SubsystemBase {
 
   public void makeRollerSpitOut() {
     roller.set(-0.1);
-    System.out.println("Motor Out");
+    //System.out.println("Motor Out");
   }
 
 public void intakeUnfold()  {
   double pivotAngle = pivot.getPosition().getValueAsDouble();
-  System.out.println("pivot Angle: " + pivotAngle);
+  //System.out.println("pivot Angle: " + pivotAngle);
   pivot.set(0.1);
 }
 
@@ -56,7 +56,7 @@ public void intakeUnfold()  {
 
   public void intakeFold()  {
     double pivotAngle = pivot.getPosition().getValueAsDouble();
-  System.out.println("pivot Angle: " + pivotAngle);
+    //System.out.println("pivot Angle: " + pivotAngle);
     pivot.set(-0.1);
   }
 

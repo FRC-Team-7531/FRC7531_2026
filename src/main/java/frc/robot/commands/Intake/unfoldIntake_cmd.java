@@ -22,13 +22,13 @@ public class unfoldIntake_cmd extends Command {
   @Override
   public void initialize() {
     intake.intakeUnfold();
-    System.out.println("Unfold is initialized ");
+    //System.out.println("Unfold is initialized ");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("Unfold is running (execute)");
+    //System.out.println("Unfold is running (execute)");
   }
 
   // Called once the command ends or is interrupted.
@@ -40,7 +40,7 @@ public class unfoldIntake_cmd extends Command {
   public boolean isFinished() {
     if (intake.pivot.getPosition().getValueAsDouble() > 15) {
       intake.IntakePivotStop();
-      System.out.println("Hit 15");
+      //System.out.println("Hit 15");
       return true;
     } else {
       return false;
