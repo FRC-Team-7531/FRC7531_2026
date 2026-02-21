@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class SS_Turret extends SubsystemBase {
   public CANBus canivore = new CANBus("CANivore");
   public CANBus rio = new CANBus("rio");
-  public CANcoder encoder = new CANcoder(43, canivore);
+  public CANcoder encoder = new CANcoder(44, canivore);
   public TalonFX turretMotor = new TalonFX(40, canivore);
   public Pigeon2 pidgey = new Pigeon2(0, rio);
-  public final double leftMaximum = 0.5;
+  public final double leftMaximum = 0.25;
   public final double rightMaximum = -0.5;
   Translation2d position;
 

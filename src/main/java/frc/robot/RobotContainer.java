@@ -86,8 +86,8 @@ public class RobotContainer {
     public manualShooter shootCommand = new manualShooter(shooter);
     public moveActuator moveActuatorCommand = new moveActuator(shooter);
     public stopShooter stopShooterCommand = new stopShooter(shooter);
-    public stopThroat stopThroatCommand = new stopThroat(throat);
-    public startThroat startThroatCommand = new startThroat(throat);
+    public stopThroat stopThroatCommand = new stopThroat(throat, hopper);
+    public startThroat startThroatCommand = new startThroat(throat, hopper);
     public intake_cmd intakeRollers = new intake_cmd(intake);
     public rollersOn_cmd hotdogOn = new rollersOn_cmd(hopper);
     public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);

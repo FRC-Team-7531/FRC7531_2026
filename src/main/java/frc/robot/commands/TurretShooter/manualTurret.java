@@ -36,7 +36,7 @@ public class manualTurret extends Command {
     if ((turret.getTurretRotation() > turret.leftMaximum) && (speed > 0)) {
       turret.setRawSpeed(0);
       return;
-    } else if ((-turret.getTurretRotation() > turret.rightMaximum) && (speed < 0)) {
+    } else if ((turret.getTurretRotation() < turret.rightMaximum) && (speed < 0)) {
       turret.setRawSpeed(0);
       return;
     } else {

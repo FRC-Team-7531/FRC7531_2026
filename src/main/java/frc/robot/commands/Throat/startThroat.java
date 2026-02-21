@@ -5,17 +5,23 @@
 package frc.robot.commands.Throat;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.SS_Hopper;
 import frc.robot.subsystems.SS_Throat;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class startThroat extends Command {
   public SS_Throat throat;
+  public SS_Hopper hopper;
 
   /** Creates a new startThroat. */
-  public startThroat(SS_Throat ss_throat) {
+  public startThroat(SS_Throat ss_throat, SS_Hopper hopper) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_throat);
     this.throat = ss_throat;
+
+    addRequirements(hopper);
+    this.hopper = hopper;
+    
   }
 
   // Called when the command is initially scheduled.
@@ -31,6 +37,8 @@ public class startThroat extends Command {
     throat.timer.start();
     if (throat.timer.hasElapsed(0.8)) {
       throat.throatMotor.set(0.7);
+      hopper.hotDogRollersOn();
+
     }
   }
 
