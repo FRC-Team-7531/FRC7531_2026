@@ -18,35 +18,41 @@ public class SS_Shooter extends SubsystemBase {
   public final double shooterMaxSpeed = 17.5; //Theoretical, not gonna be exact yet
 
   // Constants stuff all in meters -ish
-  public double lipHeight = 1.8288;
-  public double hoopRadius = 0.5969;
-  public double gravity = 4.90335;
-  public double linearActuatorAngle = 60;
-  public double hoodArmRadius = 0.15875;
-  public double heightDifference = 0.0762;
-  public double maxExtension = 0.1397;
+  public final double lipHeight = 1.8288;
+  public final double hoopRadius = 0.5969;
+  public final double gravity = 4.90335;
+  public final double linearActuatorAngle = 60;
+  public final double hoodArmRadius = 0.15875;
+  public final double heightDifference = 0.0762;
+  public final double maxExtension = 0.1397;
+  public final double minimumClearance = 0.08;
+  public final double nearBound = 1.50617974628;
 
-  // Set these to change the trajectory
-  public double targetHeight = 1.8;
-  public double lipClearance = 0.2;
+  // Set these to change the desired trajectory
+  public double targetHeight = 1.8; // h
+  public double lipClearance = 0.2; // b
 
   // Precalculated stuff
-  public double clearanceHeight = lipHeight + lipClearance;
+  public final double clearanceHeight = lipHeight + lipClearance;
+  public final double passableHeight = lipHeight + minimumClearance;
+  public final double nearCenterDistance = hoopRadius + lipClearance;
 
   // Stuff to be calculated
   public double lipDistance;
   public double targetVelocity;
   public double targetAngle;
   public double targetPosition;
-
-  public CANBus canivore = new CANBus("CANivore");
+  public double nearDistance;
 
   // Hard goods
+  public CANBus canivore = new CANBus("CANivore");
+
   public PWM leftHoodLifter = new PWM(0);
   public PWM rightHoodLifter = new PWM(1);
   public TalonFX leftShooter = new TalonFX(42, canivore);
   public TalonFX rightShooter = new TalonFX(41, canivore);
 
+  // NetworkTable stuff
   public NetworkTableInstance inst = NetworkTableInstance.getDefault();
   public NetworkTableEntry actuatorPosition = inst.getTable("Shooter").getEntry("Actuator Position");
   public NetworkTableEntry shooterSpeed = inst.getTable("Shooter").getEntry("Shooter Speed");
@@ -68,23 +74,36 @@ public class SS_Shooter extends SubsystemBase {
 
   public double calculateGoalAngle(double distance) {
     lipDistance = distance - hoopRadius;
-    targetAngle = Math.atan((distance*clearanceHeight)/(lipDistance*hoopRadius) - (targetHeight*lipDistance)/(distance*hoopRadius));
+    nearDistance = distance - hoopRadius - lipClearance;
+
+    if (distance < nearBound) {
+      targetAngle = Math.atan((lipHeight*distance)/(nearDistance*nearCenterDistance)-(targetHeight*nearDistance)/(distance*nearCenterDistance));
+    } else {
+      targetAngle = Math.atan((distance*clearanceHeight)/(lipDistance*hoopRadius) - (targetHeight*lipDistance)/(distance*hoopRadius));
+    }
+
     return targetAngle;
   }
 
   public void setVelocity(double distance, double shooterAngle) {
     lipDistance = distance - hoopRadius;
-    targetVelocity = Math.sqrt(gravity/(clearanceHeight/(hoopRadius*lipDistance) - targetHeight/(distance*hoopRadius)))/Math.cos(shooterAngle);
-    leftShooter.set(targetVelocity/shooterMaxSpeed);
-    rightShooter.set(targetVelocity/shooterMaxSpeed);
+    nearDistance = distance - hoopRadius - lipClearance;
+    targetVelocity = (distance/Math.cos(shooterAngle))*Math.sqrt(gravity/(distance*Math.tan(shooterAngle) - targetHeight));
+
+    if (lipDistance*Math.tan(shooterAngle) - (gravity*Math.pow(lipDistance, 2))/(Math.pow(targetVelocity, 2)*Math.pow(Math.cos(shooterAngle), 2)) < passableHeight) {
+      System.out.println("Cannot shoot at this angle!!!");
+    } else {
+      leftShooter.set(targetVelocity/shooterMaxSpeed);
+      rightShooter.set(targetVelocity/shooterMaxSpeed);
+    }
   }
 
   public void setHoodAngle(double angle) {
     targetPosition = ((hoodArmRadius*Math.sin(angle) - heightDifference)/Math.sin(linearActuatorAngle))/maxExtension;
-    if ((targetPosition < 0.01) || (targetPosition > 0.79)) {
+    if ((targetPosition < 0.01) || (targetPosition > 0.8)) {
       System.out.println("Clamping Hood Angle!!!");
-      leftHoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.79));
-      rightHoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.79));
+      leftHoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.8));
+      rightHoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.8));
     } else {
       leftHoodLifter.setPosition(targetPosition);
       rightHoodLifter.setPosition(targetPosition);

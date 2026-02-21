@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -63,6 +64,9 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
     public final Pigeon2 pidgey = new Pigeon2(0, rio);
+    public Pigeon2Configuration pigeonConfig = new Pigeon2Configuration();
+
+    public boolean targetToggled = false;
 
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
     private static final Rotation2d kBlueAlliancePerspectiveRotation = Rotation2d.kZero;
@@ -109,39 +113,53 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         new Matrix<N3, N1>(Nat.N3(), Nat.N1(), new double[] {0.6, 0.6, 0.5})
     );
 
-    Pose2d robotSimPose;
+    // Poses for AdvantageScope
+    Pose2d robotPoseEstimate;
     Pose2d robotOdoPose;
     Pose2d robotLLPoseAntigua;
     Pose2d robotLLPoseBarbuda;
-    NetworkTable poseTable = NetworkTableInstance.getDefault().getTable("estimations");
-    StructPublisher<Pose2d> posePublisher = poseTable.getStructTopic("poseEstimate", Pose2d.struct).publish();
+    
+    // Fields for AdvantageScope
     Field2d estimatedField = new Field2d();
     Field2d limelightFieldBarbuda = new Field2d();
     Field2d limelightFieldAntigua = new Field2d();
     Field2d odometryField = new Field2d();
     Field2d targetField = new Field2d();
+
+    // Limelight Estimation
+    NetworkTable limelightTableAntigua = NetworkTableInstance.getDefault().getTable("limelight-antigua");
+    NetworkTable limelightTableBarbuda = NetworkTableInstance.getDefault().getTable("limelight-barbuda");
     double[] limelightEstimateAntigua = new double[6];
     double[] limelightEstimateBarbuda = new double[6];
+    double[] poseEstimateAntigua;
+    double[] poseEstimateBarbuda;
     double stdDev;
+
+    // Gyro Stuff
     Rotation2d gyroAngle;
     double gyroSpeed;
-    int loopCount = 0;
-    public double testYaw = 0;
+    
+    // Swerve Modules
     SwerveModule<TalonFX, TalonFX, CANcoder> module0 = getModule(0);
     SwerveModule<TalonFX, TalonFX, CANcoder> module1 = getModule(1);
     SwerveModule<TalonFX, TalonFX, CANcoder> module2 = getModule(2);
     SwerveModule<TalonFX, TalonFX, CANcoder> module3 = getModule(3);
+    
+    // Potential Targets
     public Translation2d hubPose = new Translation2d(4.625594, 4.034536);
     public Translation2d towerPose = new Translation2d(1.7113, 4.162044);
-    public Translation2d depotPose = new Translation2d(1.651, 6.391656);
-    public Translation2d stationPose = new Translation2d(1.651, 1.651);
-    public Translation2d targetPose;
+    public Translation2d depotPose = new Translation2d(1.3, 6.391656);
+    public Translation2d stationPose = new Translation2d(1.3, 1.651);
+
+    // Chosen Target
+    public Translation2d targetPose = hubPose;
+    public Translation2d neutralTarget = hubPose;
+
     public DriverStation.Alliance alliance;
-    NetworkTable limelightTableAntigua = NetworkTableInstance.getDefault().getTable("limelight-antigua");
-    NetworkTable limelightTableBarbuda = NetworkTableInstance.getDefault().getTable("limelight-barbuda");
+
+    // Other Network Table Stuff
     NetworkTable shooter = NetworkTableInstance.getDefault().getTable("Shooter");
-    double[] poseEstimateAntigua;
-    double[] poseEstimateBarbuda;
+    NetworkTable poseTable = NetworkTableInstance.getDefault().getTable("estimations");
 
     /* SysId routine for characterizing translation. This is used to find PID gains for the drive motors. */
     private final SysIdRoutine m_sysIdRoutineTranslation = new SysIdRoutine(
@@ -227,7 +245,6 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
         poseEstimateAntigua = limelightTableAntigua.getEntry("botpose_orb_wpiblue").getDoubleArray(new double[6]);
         poseEstimateBarbuda = limelightTableBarbuda.getEntry("botpose_orb_wpiblue").getDoubleArray(new double[6]);
-        targetPose = hubPose;
     }
 
     /**
@@ -253,6 +270,9 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
             startSimThread();
         }
         configureAutoBuilder();
+        pigeonConfig.MountPose.MountPoseRoll = 0;
+        pigeonConfig.MountPose.MountPoseYaw = 0;
+        pidgey.getConfigurator().apply(pigeonConfig);
     }
 
     /**
@@ -371,18 +391,24 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
         alliance = DriverStation.getAlliance().get();
 
-        SmartDashboard.putNumber("pidgeonYaw", pidgey.getYaw().getValueAsDouble());
-        SmartDashboard.putNumber("drivetrainYaw", this.getState().Pose.getRotation().getDegrees());
-
+        // Refresh module positions
         modulePositions[0] = module0.getPosition(true);
         modulePositions[1] = module1.getPosition(true);
         modulePositions[2] = module2.getPosition(true);
         modulePositions[3] = module3.getPosition(true);
 
+        // Update gyro values
         Rotation2d gyroAngle = pidgey.getRotation2d();
         poseEstimator.update(gyroAngle, modulePositions);
         poseOdometry.update(gyroAngle, modulePositions);
-        robotSimPose = poseEstimator.getEstimatedPosition();
+        
+        robotPoseEstimate = poseEstimator.getEstimatedPosition();
+
+        if (robotPoseEstimate.getY() > 4.611624) {
+            targetPose = neutralTarget;
+        } else {
+            targetPose = hubPose;
+        }
 
         switch (alliance) {
             case Red:
@@ -401,18 +427,20 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         updateVisionFromLimelight("limelight-antigua");
 
         //Put the poses on the fields
-        estimatedField.setRobotPose(robotSimPose);
+        estimatedField.setRobotPose(robotPoseEstimate);
         limelightFieldAntigua.setRobotPose(robotLLPoseAntigua);
         limelightFieldBarbuda.setRobotPose(robotLLPoseBarbuda);
         odometryField.setRobotPose(robotOdoPose);
         targetField.setRobotPose(new Pose2d(towerPose, new Rotation2d(0)));
 
-        //Add the fields
+        //Add stuff to SmartDashboard
         SmartDashboard.putData("estimationField", estimatedField);
         SmartDashboard.putData("limelightFieldAntigua", limelightFieldAntigua);
         SmartDashboard.putData("limelightFieldBarbuda", limelightFieldBarbuda);
         SmartDashboard.putData("odometryField", odometryField);
         SmartDashboard.putData("targetField", targetField);
+        SmartDashboard.putNumber("pidgeonYaw", pidgey.getYaw().getValueAsDouble());
+        SmartDashboard.putNumber("drivetrainYaw", this.getState().Pose.getRotation().getDegrees());
     }
 
     private void startSimThread() {
@@ -476,7 +504,8 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     }
 
     public Command pigeonCommand() {
-        return run(() -> this.pidgey.setYaw(0));
+        System.out.println("-... .-. --- -.. . -.");
+        return run(() -> pidgey.setYaw(0));
     }
 
     private void updateVisionFromLimelight(String limelightName) {
