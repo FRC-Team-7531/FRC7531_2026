@@ -41,6 +41,7 @@ import frc.robot.subsystems.SS_Intake;
 import frc.robot.subsystems.SS_Shooter;
 import frc.robot.subsystems.SS_Throat;
 import frc.robot.subsystems.SS_Turret;
+import frc.robot.subsystems.SS_Hanger;
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top
@@ -67,6 +68,9 @@ public class RobotContainer {
     public final SS_Shooter shooter = new SS_Shooter();
     public final SS_Turret turret = new SS_Turret();
     public final SS_Throat throat = new SS_Throat();
+    private final SS_Intake intake = new SS_Intake();
+    private final SS_Hopper hopper = new SS_Hopper();
+
     public aimTurretToTarget aimCommand = new aimTurretToTarget(drivetrain, turret);
     public Command drivetrainDefault = drivetrain
             .applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y
@@ -84,12 +88,14 @@ public class RobotContainer {
     public stopShooter stopShooterCommand = new stopShooter(shooter);
     public stopThroat stopThroatCommand = new stopThroat(throat);
     public startThroat startThroatCommand = new startThroat(throat);
+    public intake_cmd intakeRollers = new intake_cmd(intake);
+    public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);
+    public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
 
-    private final SS_Intake intake = new SS_Intake();
-    private final SS_Hopper hopper = new SS_Hopper();
+    
 
     public RobotContainer() {
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
@@ -124,12 +130,12 @@ public class RobotContainer {
         RobotModeTriggers.disabled().whileTrue(
                 drivetrain.applyRequest(() -> idle).ignoringDisable(true));
 
-        // joystick.povUp().whileTrue(drivetrain.applyRequest(() ->
-        // forwardStraight.withVelocityX(0.5).withVelocityY(0))
-        // );
-        // joystick.povDown().whileTrue(drivetrain.applyRequest(() ->
-        // forwardStraight.withVelocityX(-0.5).withVelocityY(0))
-        // );
+        joystick.povUp().whileTrue(drivetrain.applyRequest(() ->
+        forwardStraight.withVelocityX(0.5).withVelocityY(0))
+        );
+        joystick.povDown().whileTrue(drivetrain.applyRequest(() ->
+        forwardStraight.withVelocityX(-0.5).withVelocityY(0))
+        );
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
@@ -143,6 +149,10 @@ public class RobotContainer {
         joystick.b().whileTrue(alignTowerCommand); // This should be allign tower right
         joystick.x().whileTrue(alignTowerCommand); // This should be allign tower left
         joystick.y().whileTrue(drivetrain.run(() -> drivetrain.pigeonCommand())); // Reset Gyro
+        joystick.rightBumper().whileTrue(intakeRollers);
+        joystick.povUp().onTrue(pivotUp);
+        joystick.povDown().onTrue(pivotDown);
+
 
         joystick2.povLeft().whileTrue(turretForward);
         joystick2.povRight().whileTrue(turretReverse);

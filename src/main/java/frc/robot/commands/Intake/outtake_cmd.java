@@ -24,14 +24,14 @@ public class outtake_cmd extends Command {
   @Override
   public void initialize() {
     timerIntake.start();
-    System.out.println("Out");
+    //System.out.println("Out");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     intake.makeRollerSpitOut();
-    System.out.println("Out Running " + timerIntake.get());
+    //System.out.println("Out Running " + timerIntake.get());
   }
 
   // Called once the command ends or is interrupted.
