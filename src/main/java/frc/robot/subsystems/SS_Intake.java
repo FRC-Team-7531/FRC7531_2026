@@ -17,56 +17,40 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class SS_Intake extends SubsystemBase {
   /** Creates a new SS_Intake. */
   public TalonFX pivot = new TalonFX(20, "CANivore");
-  public TalonFX hotDogRoller = new TalonFX(21);
   public TalonFX roller = new TalonFX(25, "CANivore");
   public NetworkTableInstance intakeTable = NetworkTableInstance.getDefault();
   public NetworkTableEntry intakeTableEntry = intakeTable.getEntry("Encoder Position");
   public DoublePublisher doubleIntakePublisher;
 
   public SS_Intake() {
-    setDefaultCommand(new RunCommand(() -> makeRollerStop(), this));
+    setDefaultCommand(new RunCommand(() -> stopIntakeRollers(), this));
     pivot.setPosition(0);
     doubleIntakePublisher = intakeTable.getDoubleTopic("Encoder Position").publish();
   }
 
-  public void makeRollerGo() {
-    roller.set(0.1);
-    System.out.println("Motor In " + roller.get());
+  public void intakeRollersOn(double speed) {
+    roller.set(speed);
   }
 
-  public void makeRollerStop() {
+  public void stopIntakeRollers() {
     roller.set(0.0);
-    //stem.out.println("Motor Stop");
   }
 
-  public void makeRollerSpitOut() {
-    roller.set(-0.1);
-    System.out.println("Motor Out");
-  }
 
 public void intakeUnfold()  {
   double pivotAngle = pivot.getPosition().getValueAsDouble();
-  System.out.println("pivot Angle: " + pivotAngle);
   pivot.set(0.1);
 }
 
-  public void IntakePivotStop()  {
+  public void PivotStop()  {
     pivot.set(0);
   }
 
   public void intakeFold()  {
     double pivotAngle = pivot.getPosition().getValueAsDouble();
-  System.out.println("pivot Angle: " + pivotAngle);
     pivot.set(-0.1);
   }
 
-  public void hotDogRollersOn() {
-    hotDogRoller.set(-0.5);
-  }
-  
-  public void hotDogRollersOff() {
-    hotDogRoller.set(0);
-  }
 
 
   @Override

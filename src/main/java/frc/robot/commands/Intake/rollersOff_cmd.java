@@ -5,23 +5,24 @@
 package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.SS_Hopper;
 import frc.robot.subsystems.SS_Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class rollersOff_cmd extends Command {
   /** Creates a new rollersOff_cmd. */
-  public SS_Intake intake;
+  public SS_Hopper hopper;
 
-  public rollersOff_cmd(SS_Intake ss_intake) {
+  public rollersOff_cmd(SS_Hopper hopper) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(ss_intake);
-    this.intake = ss_intake;
+    addRequirements(hopper);
+    this.hopper = hopper;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.hotDogRollersOff();
+    hopper.hotDogRollersOff();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

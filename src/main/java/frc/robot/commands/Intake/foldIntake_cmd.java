@@ -22,13 +22,11 @@ public class foldIntake_cmd extends Command {
   @Override
   public void initialize() {
     intake.intakeFold();
-    //System.out.println("fold is initialized ");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println("fold is running (execute)");
   }
 
   // Called once the command ends or is interrupted.
@@ -40,8 +38,7 @@ public class foldIntake_cmd extends Command {
   public boolean isFinished() {
     if (intake.pivot.getPosition().getValueAsDouble() < 2)
     {
-      intake.IntakePivotStop();
-      //System.out.println("Hit under 0");
+      intake.PivotStop();
       return true;
     } else 
     {
