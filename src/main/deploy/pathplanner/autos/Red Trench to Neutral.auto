@@ -5,21 +5,78 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "pivotDown_cmd"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red Depot to Neutral"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Red Neutral to Depot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoIntake_cmd"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "hotdogOn_cmd"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red Neutral to Depot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoRev_cmd"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Red Depot to Shooting"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoShoot_cmd"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoThroat_cmd"
+                }
+              }
+            ]
           }
         }
       ]

@@ -2,44 +2,54 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.TurretShooter;
+package frc.robot.commands.Intake;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SS_Hopper;
-import frc.robot.subsystems.SS_Shooter;
+import frc.robot.subsystems.SS_Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class manualShooter extends Command {
-  public SS_Shooter shooter;
-  public SS_Hopper hopper;
+public class AutoIntake_cmd extends Command {
+  /** Creates a new foldIntake. */
+  public SS_Intake intake;
+  public Timer timer = new Timer();
+  public double timerSeconds = 5;
 
-  
-  /** Creates a new manualShooter. */
-  public manualShooter(SS_Shooter ss_shooter) {
+  public AutoIntake_cmd(SS_Intake ss_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(ss_shooter);
-    this.shooter = ss_shooter;
+    addRequirements(ss_intake);
+    this.intake = ss_intake;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.leftShooter.set(-1);
-    shooter.rightShooter.set(1);
-    
+    intake.intakeRollersOn(1);
+    timer.start();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.stopIntakeRollers();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (timer.hasElapsed(timerSeconds)) {
+      timer.reset();
+      timer.stop();
+      intake.stopIntakeRollers();
+      return true;
+    }
+    else {
     return false;
+    }
   }
 }

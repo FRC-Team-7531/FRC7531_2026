@@ -3,12 +3,12 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.6120827389443653,
+        "x": 3.6912891566265067,
         "y": 4.054407988587732
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5122967189728955,
+        "x": 2.591503136655037,
         "y": 3.071069900142657
       },
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Blue Hub",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

@@ -20,12 +20,12 @@
         "y": 7.433518072289157
       },
       "prevControl": {
-        "x": 12.395893825301203,
-        "y": 7.41917545180723
+        "x": 12.395046466672254,
+        "y": 7.482891501536356
       },
       "nextControl": {
-        "x": 9.760949548192771,
-        "y": 7.447860692771084
+        "x": 10.204204819277109,
+        "y": 7.400734939759036
       },
       "isLocked": false,
       "linkedName": null
@@ -46,8 +46,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.05,
-      "rotationDegrees": -179.3492233790691
+      "waypointRelativePos": 1.1253112033195034,
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
@@ -66,7 +66,7 @@
     "rotation": -88.31531568210363
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red Human",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

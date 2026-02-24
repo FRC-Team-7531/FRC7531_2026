@@ -5,21 +5,71 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "pivotDown_cmd"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Red Human Trench to Neutral"
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Red Neutral to Human Trench"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoIntake_cmd"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "hotdogOn_cmd"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red Neutral to Human Trench"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoRev_cmd"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoRev_cmd"
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "Red Human Trench to Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoThroat_cmd"
           }
         }
       ]

@@ -5,15 +5,34 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red Hub to Outpost"
+            "name": "pivotDown_cmd"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 5.0
+            "pathName": "Red Depot to Neutral"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoIntake_cmd"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "hotdogOn_cmd"
+                }
+              }
+            ]
           }
         },
         {
@@ -23,7 +42,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red Outpost to Shooting "
+                  "pathName": "Red Neutral to Depot Shooting"
                 }
               },
               {
@@ -52,12 +71,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red Shooting to Hanging"
           }
         }
       ]

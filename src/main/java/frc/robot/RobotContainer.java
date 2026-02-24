@@ -10,6 +10,7 @@ import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.FollowPathCommand;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -20,14 +21,18 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.Hang.alignTower;
+import frc.robot.commands.Intake.AutoIntake_cmd;
 import frc.robot.commands.Intake.foldIntake_cmd;
 import frc.robot.commands.Intake.intake_cmd;
 import frc.robot.commands.Intake.outtake_cmd;
 import frc.robot.commands.Intake.rollersOff_cmd;
 import frc.robot.commands.Intake.rollersOn_cmd;
 import frc.robot.commands.Intake.unfoldIntake_cmd;
+import frc.robot.commands.Throat.AutoThroat_cmd;
 import frc.robot.commands.Throat.startThroat;
 import frc.robot.commands.Throat.stopThroat;
+import frc.robot.commands.TurretShooter.AutoRev_cmd;
+import frc.robot.commands.TurretShooter.AutoShoot_cmd;
 import frc.robot.commands.TurretShooter.aimTurretToTarget;
 import frc.robot.commands.TurretShooter.manualShooter;
 import frc.robot.commands.TurretShooter.manualTurret;
@@ -92,6 +97,10 @@ public class RobotContainer {
     public rollersOn_cmd hotdogOn = new rollersOn_cmd(hopper);
     public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);
     public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
+    public AutoIntake_cmd autoIntake = new AutoIntake_cmd(intake);
+    public AutoThroat_cmd autoThroat = new AutoThroat_cmd(throat, hopper);
+    public AutoRev_cmd autoRev = new AutoRev_cmd(shooter); 
+    public AutoShoot_cmd autoShoot = new AutoShoot_cmd(shooter);
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
@@ -106,6 +115,16 @@ public class RobotContainer {
 
         // Warmup PathPlanner to avoid Java pauses
         FollowPathCommand.warmupCommand().schedule();
+
+        NamedCommands.registerCommand("autoIntake_cmd ", autoIntake);
+        NamedCommands.registerCommand("autoRev_cmd", autoRev);
+        NamedCommands.registerCommand("autoThroat_cmd", autoThroat);
+        NamedCommands.registerCommand("pivotDown_cmd", pivotDown);
+        NamedCommands.registerCommand("pivotUp_cmd", pivotUp);
+        NamedCommands.registerCommand("hotdogOn_cmd", hotdogOn);
+        NamedCommands.registerCommand("AlignTower_cmd", alignTowerCommand);
+        NamedCommands.registerCommand("autoShoot_cmd", autoShoot);
+
     }
 
     private void configureBindings() {

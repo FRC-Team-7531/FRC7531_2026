@@ -4,18 +4,20 @@
 
 package frc.robot.commands.TurretShooter;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Hopper;
 import frc.robot.subsystems.SS_Shooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class manualShooter extends Command {
+public class AutoRev_cmd extends Command {
   public SS_Shooter shooter;
   public SS_Hopper hopper;
-
+  public Timer timer2 = new Timer();
+  public double timerSeconds = 3;
   
   /** Creates a new manualShooter. */
-  public manualShooter(SS_Shooter ss_shooter) {
+  public AutoRev_cmd(SS_Shooter ss_shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_shooter);
     this.shooter = ss_shooter;
@@ -28,6 +30,7 @@ public class manualShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    timer2.start();
     shooter.leftShooter.set(-1);
     shooter.rightShooter.set(1);
     
@@ -40,6 +43,16 @@ public class manualShooter extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (timer2.hasElapsed(timerSeconds)) {
+      timer2.reset();
+      timer2.stop();
+      hopper.hotDogRollersOff();
+      shooter.leftShooter.set(0);
+      shooter.rightShooter.set(0);
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

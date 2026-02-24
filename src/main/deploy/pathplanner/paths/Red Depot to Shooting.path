@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.968915662650602,
-        "y": 0.669265060240964
+        "x": 13.165614457831328,
+        "y": 0.6146265060240967
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.968915662650602,
-        "y": 0.6692650602409635
+        "x": 14.165614457831328,
+        "y": 0.6146265060240963
       },
       "isLocked": false,
       "linkedName": "RDepotTrench"
@@ -45,7 +45,7 @@
     "rotation": 118.61045966596501
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red Depot",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0
