@@ -30,7 +30,7 @@ public class SS_Intake extends SubsystemBase {
   }
 
   public void makeRollerGo() {
-    roller.set(0.1);
+    roller.set(1);
     System.out.println("Motor In " + roller.get());
   }
 

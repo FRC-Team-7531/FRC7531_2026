@@ -20,8 +20,8 @@ public class SS_Turret extends SubsystemBase {
   public CANcoder encoder = new CANcoder(44, canivore);
   public TalonFX turretMotor = new TalonFX(40, canivore);
   public Pigeon2 pidgey = new Pigeon2(0, rio);
-  public final double leftMaximum = 0.25;
-  public final double rightMaximum = -0.5;
+  public final double leftMaximum = 0.5;
+  public final double rightMaximum = -0.25;
   Translation2d position;
 
   /** Creates a new SS_Turret. */
@@ -33,13 +33,13 @@ public class SS_Turret extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("TurretRotation", -36*encoder.getPosition().getValueAsDouble());
     getTurretRotation();
   }
 
   // All of these inputs should be relative to the turret, not the motor that drives it
 
   public double getTurretRotation() {
-    SmartDashboard.putNumber("TurretRotation", -0.1*encoder.getPosition().getValueAsDouble());
     return -0.1*encoder.getPosition().getValueAsDouble();
   }
 

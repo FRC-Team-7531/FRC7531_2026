@@ -24,8 +24,7 @@ public class moveActuator extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.leftHoodLifter.setPosition(shooter.actuatorPosition.getDouble(0));
-    shooter.rightHoodLifter.setPosition(shooter.actuatorPosition.getDouble(0));
+    shooter.hoodLifter.setPosition(shooter.actuatorPosition.getDouble(0));
     System.out.println("Running");
   }
 

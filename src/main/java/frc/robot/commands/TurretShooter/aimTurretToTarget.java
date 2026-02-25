@@ -38,7 +38,7 @@ public class aimTurretToTarget extends Command {
 
   int flipCorrection = 0;
 
-  String flipStatus;
+  String flipStatus = "";
 
   public SwerveRequest.RobotCentric driverequest = new SwerveRequest.RobotCentric();
   public CommandXboxController controller;
@@ -69,23 +69,24 @@ public class aimTurretToTarget extends Command {
     }
 
     estimatedPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
-    turretEstimate = estimatedPose.plus(turret.getTurretPosition(drivetrain.pidgey.getYaw().getValueAsDouble()));
+    turretEstimate = estimatedPose.plus(turret.getTurretPosition(drivetrain.pidgey.getYaw().getValueAsDouble() + 180));
 
     poseDifference = targetPose.minus(turretEstimate);
     targetAngle = poseDifference.getAngle().getDegrees();
 
     turretAngle = 360*turret.getTurretRotation();
 
-    adjustedTargetAngle = targetAngle - drivetrain.pidgey.getYaw().getValueAsDouble();
+    adjustedTargetAngle = targetAngle - drivetrain.pidgey.getYaw().getValueAsDouble() - 180;
 
     if ((adjustedTargetAngle + flipCorrection > 360*turret.leftMaximum) || (adjustedTargetAngle + flipCorrection < 360*turret.rightMaximum)) {
-      if (adjustedTargetAngle + flipCorrection >= 0) {
-        flipCorrection -= 360;
-      } else {
-        flipCorrection += 360;
-      }
-      SmartDashboard.putNumber("flipCorrection", flipCorrection);
-      flipStatus = "Flipping";
+      // if (adjustedTargetAngle + flipCorrection >= 0) {
+      //   flipCorrection -= 360;
+      // } else {
+      //   flipCorrection += 360;
+      // }
+      // SmartDashboard.putNumber("flipCorrection", flipCorrection);
+      // flipStatus = "Flipping";
+      turret.setRawSpeed(0);
     } else {
       rotationsDifference = (turretAngle - adjustedTargetAngle - flipCorrection)/360;
       pidSpeed = rController.calculate(rotationsDifference);

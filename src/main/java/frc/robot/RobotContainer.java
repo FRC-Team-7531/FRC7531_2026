@@ -30,6 +30,7 @@ import frc.robot.commands.Intake.unfoldIntake_cmd;
 import frc.robot.commands.Throat.startThroat;
 import frc.robot.commands.Throat.stopThroat;
 import frc.robot.commands.TurretShooter.aimTurretToTarget;
+import frc.robot.commands.TurretShooter.fireShooter;
 import frc.robot.commands.TurretShooter.manualShooter;
 import frc.robot.commands.TurretShooter.manualTurret;
 import frc.robot.commands.TurretShooter.stopTurret;
@@ -87,6 +88,7 @@ public class RobotContainer {
     public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
     public rollersOff_cmd hotdogOff = new rollersOff_cmd(intake);
     public Command toggleBoolean = drivetrain.run(() -> {drivetrain.targetToggled = !drivetrain.targetToggled;});
+    public fireShooter fireShooterCommand = new fireShooter(shooter, drivetrain);
 
     public ConditionalCommand toggleDepot = new ConditionalCommand(
         drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
@@ -152,7 +154,7 @@ public class RobotContainer {
 
         joystick.b().whileTrue(alignTowerCommand); // This should be align tower right
         joystick.x().whileTrue(alignTowerCommand); // This should be align tower left
-        joystick.y().whileTrue(drivetrain.run(() -> drivetrain.pigeonCommand())); // Reset Gyro
+        joystick.y().whileTrue(drivetrain.pigeonCommand()); // Reset Gyro
         joystick.rightBumper().onTrue(intakeRollers);
         joystick.povUp().onTrue(pivotUp);
         joystick.povDown().onTrue(pivotDown);
@@ -162,10 +164,13 @@ public class RobotContainer {
         joystick2.povRight().whileTrue(turretReverse);
         joystick2.leftTrigger().whileTrue(shootCommand); // Rev Shooter
         joystick2.rightTrigger().whileTrue(startThroatCommand); // Feed Balls (Shoot)
+        joystick2.rightBumper().whileTrue(moveActuatorCommand);
         joystick2.x().onTrue(toggleBoolean)
                      .onTrue(toggleStation); // Toggle station passing on/off
         joystick2.b().onTrue(toggleBoolean)
                      .onTrue(toggleDepot); // Toggle depot passing on/off
+        joystick2.y().whileTrue(aimCommand);
+        joystick2.x().whileTrue(fireShooterCommand);
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }
