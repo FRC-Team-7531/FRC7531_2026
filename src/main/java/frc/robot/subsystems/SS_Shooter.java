@@ -42,8 +42,7 @@ public class SS_Shooter extends SubsystemBase {
   public CANBus canivore = new CANBus("CANivore");
 
   // Hard goods
-  public PWM leftHoodLifter = new PWM(0);
-  public PWM rightHoodLifter = new PWM(1);
+  public PWM hoodLifter = new PWM(9);
   public TalonFX leftShooter = new TalonFX(42, canivore);
   public TalonFX rightShooter = new TalonFX(41, canivore);
 
@@ -83,11 +82,9 @@ public class SS_Shooter extends SubsystemBase {
     targetPosition = ((hoodArmRadius*Math.sin(angle) - heightDifference)/Math.sin(linearActuatorAngle))/maxExtension;
     if ((targetPosition < 0.01) || (targetPosition > 0.79)) {
       System.out.println("Clamping Hood Angle!!!");
-      leftHoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.79));
-      rightHoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.79));
+      hoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.79));
     } else {
-      leftHoodLifter.setPosition(targetPosition);
-      rightHoodLifter.setPosition(targetPosition);
+      hoodLifter.setPosition(targetPosition);
     }
   }
 }

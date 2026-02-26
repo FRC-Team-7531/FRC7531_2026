@@ -38,10 +38,10 @@ public class startThroat extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (throat.timer.hasElapsed(3)) {
-      hopper.hotDogRollersOff();
+    if (throat.timer.hasElapsed(.5)) {
+      hopper.hotDogRollersBack();
     }
-    if (throat.timer.hasElapsed(3.25)) {
+    if (throat.timer.hasElapsed(.6)) {
       hopper.hotDogRollersOn();
       throat.timer.reset();
       throat.timer.start();
