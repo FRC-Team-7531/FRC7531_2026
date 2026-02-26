@@ -22,12 +22,13 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.Hang.alignTower;
 import frc.robot.commands.Intake.AutoIntake_cmd;
-import frc.robot.commands.Intake.foldIntake_cmd;
+import frc.robot.commands.Intake.AutoPivotOut_cmd;
+import frc.robot.commands.Intake.AutoPivotUp_cmd;
+import frc.robot.commands.Intake.pivotToggle_cmd;
 import frc.robot.commands.Intake.intake_cmd;
 import frc.robot.commands.Intake.outtake_cmd;
 import frc.robot.commands.Intake.rollersOff_cmd;
 import frc.robot.commands.Intake.rollersOn_cmd;
-import frc.robot.commands.Intake.unfoldIntake_cmd;
 import frc.robot.commands.Throat.AutoThroat_cmd;
 import frc.robot.commands.Throat.startThroat;
 import frc.robot.commands.Throat.stopThroat;
@@ -95,12 +96,13 @@ public class RobotContainer {
     public startThroat startThroatCommand = new startThroat(throat, hopper);
     public intake_cmd intakeRollers = new intake_cmd(intake);
     public rollersOn_cmd hotdogOn = new rollersOn_cmd(hopper);
-    public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);
-    public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
+    public pivotToggle_cmd pivot = new pivotToggle_cmd(intake);
     public AutoIntake_cmd autoIntake = new AutoIntake_cmd(intake);
     public AutoThroat_cmd autoThroat = new AutoThroat_cmd(throat, hopper);
     public AutoRev_cmd autoRev = new AutoRev_cmd(shooter); 
     public AutoShoot_cmd autoShoot = new AutoShoot_cmd(shooter);
+    public AutoPivotOut_cmd autoPivotOut = new AutoPivotOut_cmd(intake);
+    public AutoPivotUp_cmd autoPivotUp = new AutoPivotUp_cmd(intake);
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
@@ -119,8 +121,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("autoIntake_cmd ", autoIntake);
         NamedCommands.registerCommand("autoRev_cmd", autoRev);
         NamedCommands.registerCommand("autoThroat_cmd", autoThroat);
-        NamedCommands.registerCommand("pivotDown_cmd", pivotDown);
-        NamedCommands.registerCommand("pivotUp_cmd", pivotUp);
+        NamedCommands.registerCommand("pivotDown_cmd", autoPivotOut);
+        NamedCommands.registerCommand("pivotUp_cmd", autoPivotUp);
         NamedCommands.registerCommand("hotdogOn_cmd", hotdogOn);
         NamedCommands.registerCommand("AlignTower_cmd", alignTowerCommand);
         NamedCommands.registerCommand("autoShoot_cmd", autoShoot);
@@ -170,8 +172,7 @@ public class RobotContainer {
         joystick.x().whileTrue(alignTowerCommand); // This should be allign tower left
         joystick.y().whileTrue(drivetrain.run(() -> drivetrain.pigeonCommand())); // Reset Gyro
         joystick.rightBumper().whileTrue(intakeRollers).onTrue(hotdogOn);
-        joystick.povUp().onTrue(pivotUp);
-        joystick.povDown().onTrue(pivotDown);
+        joystick.leftTrigger().onTrue(pivot);
 
 
         joystick2.povLeft().whileTrue(turretForward);

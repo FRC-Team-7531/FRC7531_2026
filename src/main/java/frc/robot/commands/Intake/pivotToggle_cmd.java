@@ -8,11 +8,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class foldIntake_cmd extends Command {
+public class pivotToggle_cmd extends Command {
   /** Creates a new foldIntake. */
   public SS_Intake intake;
+  public Boolean toggle = false;
 
-  public foldIntake_cmd(SS_Intake ss_intake) {
+  public pivotToggle_cmd(SS_Intake ss_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_intake);
     this.intake = ss_intake;
@@ -21,7 +22,13 @@ public class foldIntake_cmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.intakeFold();
+    if (toggle) {
+      intake.intakeFold();
+      toggle = false;
+    } else {
+      intake.intakeUnfold();
+      toggle = true;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,18 +38,26 @@ public class foldIntake_cmd extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (intake.pivot.getPosition().getValueAsDouble() < 2)
-    {
-      intake.PivotStop();
-      return true;
-    } else 
-    {
-      return false;
+    if (toggle) {
+      if (intake.pivot.getPosition().getValueAsDouble() > 14) {
+        intake.PivotStop();
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      if (intake.pivot.getPosition().getValueAsDouble() < 0.5) {
+        intake.PivotStop();
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }
