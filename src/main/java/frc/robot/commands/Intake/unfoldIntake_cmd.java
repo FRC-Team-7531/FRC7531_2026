@@ -36,7 +36,7 @@ public class unfoldIntake_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (intake.pivot.getPosition().getValueAsDouble() > 15) {
+    if (intake.pivot.getPosition().getValueAsDouble() > 14) {
       intake.PivotStop();
       return true;
     } else {

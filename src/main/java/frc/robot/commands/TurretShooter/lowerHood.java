@@ -26,7 +26,7 @@ public class lowerHood extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.leftHoodLifter.setPosition(0.01);
+    shooter.hoodLifter.setPosition(0.01);
   }
 
   // Called once the command ends or is interrupted.

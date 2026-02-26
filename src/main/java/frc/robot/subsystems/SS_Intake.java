@@ -35,7 +35,7 @@ public class SS_Intake extends SubsystemBase {
   public void stopIntakeRollers() {
     roller.set(0.0);
   }
-
+ 
 
 public void intakeUnfold()  {
   double pivotAngle = pivot.getPosition().getValueAsDouble();

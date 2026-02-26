@@ -36,7 +36,7 @@ public class foldIntake_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (intake.pivot.getPosition().getValueAsDouble() < 2)
+    if (intake.pivot.getPosition().getValueAsDouble() < 0.5)
     {
       intake.PivotStop();
       return true;

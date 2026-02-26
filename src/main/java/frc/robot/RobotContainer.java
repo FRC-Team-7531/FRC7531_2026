@@ -184,6 +184,7 @@ public class RobotContainer {
         joystick2.x().toggleOnFalse(drivetrain.run(() -> {
             drivetrain.targetPose = drivetrain.depotPose;
         })); // Toggle shooting to Depot
+        joystick2.b().onTrue(moveActuatorCommand);
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }

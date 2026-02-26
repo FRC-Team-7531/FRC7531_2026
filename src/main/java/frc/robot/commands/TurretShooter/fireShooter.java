@@ -45,7 +45,7 @@ public class fireShooter extends Command {
     distance = botPose.getDistance(targetPose);
     targetAngle = shooter.calculateGoalAngle(distance);
     shooter.setHoodAngle(targetAngle);
-    hoodAngle = shooter.leftHoodLifter.getPosition();
+    hoodAngle = shooter.hoodLifter.getPosition();
     shooter.setVelocity(distance, hoodAngle);
   }
 
