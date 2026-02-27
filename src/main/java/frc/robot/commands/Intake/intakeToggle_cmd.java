@@ -4,17 +4,13 @@
 
 package frc.robot.commands.Intake;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SS_Hopper;
 import frc.robot.subsystems.SS_Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class intakeToggle_cmd extends Command {
   /** Creates a new foldIntake. */
   public SS_Intake intake;
-  public boolean toggle = false;
 
   public intakeToggle_cmd(SS_Intake ss_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,13 +21,13 @@ public class intakeToggle_cmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (toggle) {
+    if (intake.toggle) {
       intake.intakeRollersOn(0);
-      toggle = false;
+      intake.toggle = false;
     }
     else {
       intake.intakeRollersOn(1);
-      toggle = true;
+      intake.toggle = true;
     }
   }
 

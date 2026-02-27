@@ -25,6 +25,7 @@ import frc.robot.commands.Hang.alignTower;
 import frc.robot.commands.Intake.AutoIntake_cmd;
 import frc.robot.commands.Intake.foldIntake_cmd;
 import frc.robot.commands.Intake.intakeToggle_cmd;
+import frc.robot.commands.Intake.outakeToggle_cmd;
 import frc.robot.commands.Intake.rollersOff_cmd;
 import frc.robot.commands.Intake.rollersOn_cmd;
 import frc.robot.commands.Intake.unfoldIntake_cmd;
@@ -88,6 +89,7 @@ public class RobotContainer {
     public stopThroat stopThroatCommand = new stopThroat(throat, hopper);
     public startThroat startThroatCommand = new startThroat(throat, hopper);
     public intakeToggle_cmd intakeToggle = new intakeToggle_cmd(intake);
+    public outakeToggle_cmd outakeToggle = new outakeToggle_cmd(intake);
     public rollersOn_cmd hotdogOn = new rollersOn_cmd(hopper);
     public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);
     public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
@@ -178,6 +180,7 @@ public class RobotContainer {
         joystick.povDown().onTrue(pivotDown);
         joystick.a().onTrue(hotdogOff);
         joystick.rightBumper().onTrue(intakeToggle);
+        joystick.leftBumper().onTrue(outakeToggle);
 
         joystick2.povLeft().whileTrue(turretForward);
         joystick2.povRight().whileTrue(turretReverse);
