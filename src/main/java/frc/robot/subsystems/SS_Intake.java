@@ -16,8 +16,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SS_Intake extends SubsystemBase {
   /** Creates a new SS_Intake. */
-  public TalonFX pivot = new TalonFX(20, "CANivore");
-  public TalonFX roller = new TalonFX(25, "CANivore");
+  public TalonFX pivot = new TalonFX(20, "rio");
+  public TalonFX hotDogRoller = new TalonFX(21);
+  public TalonFX roller = new TalonFX(25, "rio");
   public NetworkTableInstance intakeTable = NetworkTableInstance.getDefault();
   public NetworkTableEntry intakeTableEntry = intakeTable.getEntry("Encoder Position");
   public DoublePublisher doubleIntakePublisher;

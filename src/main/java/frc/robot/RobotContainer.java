@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -34,6 +35,7 @@ import frc.robot.commands.Throat.stopThroat;
 import frc.robot.commands.TurretShooter.AutoRev_cmd;
 import frc.robot.commands.TurretShooter.AutoShoot_cmd;
 import frc.robot.commands.TurretShooter.aimTurretToTarget;
+import frc.robot.commands.TurretShooter.fireShooter;
 import frc.robot.commands.TurretShooter.manualShooter;
 import frc.robot.commands.TurretShooter.manualTurret;
 import frc.robot.commands.TurretShooter.stopTurret;
@@ -77,16 +79,9 @@ public class RobotContainer {
     private final SS_Hopper hopper = new SS_Hopper();
 
     public aimTurretToTarget aimCommand = new aimTurretToTarget(drivetrain, turret);
-    public Command drivetrainDefault = drivetrain
-            .applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y
-                                                                                     // (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative
-                                                                                // X (left)
-            );
     public alignTower alignTowerCommand = new alignTower(drivetrain);
-    public manualTurret turretForward = new manualTurret(turret).withSpeed(0.1);
     public manualTurret turretReverse = new manualTurret(turret).withSpeed(-0.1);
+    public manualTurret turretForward = new manualTurret(turret).withSpeed(0.1);
     public stopTurret stopCommand = new stopTurret(turret);
     public manualShooter shootCommand = new manualShooter(shooter);
     public moveActuator moveActuatorCommand = new moveActuator(shooter);
@@ -97,6 +92,20 @@ public class RobotContainer {
     public rollersOn_cmd hotdogOn = new rollersOn_cmd(hopper);
     public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);
     public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
+    public rollersOff_cmd hotdogOff = new rollersOff_cmd(intake);
+    public Command toggleBoolean = drivetrain.run(() -> {drivetrain.targetToggled = !drivetrain.targetToggled;});
+    public fireShooter fireShooterCommand = new fireShooter(shooter, drivetrain);
+
+    public ConditionalCommand toggleDepot = new ConditionalCommand(
+        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
+        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.hubPose;}),
+        () -> drivetrain.targetToggled
+    );
+    public ConditionalCommand toggleStation = new ConditionalCommand(
+        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.stationPose;}),
+        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.hubPose;}),
+        () -> drivetrain.targetToggled
+    );
     public AutoIntake_cmd autoIntake = new AutoIntake_cmd(intake);
     public AutoThroat_cmd autoThroat = new AutoThroat_cmd(throat, hopper);
     public AutoRev_cmd autoRev = new AutoRev_cmd(shooter); 
@@ -132,12 +141,9 @@ public class RobotContainer {
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
                 // Drivetrain will execute this command periodically
-                drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with
-                                                                                                   // negative Y
-                                                                                                   // (forward)
+                drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
                         .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with
-                                                                                    // negative X (left)
+                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
                 ));
 
         turret.setDefaultCommand(stopCommand);
@@ -172,19 +178,19 @@ public class RobotContainer {
         joystick.rightBumper().whileTrue(intakeRollers).onTrue(hotdogOn);
         joystick.povUp().onTrue(pivotUp);
         joystick.povDown().onTrue(pivotDown);
-
+        joystick.a().onTrue(hotdogOff);
 
         joystick2.povLeft().whileTrue(turretForward);
         joystick2.povRight().whileTrue(turretReverse);
         joystick2.leftTrigger().whileTrue(shootCommand); // Rev Shooter
         joystick2.rightTrigger().whileTrue(startThroatCommand); // Feed Balls (Shoot)
-        joystick2.x().toggleOnTrue(drivetrain.run(() -> {
-            drivetrain.targetPose = drivetrain.stationPose;
-        })); // Toggle shooting to Human player
-        joystick2.x().toggleOnFalse(drivetrain.run(() -> {
-            drivetrain.targetPose = drivetrain.depotPose;
-        })); // Toggle shooting to Depot
-        joystick2.b().onTrue(moveActuatorCommand);
+        joystick2.rightBumper().whileTrue(moveActuatorCommand);
+        joystick2.x().onTrue(toggleBoolean)
+                     .onTrue(toggleStation); // Toggle station passing on/off
+        joystick2.b().onTrue(toggleBoolean)
+                     .onTrue(toggleDepot); // Toggle depot passing on/off
+        joystick2.y().whileTrue(aimCommand);
+        joystick2.x().whileTrue(fireShooterCommand);
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }

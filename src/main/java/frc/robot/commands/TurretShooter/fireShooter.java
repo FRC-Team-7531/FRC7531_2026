@@ -5,6 +5,7 @@
 package frc.robot.commands.TurretShooter;
 
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Drivetrain;
 import frc.robot.subsystems.SS_Shooter;
@@ -43,8 +44,9 @@ public class fireShooter extends Command {
     
     botPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
     distance = botPose.getDistance(targetPose);
+    SmartDashboard.putNumber("shootingDistance", distance);
     targetAngle = shooter.calculateGoalAngle(distance);
-    shooter.setHoodAngle(targetAngle);
+    shooter.setHoodAngle(Math.PI/2 - targetAngle);
     hoodAngle = shooter.hoodLifter.getPosition();
     shooter.setVelocity(distance, hoodAngle);
   }
