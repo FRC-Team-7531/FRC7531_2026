@@ -22,9 +22,16 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.Hang.alignTower;
 import frc.robot.commands.Intake.AutoIntake_cmd;
+<<<<<<< Updated upstream
 import frc.robot.commands.Intake.foldIntake_cmd;
 import frc.robot.commands.Intake.intake_cmd;
 import frc.robot.commands.Intake.outtake_cmd;
+=======
+import frc.robot.commands.Intake.AutoPivotOut_cmd;
+import frc.robot.commands.Intake.AutoPivotUp_cmd;
+import frc.robot.commands.Intake.pivotToggle_cmd;
+import frc.robot.commands.Intake.intakeToggle_cmd;
+>>>>>>> Stashed changes
 import frc.robot.commands.Intake.rollersOff_cmd;
 import frc.robot.commands.Intake.rollersOn_cmd;
 import frc.robot.commands.Intake.unfoldIntake_cmd;
@@ -98,7 +105,7 @@ public class RobotContainer {
     public stopShooter stopShooterCommand = new stopShooter(shooter);
     public stopThroat stopThroatCommand = new stopThroat(throat, hopper);
     public startThroat startThroatCommand = new startThroat(throat, hopper);
-    public intake_cmd intakeRollers = new intake_cmd(intake);
+    public intakeToggle_cmd intakeRollers = new intakeToggle_cmd(intake, hopper);
     public rollersOn_cmd hotdogOn = new rollersOn_cmd(hopper);
     public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);
     public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
@@ -174,9 +181,15 @@ public class RobotContainer {
         joystick.b().whileTrue(alignTowerCommand); // This should be allign tower right
         joystick.x().whileTrue(alignTowerCommand); // This should be allign tower left
         joystick.y().whileTrue(drivetrain.run(() -> drivetrain.pigeonCommand())); // Reset Gyro
+<<<<<<< Updated upstream
         joystick.rightBumper().whileTrue(intakeRollers).onTrue(hotdogOn);
         joystick.rightTrigger().onTrue(pivotUp);
         joystick.leftTrigger().onTrue(pivotDown);
+=======
+        joystick.rightTrigger().onTrue(intakeRollers);
+        joystick.leftTrigger().onTrue(pivot);
+
+>>>>>>> Stashed changes
 
         joystick2.a().whileTrue(hangEncoderReset);
         joystick2.b().onTrue(hangLevel1);
