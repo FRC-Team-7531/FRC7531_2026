@@ -38,11 +38,11 @@ import frc.robot.commands.TurretShooter.AutoRev_cmd;
 import frc.robot.commands.TurretShooter.AutoShoot_cmd;
 import frc.robot.commands.TurretShooter.aimTurretToTarget;
 import frc.robot.commands.TurretShooter.fireShooter;
+import frc.robot.commands.TurretShooter.manualHood_cmd;
 import frc.robot.commands.TurretShooter.manualShooter;
 import frc.robot.commands.TurretShooter.manualTurret;
 import frc.robot.commands.TurretShooter.stopTurret;
 import frc.robot.commands.TurretShooter.moveActuator;
-import frc.robot.commands.TurretShooter.stopShooter;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.SS_Drivetrain;
 import frc.robot.subsystems.SS_Hopper;
@@ -82,12 +82,10 @@ public class RobotContainer {
 
     public aimTurretToTarget aimCommand = new aimTurretToTarget(drivetrain, turret);
     public alignTower alignTowerCommand = new alignTower(drivetrain);
-    public manualTurret turretReverse = new manualTurret(turret).withSpeed(-0.1);
-    public manualTurret turretForward = new manualTurret(turret).withSpeed(0.1);
+    public manualTurret manualTurret = new manualTurret(turret);
     public stopTurret stopCommand = new stopTurret(turret);
     public manualShooter shootCommand = new manualShooter(shooter);
     public moveActuator moveActuatorCommand = new moveActuator(shooter);
-    public stopShooter stopShooterCommand = new stopShooter(shooter);
     public stopThroat stopThroatCommand = new stopThroat(throat, hopper);
     public startThroat startThroatCommand = new startThroat(throat, hopper);
     public intake_cmd intakeRollers = new intake_cmd(intake);
@@ -99,6 +97,7 @@ public class RobotContainer {
     public fireShooter fireShooterCommand = new fireShooter(shooter, drivetrain);
     public manualFoldIntake_cmd manualPivotUp = new manualFoldIntake_cmd(intake);
     public manualUnfoldIntake_cmd manualPivotDown = new manualUnfoldIntake_cmd(intake);
+    public manualHood_cmd manualHood = new manualHood_cmd(shooter);
 
     public ConditionalCommand toggleDepot = new ConditionalCommand(
         drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
@@ -151,7 +150,7 @@ public class RobotContainer {
                 ));
 
         turret.setDefaultCommand(stopCommand);
-        shooter.setDefaultCommand(stopShooterCommand);
+        shooter.setDefaultCommand(manualHood);
         throat.setDefaultCommand(stopThroatCommand);
 
         // Idle while the robot is disabled. This ensures the configured
@@ -186,8 +185,6 @@ public class RobotContainer {
         joystick.leftTrigger().onTrue(manualPivotUp); //Intake in manually
         joystick.rightTrigger().onTrue(manualPivotDown); //Intake out manually
 
-        joystick2.povLeft().whileTrue(turretForward);
-        joystick2.povRight().whileTrue(turretReverse);
         joystick2.leftTrigger().whileTrue(shootCommand); // Rev Shooter
         joystick2.rightTrigger().whileTrue(startThroatCommand); // Feed Balls (Shoot)
         joystick2.rightBumper().whileTrue(moveActuatorCommand);
