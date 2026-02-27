@@ -46,8 +46,7 @@ public class outtake_cmd extends Command {
       timerIntake.stop();
       intake.stopIntakeRollers();
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }

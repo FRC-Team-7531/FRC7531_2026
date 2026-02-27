@@ -35,14 +35,14 @@ public class rollersOn_cmd extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() 
-  {
+  public void execute() {
     timerEntry.setDouble(timer.get());
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
@@ -52,9 +52,8 @@ public class rollersOn_cmd extends Command {
       timer.stop();
       hopper.hotDogRollersOff();
       return true;
-    }
-    else {
-    return false;
+    } else {
+      return false;
     }
   }
 }

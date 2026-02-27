@@ -47,9 +47,8 @@ public class AutoIntake_cmd extends Command {
       timer.stop();
       intake.stopIntakeRollers();
       return true;
-    }
-    else {
-    return false;
+    } else {
+      return false;
     }
   }
 }

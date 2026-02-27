@@ -3,15 +3,15 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5732667617689007,
+        "x": 3.63796005706134,
         "y": 7.41845934379458
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.077874465049928,
-        "y": 7.41845934379458
+        "x": 4.194322396576319,
+        "y": 7.405520684736091
       },
-      "isLocked": true,
+      "isLocked": false,
       "linkedName": "BDepotTrench"
     },
     {
