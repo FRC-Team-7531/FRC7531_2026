@@ -25,6 +25,8 @@ import frc.robot.commands.Hang.alignTower;
 import frc.robot.commands.Intake.AutoIntake_cmd;
 import frc.robot.commands.Intake.foldIntake_cmd;
 import frc.robot.commands.Intake.intake_cmd;
+import frc.robot.commands.Intake.manualFoldIntake_cmd;
+import frc.robot.commands.Intake.manualUnfoldIntake_cmd;
 import frc.robot.commands.Intake.outtake_cmd;
 import frc.robot.commands.Intake.rollersOff_cmd;
 import frc.robot.commands.Intake.rollersOn_cmd;
@@ -95,6 +97,8 @@ public class RobotContainer {
     public rollersOff_cmd hotdogOff = new rollersOff_cmd(hopper);
     public Command toggleBoolean = drivetrain.run(() -> {drivetrain.targetToggled = !drivetrain.targetToggled;});
     public fireShooter fireShooterCommand = new fireShooter(shooter, drivetrain);
+    public manualFoldIntake_cmd manualPivotUp = new manualFoldIntake_cmd(intake);
+    public manualUnfoldIntake_cmd manualPivotDown = new manualUnfoldIntake_cmd(intake);
 
     public ConditionalCommand toggleDepot = new ConditionalCommand(
         drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
@@ -179,6 +183,8 @@ public class RobotContainer {
         joystick.povUp().onTrue(pivotUp);
         joystick.povDown().onTrue(pivotDown);
         joystick.a().onTrue(hotdogOff);
+        joystick.leftTrigger().onTrue(manualPivotUp); //Intake in manually
+        joystick.rightTrigger().onTrue(manualPivotDown); //Intake out manually
 
         joystick2.povLeft().whileTrue(turretForward);
         joystick2.povRight().whileTrue(turretReverse);
