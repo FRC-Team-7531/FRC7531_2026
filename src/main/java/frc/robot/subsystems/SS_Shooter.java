@@ -50,12 +50,9 @@ public class SS_Shooter extends SubsystemBase {
   public double shooterAngle;
 
   // Hard goods
-  public CANBus canivore = new CANBus("CANivore");
-
-  // Hard goods
   public PWM hoodLifter = new PWM(9);
-  public TalonFX leftShooter = new TalonFX(42, canivore);
-  public TalonFX rightShooter = new TalonFX(41, canivore);
+  public TalonFX leftShooter = new TalonFX(42, "rio");
+  public TalonFX rightShooter = new TalonFX(41, "rio");
 
   // NetworkTable stuff
   public NetworkTableInstance inst = NetworkTableInstance.getDefault();

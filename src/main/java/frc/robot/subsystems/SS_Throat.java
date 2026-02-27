@@ -11,9 +11,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SS_Throat extends SubsystemBase {
-  public CANBus rio = new CANBus("rio");
   public Timer timer = new Timer();
-  public TalonFX throatMotor = new TalonFX(43, rio);
+  public TalonFX throatMotor = new TalonFX(43, "rio");
 
   /** Creates a new SS_Throat. */
   public SS_Throat() {}

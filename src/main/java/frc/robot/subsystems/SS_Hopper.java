@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class SS_Hopper extends SubsystemBase {
   /** Creates a new SS_Hopper. */
   
-  public TalonFX hotDogRoller = new TalonFX(21);
+  public TalonFX hotDogRoller = new TalonFX(21, "CANivore");
 
   public SS_Hopper() {
     setDefaultCommand(new RunCommand(() -> hotDogRollersOff(), this));

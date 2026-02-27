@@ -56,8 +56,8 @@ public class SS_Hanger extends SubsystemBase {
   // should note that the hook is about 0.21 inches, so possibly add that but this
   // measurements may not be used at all
 
-  public TalonFX m_hangLeft = new TalonFX(999, "rio");
-  public TalonFX hangRight = new TalonFX(999, "rio");
+  public TalonFX m_hangLeft = new TalonFX(51, "rio"); // long
+  public TalonFX hangRight = new TalonFX(50, "rio"); // short
   public NetworkTableInstance hangerTable = NetworkTableInstance.getDefault();
   public NetworkTableEntry hangerTableEntry = hangerTable.getEntry("Encoder Position");
   public DoublePublisher hangerPublisher;
