@@ -32,6 +32,10 @@ public class SS_Intake extends SubsystemBase {
     roller.set(speed);
   }
 
+  public void intakeRollersOnNoTimer(double speed) {
+    roller.set(speed);
+  }
+
   public void stopIntakeRollers() {
     roller.set(0.0);
   }
