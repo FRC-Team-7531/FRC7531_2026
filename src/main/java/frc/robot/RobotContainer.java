@@ -114,6 +114,10 @@ public class RobotContainer {
 
         // Warmup PathPlanner to avoid Java pauses
         FollowPathCommand.warmupCommand().schedule();
+
+        // NamedCommands.registerCommand("pivotDown_cmd", pivotDown);
+        // NamedCommands.registerCommand("pivotUp_cmd", pivotUp);
+        // NamedCommands.registerCommand("AlignTower_cmd", alignTowerCommand);
     }
 
     private void configureBindings() {

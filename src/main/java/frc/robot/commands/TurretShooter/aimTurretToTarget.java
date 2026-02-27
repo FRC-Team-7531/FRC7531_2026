@@ -21,7 +21,7 @@ public class aimTurretToTarget extends Command {
   public SS_Drivetrain drivetrain;
   public SS_Turret turret;
 
-  PIDController rController = new PIDController(0.8, 1, 0); //3.2 0.2 0.002
+  PIDController rController = new PIDController(1.2, 1.2, 0); //3.2 0.2 0.002
   double pidSpeed;
 
   Translation2d estimatedPose;
