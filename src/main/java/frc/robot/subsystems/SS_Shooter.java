@@ -50,7 +50,7 @@ public class SS_Shooter extends SubsystemBase {
   public double shooterAngle;
 
   // Hard goods
-  public CANBus canivore = new CANBus("CANivore");
+  public CANBus canivore = new CANBus("rio");
 
   // Hard goods
   public PWM hoodLifter = new PWM(9);

@@ -17,7 +17,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -35,12 +34,13 @@ import frc.robot.commands.Throat.stopThroat;
 import frc.robot.commands.TurretShooter.AutoRev_cmd;
 import frc.robot.commands.TurretShooter.AutoShoot_cmd;
 import frc.robot.commands.TurretShooter.aimTurretToTarget;
-import frc.robot.commands.TurretShooter.fireShooter;
 import frc.robot.commands.TurretShooter.manualShooter;
 import frc.robot.commands.TurretShooter.manualTurret;
 import frc.robot.commands.TurretShooter.stopTurret;
 import frc.robot.commands.TurretShooter.moveActuator;
 import frc.robot.commands.TurretShooter.stopShooter;
+import frc.robot.commands.Hang.HangEncoderReset_cmd;
+import frc.robot.commands.Hang.HangLevel1_cmd;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.SS_Drivetrain;
 import frc.robot.subsystems.SS_Hopper;
@@ -49,6 +49,8 @@ import frc.robot.subsystems.SS_Shooter;
 import frc.robot.subsystems.SS_Throat;
 import frc.robot.subsystems.SS_Turret;
 import frc.robot.subsystems.SS_Hanger;
+
+//import frc.robot.subsystems.SS_Hanger;
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top
@@ -77,11 +79,19 @@ public class RobotContainer {
     public final SS_Throat throat = new SS_Throat();
     private final SS_Intake intake = new SS_Intake();
     private final SS_Hopper hopper = new SS_Hopper();
+    private final SS_Hanger hang = new SS_Hanger();
 
     public aimTurretToTarget aimCommand = new aimTurretToTarget(drivetrain, turret);
+    public Command drivetrainDefault = drivetrain
+            .applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y
+                                                                                     // (forward)
+                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative
+                                                                                // X (left)
+            );
     public alignTower alignTowerCommand = new alignTower(drivetrain);
-    public manualTurret turretReverse = new manualTurret(turret).withSpeed(-0.1);
     public manualTurret turretForward = new manualTurret(turret).withSpeed(0.1);
+    public manualTurret turretReverse = new manualTurret(turret).withSpeed(-0.1);
     public stopTurret stopCommand = new stopTurret(turret);
     public manualShooter shootCommand = new manualShooter(shooter);
     public moveActuator moveActuatorCommand = new moveActuator(shooter);
@@ -92,29 +102,15 @@ public class RobotContainer {
     public rollersOn_cmd hotdogOn = new rollersOn_cmd(hopper);
     public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);
     public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
-    public rollersOff_cmd hotdogOff = new rollersOff_cmd(hopper);
-    public Command toggleBoolean = drivetrain.run(() -> {drivetrain.targetToggled = !drivetrain.targetToggled;});
-    public fireShooter fireShooterCommand = new fireShooter(shooter, drivetrain);
-
-    public ConditionalCommand toggleDepot = new ConditionalCommand(
-        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
-        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.hubPose;}),
-        () -> drivetrain.targetToggled
-    );
-    public ConditionalCommand toggleStation = new ConditionalCommand(
-        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.stationPose;}),
-        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.hubPose;}),
-        () -> drivetrain.targetToggled
-    );
     public AutoIntake_cmd autoIntake = new AutoIntake_cmd(intake);
     public AutoThroat_cmd autoThroat = new AutoThroat_cmd(throat, hopper);
-    public AutoRev_cmd autoRev = new AutoRev_cmd(shooter); 
+    public AutoRev_cmd autoRev = new AutoRev_cmd(shooter);
     public AutoShoot_cmd autoShoot = new AutoShoot_cmd(shooter);
+    public HangEncoderReset_cmd hangEncoderReset = new HangEncoderReset_cmd(hang);
+    public HangLevel1_cmd hangLevel1 = new HangLevel1_cmd(hang);
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
-
-    
 
     public RobotContainer() {
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
@@ -141,9 +137,12 @@ public class RobotContainer {
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
                 // Drivetrain will execute this command periodically
-                drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+                drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with
+                                                                                                   // negative Y
+                                                                                                   // (forward)
                         .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with
+                                                                                    // negative X (left)
                 ));
 
         turret.setDefaultCommand(stopCommand);
@@ -176,21 +175,21 @@ public class RobotContainer {
         joystick.x().whileTrue(alignTowerCommand); // This should be allign tower left
         joystick.y().whileTrue(drivetrain.run(() -> drivetrain.pigeonCommand())); // Reset Gyro
         joystick.rightBumper().whileTrue(intakeRollers).onTrue(hotdogOn);
-        joystick.povUp().onTrue(pivotUp);
-        joystick.povDown().onTrue(pivotDown);
-        joystick.a().onTrue(hotdogOff);
+        joystick.rightTrigger().onTrue(pivotUp);
+        joystick.leftTrigger().onTrue(pivotDown);
 
+        joystick2.a().whileTrue(hangEncoderReset);
+        joystick2.b().onTrue(hangLevel1);
         joystick2.povLeft().whileTrue(turretForward);
         joystick2.povRight().whileTrue(turretReverse);
         joystick2.leftTrigger().whileTrue(shootCommand); // Rev Shooter
         joystick2.rightTrigger().whileTrue(startThroatCommand); // Feed Balls (Shoot)
-        joystick2.rightBumper().whileTrue(moveActuatorCommand);
-        joystick2.x().onTrue(toggleBoolean)
-                     .onTrue(toggleStation); // Toggle station passing on/off
-        joystick2.b().onTrue(toggleBoolean)
-                     .onTrue(toggleDepot); // Toggle depot passing on/off
-        joystick2.y().whileTrue(aimCommand);
-        joystick2.x().whileTrue(fireShooterCommand);
+        joystick2.x().toggleOnTrue(drivetrain.run(() -> {
+            drivetrain.targetPose = drivetrain.stationPose;
+        })); // Toggle shooting to Human player
+        joystick2.x().toggleOnFalse(drivetrain.run(() -> {
+            drivetrain.targetPose = drivetrain.depotPose;
+        })); // Toggle shooting to Depot
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }
