@@ -92,7 +92,7 @@ public class RobotContainer {
     public rollersOn_cmd hotdogOn = new rollersOn_cmd(hopper);
     public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);
     public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
-    public rollersOff_cmd hotdogOff = new rollersOff_cmd(intake);
+    public rollersOff_cmd hotdogOff = new rollersOff_cmd(hopper);
     public Command toggleBoolean = drivetrain.run(() -> {drivetrain.targetToggled = !drivetrain.targetToggled;});
     public fireShooter fireShooterCommand = new fireShooter(shooter, drivetrain);
 
