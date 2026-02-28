@@ -165,19 +165,20 @@ public class RobotContainer {
         joystick.x().onTrue(pivotUp);
         joystick.a().onTrue(pivotDown);
         joystick.y().whileTrue(drivetrain.run(() -> drivetrain.pigeonCommand())); // Reset Gyro
-        joystick.rightBumper().whileTrue(intakeRollers);
-        joystick.leftBumper().whileTrue(outtakeRollers);
+        joystick.rightBumper().onTrue(intakeToggle);
+        joystick.leftBumper().onTrue(outakeToggle);
+        joystick.leftTrigger().whileTrue(manualPivotUp); //Intake in manually
+        joystick.rightTrigger().whileTrue(manualPivotDown); //Intake out manually
 
+        
         joystick2.leftTrigger().whileTrue(shootCommand);
         joystick2.rightTrigger().whileTrue(startThroatCommand);
         joystick2.povDown().onTrue(lowerHoodCommand);
         joystick2.start().onTrue(hang1);
         joystick2.a().toggleOnTrue(aimCommand);
-		joystick.rightBumper().onTrue(intakeToggle);
-        joystick.leftBumper().onTrue(outakeToggle);
+		
 
-        joystick.leftTrigger().whileTrue(manualPivotUp); //Intake in manually
-        joystick.rightTrigger().whileTrue(manualPivotDown); //Intake out manually
+        
 
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.
