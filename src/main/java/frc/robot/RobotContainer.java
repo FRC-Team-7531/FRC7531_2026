@@ -172,7 +172,7 @@ public class RobotContainer {
         joystick2.rightTrigger().whileTrue(startThroatCommand);
         joystick2.povDown().onTrue(lowerHoodCommand);
         joystick2.start().onTrue(hang1);
-        joystick2.a().toggleOnTrue(aimCommand); 
+        joystick2.a().toggleOnTrue(aimCommand);
 
         joystick.leftTrigger().whileTrue(manualPivotUp); //Intake in manually
         joystick.rightTrigger().whileTrue(manualPivotDown); //Intake out manually

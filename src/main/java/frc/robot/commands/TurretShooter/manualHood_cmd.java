@@ -32,9 +32,9 @@ public class manualHood_cmd extends Command {
   @Override
   public void execute() {
     if (-joystick2.getLeftY() > 0.5 && hoodPosition < 0.8) {
-      hoodPosition = hoodPosition + 0.02;
+      hoodPosition = hoodPosition + 0.01;
     } else if (-joystick2.getLeftY() < -0.5 && hoodPosition > 0){
-      hoodPosition = hoodPosition - 0.02;
+      hoodPosition = hoodPosition - 0.01;
     }
     shooter.hoodLifter.setPosition(hoodPosition);
     SmartDashboard.putNumber("hoodposition", hoodPosition);
