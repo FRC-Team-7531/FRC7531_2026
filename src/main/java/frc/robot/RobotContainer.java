@@ -25,10 +25,10 @@ import frc.robot.commands.Hang.HangLevel1_cmd;
 import frc.robot.commands.Hang.alignTower;
 import frc.robot.commands.Intake.AutoIntake_cmd;
 import frc.robot.commands.Intake.foldIntake_cmd;
-import frc.robot.commands.Intake.intake_cmd;
+import frc.robot.commands.Intake.intakeToggle_cmd;
 import frc.robot.commands.Intake.manualFoldIntake_cmd;
 import frc.robot.commands.Intake.manualUnfoldIntake_cmd;
-import frc.robot.commands.Intake.outtake_cmd;
+import frc.robot.commands.Intake.outakeToggle_cmd;
 import frc.robot.commands.Intake.rollersOff_cmd;
 import frc.robot.commands.Intake.rollersOn_cmd;
 import frc.robot.commands.Intake.unfoldIntake_cmd;
@@ -92,8 +92,8 @@ public class RobotContainer {
     public moveActuator moveActuatorCommand = new moveActuator(shooter);
     public stopThroat stopThroatCommand = new stopThroat(throat, hopper);
     public startThroat startThroatCommand = new startThroat(throat, hopper);
-    public intake_cmd intakeRollers = new intake_cmd(intake);
-    public outtake_cmd outtakeRollers = new outtake_cmd(intake);
+    public intakeToggle_cmd intakeToggle = new intakeToggle_cmd(intake);
+    public outakeToggle_cmd outakeToggle = new outakeToggle_cmd(intake);
     public rollersOn_cmd hotdogOn = new rollersOn_cmd(hopper);
     public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);
     public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
@@ -165,17 +165,20 @@ public class RobotContainer {
         joystick.x().onTrue(pivotUp);
         joystick.a().onTrue(pivotDown);
         joystick.y().whileTrue(drivetrain.run(() -> drivetrain.pigeonCommand())); // Reset Gyro
-        joystick.rightBumper().whileTrue(intakeRollers);
-        joystick.leftBumper().whileTrue(outtakeRollers);
+        joystick.rightBumper().onTrue(intakeToggle);
+        joystick.leftBumper().onTrue(outakeToggle);
+        joystick.leftTrigger().whileTrue(manualPivotUp); //Intake in manually
+        joystick.rightTrigger().whileTrue(manualPivotDown); //Intake out manually
 
+        
         joystick2.leftTrigger().whileTrue(shootCommand);
         joystick2.rightTrigger().whileTrue(startThroatCommand);
         joystick2.povDown().onTrue(lowerHoodCommand);
         joystick2.start().onTrue(hang1);
         joystick2.a().toggleOnTrue(aimCommand);
+		
 
-        joystick.leftTrigger().whileTrue(manualPivotUp); //Intake in manually
-        joystick.rightTrigger().whileTrue(manualPivotDown); //Intake out manually
+        
 
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.
