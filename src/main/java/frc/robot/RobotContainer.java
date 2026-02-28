@@ -26,6 +26,8 @@ import frc.robot.commands.Hang.alignTower;
 import frc.robot.commands.Intake.AutoIntake_cmd;
 import frc.robot.commands.Intake.foldIntake_cmd;
 import frc.robot.commands.Intake.intake_cmd;
+import frc.robot.commands.Intake.manualFoldIntake_cmd;
+import frc.robot.commands.Intake.manualUnfoldIntake_cmd;
 import frc.robot.commands.Intake.outtake_cmd;
 import frc.robot.commands.Intake.rollersOff_cmd;
 import frc.robot.commands.Intake.rollersOn_cmd;
@@ -37,11 +39,12 @@ import frc.robot.commands.TurretShooter.AutoRev_cmd;
 import frc.robot.commands.TurretShooter.AutoShoot_cmd;
 import frc.robot.commands.TurretShooter.aimTurretToTarget;
 import frc.robot.commands.TurretShooter.fireShooter;
+import frc.robot.commands.TurretShooter.manualHood_cmd;
 import frc.robot.commands.TurretShooter.manualShooter;
 import frc.robot.commands.TurretShooter.manualTurret;
 import frc.robot.commands.TurretShooter.stopTurret;
 import frc.robot.commands.TurretShooter.moveActuator;
-import frc.robot.commands.TurretShooter.stopShooter;
+//import frc.robot.commands.TurretShooter.stopShooter; //someone needs to explain this
 import frc.robot.commands.TurretShooter.lowerHood;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.SS_Drivetrain;
@@ -83,12 +86,10 @@ public class RobotContainer {
 
     public aimTurretToTarget aimCommand = new aimTurretToTarget(drivetrain, turret);
     public alignTower alignTowerCommand = new alignTower(drivetrain);
-    public manualTurret turretReverse = new manualTurret(turret).withSpeed(-0.1);
-    public manualTurret turretForward = new manualTurret(turret).withSpeed(0.1);
+    public manualTurret manualTurret = new manualTurret(turret);
     public stopTurret stopCommand = new stopTurret(turret);
     public manualShooter shootCommand = new manualShooter(shooter);
     public moveActuator moveActuatorCommand = new moveActuator(shooter);
-    public stopShooter stopShooterCommand = new stopShooter(shooter);
     public stopThroat stopThroatCommand = new stopThroat(throat, hopper);
     public startThroat startThroatCommand = new startThroat(throat, hopper);
     public intake_cmd intakeRollers = new intake_cmd(intake);
@@ -101,6 +102,9 @@ public class RobotContainer {
     public fireShooter fireShooterCommand = new fireShooter(shooter, drivetrain);
     public lowerHood lowerHoodCommand = new lowerHood(shooter);
     public HangLevel1_cmd hang1 = new HangLevel1_cmd(hanger);
+    public manualFoldIntake_cmd manualPivotUp = new manualFoldIntake_cmd(intake);
+    public manualUnfoldIntake_cmd manualPivotDown = new manualUnfoldIntake_cmd(intake);
+    public manualHood_cmd manualHood = new manualHood_cmd(shooter);
 
     public ConditionalCommand toggleDepot = new ConditionalCommand(
         drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
@@ -128,6 +132,8 @@ public class RobotContainer {
 
         configureBindings();
 
+        //manualTurret.execute();
+
         // Warmup PathPlanner to avoid Java pauses
         FollowPathCommand.warmupCommand().schedule();
 
@@ -152,8 +158,8 @@ public class RobotContainer {
                         .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
                 ));
 
-        turret.setDefaultCommand(stopCommand);
-        shooter.setDefaultCommand(stopShooterCommand);
+        turret.setDefaultCommand(manualTurret);
+        shooter.setDefaultCommand(manualHood);
         throat.setDefaultCommand(stopThroatCommand);
 
         joystick.x().onTrue(pivotUp);
@@ -167,6 +173,9 @@ public class RobotContainer {
         joystick2.povDown().onTrue(lowerHoodCommand);
         joystick2.start().onTrue(hang1);
         joystick2.a().toggleOnTrue(aimCommand); 
+
+        joystick.leftTrigger().whileTrue(manualPivotUp); //Intake in manually
+        joystick.rightTrigger().whileTrue(manualPivotDown); //Intake out manually
 
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.
@@ -207,6 +216,28 @@ public class RobotContainer {
         //              .onTrue(toggleStation); // Toggle station passing on/off
         // joystick2.b().onTrue(toggleBoolean)
         //              .onTrue(toggleDepot); // Toggle depot passing on/off
+        // joystick2.y().whileTrue(aimCommand);
+        // joystick2.x().whileTrue(fireShooterCommand);
+        // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        // joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        // joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        // joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        // joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric)); // Reset the field-centric
+        //                                                                                 // heading on left bumper press.
+
+        //joystick.b().whileTrue(alignTowerCommand); // This should be allign tower right
+        //joystick.x().whileTrue(alignTowerCommand); // This should be allign tower left
+        //joystick.y().whileTrue(drivetrain.run(() -> drivetrain.pigeonCommand())); // Reset Gyro
+        ////joystick.rightBumper().whileTrue(intakeRollers).onTrue(hotdogOn);
+        //joystick.povUp().onTrue(pivotUp);
+        //joystick.povDown().onTrue(pivotDown);
+        //joystick.a().onTrue(hotdogOff);
+
+        //joystick2.rightBumper().whileTrue(moveActuatorCommand);
+        // joystick2.x().onTrue(toggleBoolean)
+                    //  .onTrue(toggleStation); // Toggle station passing on/off
+        // joystick2.b().onTrue(toggleBoolean)
+                    //  .onTrue(toggleDepot); // Toggle depot passing on/off
         // joystick2.y().whileTrue(aimCommand);
         // joystick2.x().whileTrue(fireShooterCommand);
 
