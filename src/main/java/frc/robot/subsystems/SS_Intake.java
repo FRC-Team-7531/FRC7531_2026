@@ -21,9 +21,9 @@ public class SS_Intake extends SubsystemBase {
   public NetworkTableInstance intakeTable = NetworkTableInstance.getDefault();
   public NetworkTableEntry intakeTableEntry = intakeTable.getEntry("Encoder Position");
   public DoublePublisher doubleIntakePublisher;
+  public boolean toggle = false;
 
   public SS_Intake() {
-    setDefaultCommand(new RunCommand(() -> stopIntakeRollers(), this));
     pivot.setPosition(0);
     doubleIntakePublisher = intakeTable.getDoubleTopic("Encoder Position").publish();
   }
@@ -42,7 +42,6 @@ public class SS_Intake extends SubsystemBase {
  
 
 public void intakeUnfold()  {
-  double pivotAngle = pivot.getPosition().getValueAsDouble();
   pivot.set(0.1);
 }
 
@@ -51,10 +50,8 @@ public void intakeUnfold()  {
   }
 
   public void intakeFold()  {
-    double pivotAngle = pivot.getPosition().getValueAsDouble();
     pivot.set(-0.1);
   }
-
 
 
   @Override

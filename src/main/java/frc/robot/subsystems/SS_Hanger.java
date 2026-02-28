@@ -57,7 +57,7 @@ public class SS_Hanger extends SubsystemBase {
   // measurements may not be used at all
 
   public TalonFX m_hangLeft = new TalonFX(51, "rio"); // long
-  public TalonFX hangRight = new TalonFX(50, "rio"); // short
+  public TalonFX m_hangRight = new TalonFX(50, "rio"); // short
   public NetworkTableInstance hangerTable = NetworkTableInstance.getDefault();
   public NetworkTableEntry hangerTableEntry = hangerTable.getEntry("Encoder Position");
   public DoublePublisher hangerPublisher;
@@ -65,7 +65,7 @@ public class SS_Hanger extends SubsystemBase {
   /** Creates a new SS_Hanger. */
   public SS_Hanger() {
     m_hangLeft.setPosition(0);
-    hangRight.setPosition(0);
+    m_hangRight.setPosition(0);
     hangerPublisher = hangerTable.getDoubleTopic("Encoder Position").publish();
   }
 
@@ -73,12 +73,12 @@ public class SS_Hanger extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     hangerPublisher.set(m_hangLeft.getPosition().getValueAsDouble());
-    hangerPublisher.set(hangRight.getPosition().getValueAsDouble());
+    hangerPublisher.set(m_hangRight.getPosition().getValueAsDouble());
   }
 
   public void HangerStop() {
     m_hangLeft.set(0);
-    hangRight.set(0);
+    m_hangRight.set(0);
   }
 
   public void HangLeft() {
@@ -90,14 +90,14 @@ public class SS_Hanger extends SubsystemBase {
   public void HangRight() {
     double rightPosition = m_hangLeft.getPosition().getValueAsDouble();
 
-    hangRight.set(0.1);
+    m_hangRight.set(0.1);
   }
 
   public void HangReturn() {
     double leftPosition = m_hangLeft.getPosition().getValueAsDouble();
-    double rightPosition = hangRight.getPosition().getValueAsDouble();
+    double rightPosition = m_hangRight.getPosition().getValueAsDouble();
     m_hangLeft.set(-0.1);
-    hangRight.set(-0.1);
+    m_hangRight.set(-0.1);
   }
 
 }

@@ -4,14 +4,21 @@
 
 package frc.robot.commands.TurretShooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Shooter;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class stopShooter extends Command {
+public class manualHood_cmd extends Command {
   public SS_Shooter shooter;
-  /** Creates a new stopShooter. */
-  public stopShooter(SS_Shooter ss_shooter) {
+
+  private final CommandXboxController joystick2 = new CommandXboxController(1);
+
+  private double hoodPosition = 0;
+
+  /** Creates a new lowerHood. */
+  public manualHood_cmd(SS_Shooter ss_shooter) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_shooter);
     this.shooter = ss_shooter;
@@ -24,6 +31,14 @@ public class stopShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (-joystick2.getLeftY() > 0.5 && hoodPosition < 0.8) {
+      hoodPosition = hoodPosition + 0.01;
+    } else if (-joystick2.getLeftY() < -0.5 && hoodPosition > 0){
+      hoodPosition = hoodPosition - 0.01;
+    }
+    shooter.hoodLifter.setPosition(hoodPosition);
+    SmartDashboard.putNumber("hoodposition", hoodPosition);
+    SmartDashboard.putNumber("rightX", joystick2.getLeftY());
     shooter.leftShooter.set(0);
     shooter.rightShooter.set(0);
   }

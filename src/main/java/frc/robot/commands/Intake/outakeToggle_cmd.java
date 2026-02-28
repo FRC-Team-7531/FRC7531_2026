@@ -2,48 +2,50 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Hang;
+package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SS_Hanger;
+import frc.robot.subsystems.SS_Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class HangReturn_cmd extends Command {
-  /** Creates a new HangLevel1_cmd. */
-  public SS_Hanger hanger;
+public class outakeToggle_cmd extends Command {
+  /** Creates a new foldIntake. */
+  public SS_Intake intake;
 
-  public HangReturn_cmd(SS_Hanger ss_hanger) {
+  public outakeToggle_cmd(SS_Intake ss_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(ss_hanger);
-    this.hanger = ss_hanger;
+    addRequirements(ss_intake);
+    this.intake = ss_intake;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    hanger.HangReturn();
+    if (intake.toggle) {
+      intake.intakeRollersOn(0);
+      intake.toggle = false;
+    }
+    else {
+      intake.intakeRollersOn(-1);
+      intake.toggle = true;
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // idk 999 is my placeholder for all of this
-    if ((hanger.m_hangRight.getPosition().getValueAsDouble() <= 0)
-        && (hanger.m_hangRight.getPosition().getValueAsDouble() < 999)) {
-      hanger.HangerStop();
-      return true;
-    } else {
-      return false;
-    }
+    return true;
   }
 }

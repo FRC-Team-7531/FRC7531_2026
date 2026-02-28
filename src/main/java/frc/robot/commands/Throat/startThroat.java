@@ -4,7 +4,6 @@
 
 package frc.robot.commands.Throat;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Hopper;
 import frc.robot.subsystems.SS_Throat;
