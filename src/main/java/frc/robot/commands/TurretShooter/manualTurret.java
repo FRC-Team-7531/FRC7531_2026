@@ -9,14 +9,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Turret;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-// You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands
 public class manualTurret extends Command {
   public SS_Turret turret;
   public double speed;
+  private double rightX;
   private final CommandXboxController joystick2 = new CommandXboxController(1);
-  // Creates a new manualTurret
   public manualTurret(SS_Turret ss_turret) {
-    // Use addRequirements() here to declare subsystem dependencies
     addRequirements(ss_turret);
     this.turret = ss_turret;
   }
@@ -25,25 +23,28 @@ public class manualTurret extends Command {
   @Override
   public void initialize() {}
 
-  public manualTurret withSpeed() {
-    if (Math.abs(joystick2.getRightX()) < 0.1) //Deadzone
-    speed = joystick2.getRightX() * 0.125;
-    return this;
-  }
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    rightX = joystick2.getRightX();
+    if (Math.abs(rightX ) > 0.1) { // Stick deadzone
+    speed = rightX * 0.125;
+    } else {
+    speed = rightX * 0;
+    }
     SmartDashboard.putNumber("manualSpeed", speed);
 
     if ((turret.getTurretRotation() > turret.leftMaximum) && (speed > 0)) {
       turret.setRawSpeed(0);
+      System.out.println("getturretRotation line 43");
       return;
     } else if ((turret.getTurretRotation() < turret.rightMaximum) && (speed < 0)) {
       turret.setRawSpeed(0);
+      System.out.println("getturretRotation line 47");
       return;
     } else {
       turret.setRawSpeed(speed);
+      System.out.println("setting speed of turret");
     }
   }
 

@@ -132,7 +132,7 @@ public class RobotContainer {
 
         configureBindings();
 
-        manualTurret.withSpeed();
+        //manualTurret.execute();
 
         // Warmup PathPlanner to avoid Java pauses
         FollowPathCommand.warmupCommand().schedule();
@@ -158,8 +158,8 @@ public class RobotContainer {
                         .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
                 ));
 
-        turret.setDefaultCommand(stopCommand);
-        //shooter.setDefaultCommand(manualHood);
+        turret.setDefaultCommand(manualTurret);
+        shooter.setDefaultCommand(manualHood);
         throat.setDefaultCommand(stopThroatCommand);
 
         joystick.x().onTrue(pivotUp);

@@ -30,9 +30,9 @@ public class manualHood_cmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (joystick2.getLeftY() > 0.25 || hoodPosition <= 0.8) {
+    if (joystick2.getLeftY() > 0.25 && hoodPosition < 0.8) {
       hoodPosition = hoodPosition + 0.002;
-    } else if (joystick2.getLeftY() < -0.25 || hoodPosition >= 0){
+    } else if (joystick2.getLeftY() < -0.25 && hoodPosition > 0){
       hoodPosition = hoodPosition - 0.002;
     }
     shooter.hoodLifter.setPosition(hoodPosition);
