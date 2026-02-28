@@ -38,7 +38,6 @@ public class SS_Intake extends SubsystemBase {
  
 
 public void intakeUnfold()  {
-  double pivotAngle = pivot.getPosition().getValueAsDouble();
   pivot.set(0.1);
 }
 
@@ -47,10 +46,8 @@ public void intakeUnfold()  {
   }
 
   public void intakeFold()  {
-    double pivotAngle = pivot.getPosition().getValueAsDouble();
     pivot.set(-0.1);
   }
-
 
 
   @Override
