@@ -4,6 +4,7 @@
 
 package frc.robot.commands.TurretShooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Shooter;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -30,12 +31,14 @@ public class manualHood_cmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (joystick2.getLeftY() > 0.25 && hoodPosition < 0.8) {
-      hoodPosition = hoodPosition + 0.002;
-    } else if (joystick2.getLeftY() < -0.25 && hoodPosition > 0){
-      hoodPosition = hoodPosition - 0.002;
+    if (-joystick2.getLeftY() > 0.5 && hoodPosition < 0.8) {
+      hoodPosition = hoodPosition + 0.02;
+    } else if (-joystick2.getLeftY() < -0.5 && hoodPosition > 0){
+      hoodPosition = hoodPosition - 0.02;
     }
     shooter.hoodLifter.setPosition(hoodPosition);
+    SmartDashboard.putNumber("hoodposition", hoodPosition);
+    SmartDashboard.putNumber("rightX", joystick2.getLeftY());
     shooter.leftShooter.set(0);
     shooter.rightShooter.set(0);
   }

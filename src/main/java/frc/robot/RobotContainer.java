@@ -174,8 +174,8 @@ public class RobotContainer {
         joystick2.start().onTrue(hang1);
         joystick2.a().toggleOnTrue(aimCommand); 
 
-        joystick.leftTrigger().onTrue(manualPivotUp); //Intake in manually
-        joystick.rightTrigger().onTrue(manualPivotDown); //Intake out manually
+        joystick.leftTrigger().whileTrue(manualPivotUp); //Intake in manually
+        joystick.rightTrigger().whileTrue(manualPivotDown); //Intake out manually
 
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.

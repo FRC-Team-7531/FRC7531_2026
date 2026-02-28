@@ -26,9 +26,9 @@ public class manualTurret extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    rightX = joystick2.getRightX();
+    rightX = -joystick2.getRightX();
     if (Math.abs(rightX ) > 0.1) { // Stick deadzone
-    speed = rightX * 0.125;
+    speed = rightX * 0.2;
     } else {
     speed = rightX * 0;
     }
