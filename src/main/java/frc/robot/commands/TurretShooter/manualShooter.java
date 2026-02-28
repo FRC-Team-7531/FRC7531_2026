@@ -30,8 +30,8 @@ public class manualShooter extends Command {
   public void execute() {
     // shooter.leftShooter.set(-shooter.shooterSpeed.getDouble(0.5));
     // shooter.rightShooter.set(shooter.shooterSpeed.getDouble(0.5));
-    shooter.leftShooter.set(-.5);
-    shooter.rightShooter.set(.5);
+    shooter.leftShooter.set(-1);
+    shooter.rightShooter.set(1);
   }
 
   // Called once the command ends or is interrupted.
