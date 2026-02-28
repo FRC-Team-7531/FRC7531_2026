@@ -7,14 +7,16 @@ package frc.robot.commands.TurretShooter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Turret;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+// You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands
 public class manualTurret extends Command {
   public SS_Turret turret;
   public double speed;
-  /** Creates a new manualTurret. */
+  private final CommandXboxController joystick2 = new CommandXboxController(1);
+  // Creates a new manualTurret
   public manualTurret(SS_Turret ss_turret) {
-    // Use addRequirements() here to declare subsystem dependencies.
+    // Use addRequirements() here to declare subsystem dependencies
     addRequirements(ss_turret);
     this.turret = ss_turret;
   }
@@ -23,8 +25,9 @@ public class manualTurret extends Command {
   @Override
   public void initialize() {}
 
-  public manualTurret withSpeed(double inputSpeed) {
-    speed = inputSpeed;
+  public manualTurret withSpeed() {
+    if (Math.abs(joystick2.getRightX()) < 0.1) //Deadzone
+    speed = joystick2.getRightX() * 0.125;
     return this;
   }
 
