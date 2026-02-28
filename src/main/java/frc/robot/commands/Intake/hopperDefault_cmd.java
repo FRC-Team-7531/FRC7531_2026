@@ -4,39 +4,27 @@
 
 package frc.robot.commands.Intake;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Hopper;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class rollersOn_cmd extends Command {
-  /** Creates a new rollersOn_cmd. */
-  public Timer timer = new Timer();
+public class hopperDefault_cmd extends Command {
   public SS_Hopper hopper;
-  public NetworkTableInstance inst = NetworkTableInstance.getDefault();
-  public NetworkTableEntry timerEntry = inst.getTable("HotDog").getEntry("HotDogTimer");
-
-  public rollersOn_cmd(SS_Hopper hopper) {
+  /** Creates a new hopperDefault. */
+  public hopperDefault_cmd(SS_Hopper ss_hopper) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(hopper);
-    this.hopper = hopper;
-    timerEntry.setDouble(0);
+    addRequirements(ss_hopper);
+    this.hopper = ss_hopper;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    hopper.hotDogRollersOn();
-    timer.start();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() 
-  {
-    timerEntry.setDouble(timer.get());
+  public void execute() {
+    hopper.hotDogRollersOff();
   }
 
   // Called once the command ends or is interrupted.
@@ -46,14 +34,6 @@ public class rollersOn_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (timer.hasElapsed(5)) {
-      timer.reset();
-      timer.stop();
-      hopper.hotDogRollersOff();
-      return true;
-    }
-    else {
     return false;
-    }
   }
 }

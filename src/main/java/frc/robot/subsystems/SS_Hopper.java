@@ -15,7 +15,7 @@ public class SS_Hopper extends SubsystemBase {
   public TalonFX hotDogRoller = new TalonFX(21, "CANivore");
 
   public SS_Hopper() {
-    setDefaultCommand(new RunCommand(() -> hotDogRollersOff(), this));
+    //setDefaultCommand(new RunCommand(() -> hotDogRollersOff(), this));
     
   }
 

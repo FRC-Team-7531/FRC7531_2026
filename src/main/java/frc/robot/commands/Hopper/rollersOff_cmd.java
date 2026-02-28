@@ -2,48 +2,42 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.TurretShooter;
+package frc.robot.commands.Hopper;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Hopper;
-import frc.robot.subsystems.SS_Shooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class manualShooter extends Command {
-  public SS_Shooter shooter;
+public class rollersOff_cmd extends Command {
+  /** Creates a new rollersOff_cmd. */
   public SS_Hopper hopper;
 
-  
-  /** Creates a new manualShooter. */
-  public manualShooter(SS_Shooter ss_shooter) {
+  public rollersOff_cmd(SS_Hopper hopper) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(ss_shooter);
-    this.shooter = ss_shooter;
+    addRequirements(hopper);
+    this.hopper = hopper;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    hopper.hotDogRollersOff();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    // shooter.leftShooter.set(-shooter.shooterSpeed.getDouble(0.5));
-    // shooter.rightShooter.set(shooter.shooterSpeed.getDouble(0.5));
-    shooter.leftShooter.set(-1);
-    shooter.rightShooter.set(1);
+  public void execute() 
+  {
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooter.leftShooter.set(0);
-    shooter.rightShooter.set(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }
