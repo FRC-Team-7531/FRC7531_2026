@@ -24,7 +24,6 @@ public class SS_Intake extends SubsystemBase {
   public boolean toggle = false;
 
   public SS_Intake() {
-    setDefaultCommand(new RunCommand(() -> stopIntakeRollers(), this));
     pivot.setPosition(0);
     doubleIntakePublisher = intakeTable.getDoubleTopic("Encoder Position").publish();
   }
