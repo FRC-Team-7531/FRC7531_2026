@@ -13,7 +13,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Blue Neutral to Depot Trench"
+            "pathName": "Blue Depot Trench to Neutral"
           }
         },
         {
@@ -27,9 +27,9 @@
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "hotdogOn_cmd"
+                  "pathName": "Blue Depot Neutral to Bump"
                 }
               }
             ]
@@ -42,22 +42,16 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Blue Depot Trench to Neutral"
+                  "pathName": "Blue Depot Over Bump"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "autoRev_cmd"
+                  "name": "autoShoot_cmd"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoRev_cmd"
           }
         },
         {
@@ -67,9 +61,16 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "autoThroat_cmd"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoThroat_cmd"
+                }
+              }
+            ]
           }
         }
       ]

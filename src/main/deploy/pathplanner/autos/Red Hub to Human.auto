@@ -5,34 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "pivotDown_cmd"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Red Depot to Neutral"
+            "pathName": "Red Hub to Outpost"
           }
         },
         {
-          "type": "parallel",
+          "type": "wait",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoIntake_cmd"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "hotdogOn_cmd"
-                }
-              }
-            ]
+            "waitTime": 5.0
           }
         },
         {
@@ -42,13 +23,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red Neutral to Depot Shooting"
+                  "pathName": "Red Outpost to Shooting "
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "autoRev_cmd"
+                  "name": "autoShoot_cmd"
                 }
               }
             ]
@@ -58,12 +39,6 @@
           "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoShoot_cmd"
-                }
-              },
               {
                 "type": "named",
                 "data": {

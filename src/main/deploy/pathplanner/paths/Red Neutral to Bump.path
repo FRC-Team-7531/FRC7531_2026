@@ -3,51 +3,71 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.111433734939759,
-        "y": 1.7073975903614462
+        "x": 10.728,
+        "y": 0.669265060240964
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.89287951807229,
-        "y": 0.734831325301204
+        "x": 10.171982881597717,
+        "y": 0.7032952924393738
       },
       "isLocked": false,
       "linkedName": "RDepotNeutral"
     },
     {
       "anchor": {
-        "x": 9.974722891566264,
-        "y": 0.669265060240964
+        "x": 9.30509272467903,
+        "y": 1.2467189728958648
       },
       "prevControl": {
-        "x": 9.443411624782712,
-        "y": 0.6958306235801412
+        "x": 9.349627852775841,
+        "y": 0.7623994548430395
       },
       "nextControl": {
-        "x": 10.630385542168675,
-        "y": 0.6364819277108438
+        "x": 9.201583452211127,
+        "y": 2.3723823109843094
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 13.165614457831328,
-        "y": 0.6146265060240967
+        "x": 9.30509272467903,
+        "y": 3.368659058487874
       },
       "prevControl": {
-        "x": 12.165614457831328,
-        "y": 0.6146265060240962
+        "x": 8.956708667612624,
+        "y": 3.2293054356613116
+      },
+      "nextControl": {
+        "x": 9.628559201141227,
+        "y": 3.498045649072753
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 10.87067047075606,
+        "y": 2.5535235378031382
+      },
+      "prevControl": {
+        "x": 10.638119828815974,
+        "y": 3.446291012838802
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RDepotTrench"
+      "linkedName": "RDepotFrontBump"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.3480314960629942,
-      "rotationDegrees": 180.0
+      "waypointRelativePos": 1,
+      "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 90.0
     }
   ],
   "constraintZones": [],
@@ -69,7 +89,7 @@
   "folder": "Red Depot",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

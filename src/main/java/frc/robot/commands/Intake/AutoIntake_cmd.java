@@ -6,14 +6,16 @@ package frc.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.SS_Hopper;
 import frc.robot.subsystems.SS_Intake;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutoIntake_cmd extends Command {
   /** Creates a new foldIntake. */
   public SS_Intake intake;
-  public Timer timer = new Timer();
-  public double timerSeconds = 5;
+  //public SS_Hopper hopper;
+  //public Timer timer = new Timer();
+  //public double timerSeconds = 5;
 
   public AutoIntake_cmd(SS_Intake ss_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -23,33 +25,21 @@ public class AutoIntake_cmd extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     intake.intakeRollersOn(1);
-    timer.start();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    intake.stopIntakeRollers();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (timer.hasElapsed(timerSeconds)) {
-      timer.reset();
-      timer.stop();
-      intake.stopIntakeRollers();
-      return true;
-    }
-    else {
-    return false;
-    }
+    return true;
   }
 }

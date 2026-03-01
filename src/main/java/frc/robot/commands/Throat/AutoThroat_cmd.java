@@ -7,36 +7,50 @@ package frc.robot.commands.Throat;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Hopper;
+import frc.robot.subsystems.SS_Intake;
 import frc.robot.subsystems.SS_Throat;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutoThroat_cmd extends Command {
   public SS_Throat throat;
   public SS_Hopper hopper;
+  public SS_Intake intake;
   public Timer timer2 = new Timer();
-  public double timerSeconds = 5;
+  public double timerSeconds = 10;
 
   /** Creates a new startThroat. */
-  public AutoThroat_cmd(SS_Throat ss_throat, SS_Hopper hopper) {
+  public AutoThroat_cmd(SS_Throat ss_throat, SS_Hopper hopper, SS_Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_throat);
     this.throat = ss_throat;
 
     addRequirements(hopper);
     this.hopper = hopper;
+    addRequirements(intake);
+    this.intake = intake;
     
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer2.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    timer2.start();
     throat.throatMotor.set(0.7);
     hopper.hotDogRollersOn();
+    if(timer2.hasElapsed(5))
+    {
+      intake.intakeFold();
+      if (intake.pivot.getPosition().getValueAsDouble() <= 8)
+      {
+        intake.PivotStop();
+      }
+    }
+    
   }
 
   // Called once the command ends or is interrupted.

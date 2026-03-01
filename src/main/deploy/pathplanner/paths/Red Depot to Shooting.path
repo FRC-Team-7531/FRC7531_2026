@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.165614457831328,
-        "y": 0.6146265060240967
+        "x": 13.070242510699,
+        "y": 2.5535235378031382
       },
       "prevControl": null,
       "nextControl": {
-        "x": 14.165614457831328,
-        "y": 0.6146265060240963
+        "x": 13.768930099857348,
+        "y": 2.6052781740370903
       },
       "isLocked": false,
-      "linkedName": "RDepotTrench"
+      "linkedName": "RDepotBackBump"
     },
     {
       "anchor": {
-        "x": 13.471590361445783,
-        "y": 1.7183253012048194
+        "x": 14.597004279600569,
+        "y": 3.329843081312412
       },
       "prevControl": {
-        "x": 13.897771084337348,
-        "y": 1.314
+        "x": 14.426891504758752,
+        "y": 3.146644708405835
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 118.61045966596501
+    "rotation": 158.9624889745782
   },
   "reversed": false,
   "folder": "Red Depot",

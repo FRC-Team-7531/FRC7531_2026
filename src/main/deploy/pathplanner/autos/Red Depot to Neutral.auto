@@ -5,15 +5,40 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Red Hub to Outpost"
+            "name": "pivotDown_cmd"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 5.0
+            "pathName": "Red Depot Trench to Neutral"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoIntake_cmd"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "hotdogOn_cmd"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red Neutral to Bump"
+                }
+              }
+            ]
           }
         },
         {
@@ -23,16 +48,22 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red Outpost to Shooting "
+                  "pathName": "Red Depot Over Bump"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "autoRev_cmd"
+                  "name": "autoShoot_cmd"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Depot to Shooting"
           }
         },
         {
@@ -42,22 +73,10 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "autoShoot_cmd"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "autoThroat_cmd"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red Shooting to Hanging"
           }
         }
       ]

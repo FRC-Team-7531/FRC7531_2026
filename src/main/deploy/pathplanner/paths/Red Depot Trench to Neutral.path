@@ -3,53 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.165614457831328,
-        "y": 0.6146265060240967
+        "x": 12.941,
+        "y": 0.669265060240964
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.744783132530126,
-        "y": 0.6146265060240967
+        "x": 12.691,
+        "y": 0.669265060240964
       },
       "isLocked": false,
       "linkedName": "RDepotTrench"
     },
     {
       "anchor": {
-        "x": 10.783373493975903,
+        "x": 10.728,
         "y": 0.669265060240964
       },
       "prevControl": {
-        "x": 11.952306215753822,
-        "y": 0.6338428565507244
-      },
-      "nextControl": {
-        "x": 9.701530120481927,
-        "y": 0.7020481927710844
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 9.111433734939759,
-        "y": 1.7073975903614462
-      },
-      "prevControl": {
-        "x": 8.936590361445782,
-        "y": 0.9861686746987948
+        "x": 10.978,
+        "y": 0.669265060240964
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "RDepotNeutral"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.9877165354330762,
-      "rotationDegrees": -179.40431637516693
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -63,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Red Depot",

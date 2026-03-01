@@ -13,19 +13,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoRev_cmd"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Blue Outpost to Shooting"
+            "waitTime": 5.0
           }
         },
         {
@@ -39,18 +27,25 @@
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "autoThroat_cmd"
+                  "pathName": "Blue Outpost to Shooting"
                 }
               }
             ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Blue Hub Shooting to Hang"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoThroat_cmd"
+                }
+              }
+            ]
           }
         }
       ]

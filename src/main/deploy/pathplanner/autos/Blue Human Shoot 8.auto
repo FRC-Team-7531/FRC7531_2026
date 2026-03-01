@@ -17,7 +17,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "autoRev_cmd"
+                  "name": "autoShoot_cmd"
                 }
               }
             ]
@@ -27,12 +27,6 @@
           "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoShoot_cmd"
-                }
-              },
               {
                 "type": "named",
                 "data": {

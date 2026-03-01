@@ -11,11 +11,13 @@ import frc.robot.subsystems.SS_Intake;
 public class unfoldIntake_cmd extends Command {
   /** Creates a new foldIntake. */
   public SS_Intake intake;
+  int counter = 0;
 
   public unfoldIntake_cmd(SS_Intake ss_intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_intake);
     this.intake = ss_intake;
+    
   }
 
   // Called when the command is initially scheduled.
@@ -27,6 +29,7 @@ public class unfoldIntake_cmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    counter++;
   }
 
   // Called once the command ends or is interrupted.
@@ -36,11 +39,12 @@ public class unfoldIntake_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (intake.pivot.getPosition().getValueAsDouble() > 14) {
+    if (intake.pivot.getPosition().getValueAsDouble() > 14 || counter > 3*1000 / 20.0) {
       intake.PivotStop();
       return true;
     } else {
       return false;
     }
+    
   }
 }

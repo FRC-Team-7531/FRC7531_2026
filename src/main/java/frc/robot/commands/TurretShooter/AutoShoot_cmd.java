@@ -13,8 +13,8 @@ import frc.robot.subsystems.SS_Shooter;
 public class AutoShoot_cmd extends Command {
   public SS_Shooter shooter;
   public SS_Hopper hopper;
-  public Timer timer2 = new Timer();
-  public double timerSeconds = 10;
+  //public Timer timer2 = new Timer();
+  //public double timerSeconds = 10;
   
   /** Creates a new manualShooter. */
   public AutoShoot_cmd(SS_Shooter ss_shooter) {
@@ -30,7 +30,7 @@ public class AutoShoot_cmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    timer2.start();
+    //timer2.start();
     shooter.leftShooter.set(-1);
     shooter.rightShooter.set(1);
     
@@ -43,16 +43,6 @@ public class AutoShoot_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (timer2.hasElapsed(timerSeconds)) {
-      timer2.reset();
-      timer2.stop();
-      hopper.hotDogRollersOff();
-      shooter.leftShooter.set(0);
-      shooter.rightShooter.set(0);
-      return true;
-    }
-    else {
-      return false;
-    }
+    return true;
   }
 }

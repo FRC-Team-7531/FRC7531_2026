@@ -126,7 +126,7 @@ public class RobotContainer {
         () -> drivetrain.targetToggled
     );
     public AutoIntake_cmd autoIntake = new AutoIntake_cmd(intake);
-    public AutoThroat_cmd autoThroat = new AutoThroat_cmd(throat, hopper);
+    public AutoThroat_cmd autoThroat = new AutoThroat_cmd(throat, hopper, intake);
     public AutoRev_cmd autoRev = new AutoRev_cmd(shooter); 
     public AutoShoot_cmd autoShoot = new AutoShoot_cmd(shooter);
 
@@ -136,8 +136,6 @@ public class RobotContainer {
     
 
     public RobotContainer() {
-        autoChooser = AutoBuilder.buildAutoChooser("Tests");
-        SmartDashboard.putData("Auto Mode", autoChooser);
 
         configureBindings();
 
@@ -146,14 +144,17 @@ public class RobotContainer {
         // Warmup PathPlanner to avoid Java pauses
         FollowPathCommand.warmupCommand().schedule();
 
-        NamedCommands.registerCommand("autoIntake_cmd ", autoIntake);
+        NamedCommands.registerCommand("autoIntake_cmd", autoIntake);
         NamedCommands.registerCommand("autoRev_cmd", autoRev);
         NamedCommands.registerCommand("autoThroat_cmd", autoThroat);
         NamedCommands.registerCommand("pivotDown_cmd", pivotDown);
         NamedCommands.registerCommand("pivotUp_cmd", pivotUp);
-        //NamedCommands.registerCommand("hotdogOnNoTimer_cmd", hotdogOnNoTimer);
         NamedCommands.registerCommand("AlignTower_cmd", alignTowerCommand);
         NamedCommands.registerCommand("autoShoot_cmd", autoShoot);
+
+        autoChooser = AutoBuilder.buildAutoChooser("Blue Depot to Neutral");
+        SmartDashboard.putData("Auto Mode", autoChooser);
+
 
     }
 
@@ -170,7 +171,8 @@ public class RobotContainer {
         turret.setDefaultCommand(manualTurret);
         shooter.setDefaultCommand(manualHood);
         throat.setDefaultCommand(stopThroatCommand);
-        //hopper.setDefaultCommand(hopperDefault);
+
+        ///// Joystick 1 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
         joystick.x().onTrue(pivotUp);
         joystick.a().onTrue(pivotDown);
@@ -180,6 +182,7 @@ public class RobotContainer {
         joystick.leftTrigger().whileTrue(manualPivotUp); //Intake in manually
         joystick.rightTrigger().whileTrue(manualPivotDown); //Intake out manually
 
+        ///// Joystick 2////////////////////////////////////////////////////////////////////////////////////////////////////
         
         joystick2.leftTrigger().whileTrue(shootCommand);
         joystick2.rightTrigger().whileTrue(startThroatCommand);
@@ -189,52 +192,7 @@ public class RobotContainer {
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);
 		
-
-        
-
-        // Idle while the robot is disabled. This ensures the configured
-        // neutral mode is applied to the drive motors while disabled.
-        // final var idle = new SwerveRequest.Idle();
-        // RobotModeTriggers.disabled().whileTrue(
-        //         drivetrain.applyRequest(() -> idle).ignoringDisable(true));
-
-        // // joystick.povUp().whileTrue(drivetrain.applyRequest(() ->
-        // // forwardStraight.withVelocityX(0.5).withVelocityY(0))
-        // // );
-        // // joystick.povDown().whileTrue(drivetrain.applyRequest(() ->
-        // // forwardStraight.withVelocityX(-0.5).withVelocityY(0))
-        // // );
-
-        // Run SysId routines when holding back/start and X/Y.
-        // Note that each routine should be run exactly once in a single log.
-        // joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        // joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        // joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        // joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
-        // joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric)); // Reset the field-centric
-        //                                                                                 // heading on left bumper press.
-
-        // joystick.b().whileTrue(alignTowerCommand); // This should be allign tower right
-        // joystick.x().whileTrue(alignTowerCommand); // This should be allign tower left
-        // joystick.y().whileTrue(drivetrain.run(() -> drivetrain.pigeonCommand())); // Reset Gyro
-        // joystick.rightBumper().whileTrue(intakeRollers).onTrue(hotdogOn);
-        // joystick.povUp().onTrue(pivotUp);
-        // joystick.povDown().onTrue(pivotDown);
-        // joystick.a().onTrue(hotdogOff);
-
-        // joystick2.povLeft().whileTrue(turretForward);
-        // joystick2.povRight().whileTrue(turretReverse);
-        // joystick2.leftTrigger().whileTrue(shootCommand); // Rev Shooter
-        // joystick2.rightTrigger().whileTrue(startThroatCommand); // Feed Balls (Shoot)
-        // joystick2.rightBumper().whileTrue(moveActuatorCommand);
-        // joystick2.x().onTrue(toggleBoolean)
-        //              .onTrue(toggleStation); // Toggle station passing on/off
-        // joystick2.b().onTrue(toggleBoolean)
-        //              .onTrue(toggleDepot); // Toggle depot passing on/off
-        // joystick2.y().whileTrue(aimCommand);
-        // joystick2.x().whileTrue(fireShooterCommand);
-        //joystick2.leftBumper().whileTrue(manualRollersForward);
-        //joystick2.rightBumper().whileTrue(manualRollersReverse);
+   
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }

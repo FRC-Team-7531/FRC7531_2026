@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5732667617689007,
-        "y": 7.41845934379458
+        "x": 12.941,
+        "y": 0.669265060240964
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.077874465049928,
-        "y": 7.41845934379458
+        "x": 13.846562054208272,
+        "y": 0.7679885877318122
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RDepotTrench"
     },
     {
       "anchor": {
-        "x": 5.539942938659058,
-        "y": 7.41845934379458
+        "x": 14.118273894436518,
+        "y": 1.7642653352353794
       },
       "prevControl": {
-        "x": 5.138844507845935,
-        "y": 7.431398002853067
+        "x": 14.18296718972896,
+        "y": 1.3890442225392303
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RDepotShoot8"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 123.69006752597988
   },
   "reversed": false,
-  "folder": "Blue Depot",
+  "folder": "Red Depot",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

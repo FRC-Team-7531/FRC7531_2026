@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5732667617689007,
-        "y": 7.41845934379458
+        "x": 10.87067047075606,
+        "y": 2.5535235378031382
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.077874465049928,
-        "y": 7.41845934379458
+        "x": 11.401155492154064,
+        "y": 2.5535235378031382
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RDepotFrontBump"
     },
     {
       "anchor": {
-        "x": 5.539942938659058,
-        "y": 7.41845934379458
+        "x": 13.070242510699,
+        "y": 2.5535235378031382
       },
       "prevControl": {
-        "x": 5.138844507845935,
-        "y": 7.431398002853067
+        "x": 12.70796005706134,
+        "y": 2.501768901569187
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RDepotBackBump"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Blue Depot",
+  "folder": "Red Depot",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }
