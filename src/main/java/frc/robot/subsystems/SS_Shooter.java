@@ -60,6 +60,7 @@ public class SS_Shooter extends SubsystemBase {
   public NetworkTableInstance inst = NetworkTableInstance.getDefault();
   public NetworkTableEntry actuatorPosition = inst.getTable("Shooter").getEntry("Actuator Position");
   public NetworkTableEntry shooterSpeed = inst.getTable("Shooter").getEntry("Shooter Speed");
+  public NetworkTableEntry hoodEntry = inst.getTable("Shooter").getEntry("Hood Angle");
 
   /** Creates a new SS_Shooter. */
   public SS_Shooter() {
@@ -67,6 +68,7 @@ public class SS_Shooter extends SubsystemBase {
     shooterSpeed.setDouble(0.0);
     leftShooter.setNeutralMode(NeutralModeValue.Coast);
     rightShooter.setNeutralMode(NeutralModeValue.Coast);
+    hoodEntry.setDouble(0);
   }
 
   @Override
@@ -74,6 +76,7 @@ public class SS_Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
     actuatorPosition = inst.getTable("Shooter").getEntry("Actuator Position");
     shooterSpeed = inst.getTable("Shooter").getEntry("Shooter Speed");
+    hoodEntry.setDouble(180 / Math.PI * hoodAngle);
   }
 
   public double calculateGoalAngle(double distance) {
