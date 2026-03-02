@@ -78,7 +78,6 @@ public class SS_Hanger extends SubsystemBase {
 
   public void HangerStop() {
     m_hangLeft.set(0);
-    m_hangRight.set(0);
   }
 
   public void HangLeft() {

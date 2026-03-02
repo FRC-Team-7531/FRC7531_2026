@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.Hang.HangLevel1_cmd;
+import frc.robot.commands.Hang.HangReturn_cmd;
 import frc.robot.commands.Hang.alignTower;
 import frc.robot.commands.Intake.hopperDefault_cmd;
 import frc.robot.commands.Hopper.rollersForwardManual_cmd;
@@ -107,13 +108,15 @@ public class RobotContainer {
     public Command toggleBoolean = drivetrain.run(() -> {drivetrain.targetToggled = !drivetrain.targetToggled;});
     public fireShooter fireShooterCommand = new fireShooter(shooter, drivetrain);
     public lowerHood lowerHoodCommand = new lowerHood(shooter);
-    public HangLevel1_cmd hang1 = new HangLevel1_cmd(hanger);
     public manualFoldIntake_cmd manualPivotUp = new manualFoldIntake_cmd(intake);
     public manualUnfoldIntake_cmd manualPivotDown = new manualUnfoldIntake_cmd(intake);
     public manualHood_cmd manualHood = new manualHood_cmd(shooter);
     public hopperDefault_cmd hopperDefault = new hopperDefault_cmd(hopper);
     public rollersForwardManual_cmd manualRollersForward = new rollersForwardManual_cmd(hopper);
     public rollersReverseManual_cmd manualRollersReverse = new rollersReverseManual_cmd(hopper);
+    public HangLevel1_cmd hangLevel1 = new HangLevel1_cmd(hanger);
+    public HangReturn_cmd hangReturn = new HangReturn_cmd(hanger);
+
 
     public ConditionalCommand toggleDepot = new ConditionalCommand(
         drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
@@ -151,6 +154,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("pivotUp_cmd", pivotUp);
         NamedCommands.registerCommand("AlignTower_cmd", alignTowerCommand);
         NamedCommands.registerCommand("autoShoot_cmd", autoShoot);
+        NamedCommands.registerCommand("HangLevel1_cmd", hangLevel1);
+        NamedCommands.registerCommand("HangReturn_cmd", hangReturn);
 
         autoChooser = AutoBuilder.buildAutoChooser("Blue Depot to Neutral");
         SmartDashboard.putData("Auto Mode", autoChooser);
@@ -187,12 +192,11 @@ public class RobotContainer {
         joystick2.leftTrigger().whileTrue(fireShooterCommand);
         joystick2.rightTrigger().whileTrue(startThroatCommand);
         joystick2.povDown().onTrue(lowerHoodCommand);
-        joystick2.start().onTrue(hang1);
         joystick2.a().toggleOnTrue(aimCommand);
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);
-		
-   
+
+       joystick2.start().onTrue(hangLevel1);
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }
