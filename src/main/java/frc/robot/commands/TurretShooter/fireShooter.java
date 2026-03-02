@@ -49,6 +49,9 @@ public class fireShooter extends Command {
     shooter.setHoodAngle(Math.PI/2 - targetAngle);
     hoodAngle = shooter.hoodLifter.getPosition();
     shooter.setVelocity(distance, hoodAngle);
+
+    // 7.156
+    // 62.053
   }
 
   // Called once the command ends or is interrupted.

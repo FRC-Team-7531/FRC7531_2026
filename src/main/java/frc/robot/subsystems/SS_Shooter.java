@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -16,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SS_Shooter extends SubsystemBase {
-  public final double shooterMaxSpeed = 8; //Theoretical, not gonna be exact yet
+  public final double shooterMaxSpeed = 9; //Theoretical, not gonna be exact yet
 
   // Constants stuff all in meters -ish
   public final double lipHeight = 1.8288;
@@ -31,9 +30,12 @@ public class SS_Shooter extends SubsystemBase {
   public final double hoodRadius = 0.15875; // h_r
   public final double maximumExtension = 0.1; // always 100 mm
 
+  public final double hoodAngleBack = 0.174533;
+  public final double shooterHeight = 0.3048;
+
   // Set these to change the desired trajectory
-  public double targetHeight = 1.8; // h
-  public double lipClearance = 0.7; // b
+  public double targetHeight = 1.8 - shooterHeight; // h
+  public double lipClearance = 0.5; // b
   public double horizontalClearance = 0.2;
 
   // Precalculated stuff
@@ -47,7 +49,7 @@ public class SS_Shooter extends SubsystemBase {
   public double targetAngle;
   public double targetPosition;
   public double nearDistance;
-  public double shooterAngle;
+  public double hoodAngle;
 
   // Hard goods
   public PWM hoodLifter = new PWM(9);
@@ -78,11 +80,11 @@ public class SS_Shooter extends SubsystemBase {
     lipDistance = distance - hoopRadius;
     nearDistance = distance - hoopRadius - lipClearance;
 
-    if (distance < nearBound) {
-      targetAngle = Math.atan((lipHeight*distance)/(nearDistance*nearCenterDistance)-(targetHeight*nearDistance)/(distance*nearCenterDistance));
-    } else {
-      targetAngle = Math.atan((distance*clearanceHeight)/(lipDistance*hoopRadius) - (targetHeight*lipDistance)/(distance*hoopRadius));
-    }
+    // if (distance < nearBound) {
+    //  targetAngle = Math.atan((lipHeight*distance)/(nearDistance*nearCenterDistance)-(targetHeight*nearDistance)/(distance*nearCenterDistance));
+    //} // else {
+       targetAngle = Math.atan((distance*clearanceHeight)/(lipDistance*hoopRadius) - (targetHeight*lipDistance)/(distance*hoopRadius));
+    // }
 
     return targetAngle;
   }
@@ -90,20 +92,20 @@ public class SS_Shooter extends SubsystemBase {
   public void setVelocity(double distance, double shooterPosition) {
     lipDistance = distance - hoopRadius;
     nearDistance = distance - hoopRadius - lipClearance;
-    shooterAngle = Math.PI/2 - 0.591377*shooterPosition - 0.380351; // This is a HEAVY approximation
-    targetVelocity = (distance/Math.cos(shooterAngle))*Math.sqrt(gravity/(distance*Math.tan(shooterAngle) - targetHeight));
-    System.out.println(Math.cos(shooterAngle));
-    System.out.println(Math.tan(shooterAngle));
-    System.out.println(Math.sqrt(gravity/(distance*Math.tan(shooterAngle) - targetHeight)));
+    hoodAngle = Math.PI/2 - 0.591377*shooterPosition - 0.380351 + hoodAngleBack; // This is a HEAVY approximation (will work fine hopefully)
+    targetVelocity = (distance/Math.cos(hoodAngle))*Math.sqrt(gravity/(distance*Math.tan(hoodAngle) - targetHeight));
+    // System.out.println(Math.cos(hoodAngle));
+    // System.out.println(Math.tan(hoodAngle));
+    // System.out.println(Math.sqrt(gravity/(distance*Math.tan(hoodAngle) - targetHeight)));
 
-    if (lipDistance*Math.tan(shooterAngle) - (gravity*Math.pow(lipDistance, 2))/(Math.pow(targetVelocity, 2)*Math.pow(Math.cos(shooterAngle), 2)) < passableHeight) {
+    if (lipDistance*Math.tan(hoodAngle) - (gravity*Math.pow(lipDistance, 2))/(Math.pow(targetVelocity, 2)*Math.pow(Math.cos(hoodAngle), 2)) < passableHeight) {
       System.out.println("Cannot shoot at this angle!!!");
     } else {
-      leftShooter.set(-targetVelocity/shooterMaxSpeed);
-      rightShooter.set(targetVelocity/shooterMaxSpeed);
+      leftShooter.set(-1.1*targetVelocity/shooterMaxSpeed);
+      rightShooter.set(1.1*targetVelocity/shooterMaxSpeed);
     }
 
-    SmartDashboard.putNumber("shooterAngle", shooterAngle);
+    SmartDashboard.putNumber("shooterAngle", hoodAngle);
     SmartDashboard.putNumber("targetVelocity", targetVelocity);
   }
 
