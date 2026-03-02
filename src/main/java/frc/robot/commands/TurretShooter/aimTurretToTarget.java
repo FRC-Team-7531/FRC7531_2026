@@ -21,7 +21,7 @@ public class aimTurretToTarget extends Command {
   public SS_Drivetrain drivetrain;
   public SS_Turret turret;
 
-  PIDController rController = new PIDController(1.2, 1.2, 0); //3.2 0.2 0.002
+  PIDController rController = new PIDController(1.5, 1.2, 0); //3.2 0.2 0.002
   double pidSpeed;
 
   Translation2d estimatedPose;
@@ -69,7 +69,7 @@ public class aimTurretToTarget extends Command {
     }
 
     estimatedPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
-    turretEstimate = estimatedPose.plus(turret.getTurretPosition(drivetrain.pidgey.getYaw().getValueAsDouble() + 180));
+    turretEstimate = estimatedPose.plus(turret.getTurretPosition(drivetrain.pidgey.getRotation2d().getRadians() + Math.PI));
 
     poseDifference = targetPose.minus(turretEstimate);
     targetAngle = poseDifference.getAngle().getDegrees();

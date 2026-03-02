@@ -184,7 +184,7 @@ public class RobotContainer {
 
         ///// Joystick 2////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        joystick2.leftTrigger().whileTrue(shootCommand);
+        joystick2.leftTrigger().whileTrue(fireShooterCommand);
         joystick2.rightTrigger().whileTrue(startThroatCommand);
         joystick2.povDown().onTrue(lowerHoodCommand);
         joystick2.start().onTrue(hang1);
