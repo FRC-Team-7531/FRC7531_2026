@@ -21,7 +21,7 @@ public class autoAimTurretToTarget extends Command {
   public SS_Drivetrain drivetrain;
   public SS_Turret turret;
 
-  PIDController rController = new PIDController(1.5, 1.2, 0); //3.2 0.2 0.002
+  PIDController rController = new PIDController(1.7, 1.2, 0); //3.2 0.2 0.002
   double pidSpeed;
 
   Translation2d estimatedPose;
@@ -79,13 +79,13 @@ public class autoAimTurretToTarget extends Command {
     adjustedTargetAngle = targetAngle - drivetrain.pidgey.getYaw().getValueAsDouble() - 180;
 
     if ((adjustedTargetAngle + flipCorrection > 360*turret.leftMaximum) || (adjustedTargetAngle + flipCorrection < 360*turret.rightMaximum)) {
-      // if (adjustedTargetAngle + flipCorrection >= 0) {
-      //   flipCorrection -= 360;
-      // } else {
-      //   flipCorrection += 360;
-      // }
-      // SmartDashboard.putNumber("flipCorrection", flipCorrection);
-      // flipStatus = "Flipping";
+      if (adjustedTargetAngle + flipCorrection >= 0) {
+        flipCorrection -= 360;
+      } else {
+        flipCorrection += 360;
+      }
+      SmartDashboard.putNumber("flipCorrection", flipCorrection);
+      flipStatus = "Flipping";
       turret.setRawSpeed(0);
     } else {
       rotationsDifference = (turretAngle - adjustedTargetAngle - flipCorrection)/360;
