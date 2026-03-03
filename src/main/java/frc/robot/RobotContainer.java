@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.Hang.HangLevel1_cmd;
 import frc.robot.commands.Hang.HangReturn_cmd;
 import frc.robot.commands.Hang.alignTower;
+import frc.robot.commands.Hang.hangReturnLeft_cmd;
 import frc.robot.commands.Intake.hopperDefault_cmd;
 import frc.robot.commands.Hopper.rollersForwardManual_cmd;
 //import frc.robot.commands.Hopper.rollersOff_cmd;
@@ -51,6 +52,7 @@ import frc.robot.commands.TurretShooter.manualShooter;
 import frc.robot.commands.TurretShooter.manualTurret;
 import frc.robot.commands.TurretShooter.stopTurret;
 import frc.robot.commands.TurretShooter.moveActuator;
+import frc.robot.commands.Hang.*;
 //import frc.robot.commands.TurretShooter.stopShooter; //someone needs to explain this
 import frc.robot.commands.TurretShooter.lowerHood;
 import frc.robot.generated.TunerConstants;
@@ -81,6 +83,7 @@ public class RobotContainer {
 
     private final CommandXboxController joystick = new CommandXboxController(0);
     private final CommandXboxController joystick2 = new CommandXboxController(1);
+    private final CommandXboxController joystick3 = new CommandXboxController(2);
 
     public final SS_Drivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -117,6 +120,9 @@ public class RobotContainer {
     public rollersReverseManual_cmd manualRollersReverse = new rollersReverseManual_cmd(hopper);
     public HangLevel1_cmd hangLevel1 = new HangLevel1_cmd(hanger);
     public HangReturn_cmd hangReturn = new HangReturn_cmd(hanger);
+    public hangReturnLeft_cmd hangReturnLeft = new hangReturnLeft_cmd(hanger);
+    public hangReturnRight_cmd hangReturnRight = new hangReturnRight_cmd(hanger);   
+    public HangLevel1Right_cmd hangLevel1Right = new HangLevel1Right_cmd(hanger);
 
 
     public ConditionalCommand toggleDepot = new ConditionalCommand(
@@ -198,10 +204,18 @@ public class RobotContainer {
         joystick2.a().toggleOnTrue(aimCommand);
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);
-
-       joystick2.start().onTrue(hangLevel1);
+        
+    
+       
 
         drivetrain.registerTelemetry(logger::telemeterize);
+        
+
+        joystick3.x().whileTrue(hangLevel1);
+        joystick3.a().whileTrue(hangReturnRight);
+        joystick3.b().whileTrue(hangReturnLeft);
+        joystick3.y().whileTrue(hangLevel1Right);
+
     }
 
     public Command getAutonomousCommand() {

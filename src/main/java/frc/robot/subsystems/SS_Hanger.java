@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -76,27 +77,43 @@ public class SS_Hanger extends SubsystemBase {
     hangerPublisher.set(m_hangRight.getPosition().getValueAsDouble());
   }
 
-  public void HangerStop() {
+  public void HangerStopLeft() {
     m_hangLeft.set(0);
+  }
+
+  public void HangerStopRight() {
+    m_hangRight.set(0);
   }
 
   public void HangLeft() {
     double leftPosition = m_hangLeft.getPosition().getValueAsDouble();
+    SmartDashboard.putNumber("hangleft", leftPosition);
 
-    m_hangLeft.set(0.1);
+    m_hangLeft.set(0.25);
   }
 
   public void HangRight() {
     double rightPosition = m_hangLeft.getPosition().getValueAsDouble();
 
-    m_hangRight.set(0.1);
+    m_hangRight.set(0.25);
+    SmartDashboard.putNumber("hangRight", rightPosition);
   }
 
   public void HangReturn() {
     double leftPosition = m_hangLeft.getPosition().getValueAsDouble();
     double rightPosition = m_hangRight.getPosition().getValueAsDouble();
-    m_hangLeft.set(-0.1);
-    m_hangRight.set(-0.1);
+    m_hangLeft.set(-0.25);
+    m_hangRight.set(-0.25);
+
+    SmartDashboard.putNumber("hangRight", rightPosition);
+    SmartDashboard.putNumber("hangleft", leftPosition);
   }
 
+  public void HangReturnRight() {
+    m_hangRight.set(-0.25);
+  }
+
+  public void HangReturnLeft() {
+     m_hangLeft.set(-0.25);
+  }
 }

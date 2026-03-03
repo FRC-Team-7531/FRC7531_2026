@@ -4,15 +4,16 @@
 
 package frc.robot.commands.Hang;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Hanger;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class HangLevel2_cmd extends Command {
+public class HangLevel1Right_cmd extends Command {
   /** Creates a new HangLevel1_cmd. */
   public SS_Hanger hanger;
 
-  public HangLevel2_cmd(SS_Hanger ss_hanger) {
+  public HangLevel1Right_cmd(SS_Hanger ss_hanger) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_hanger);
     this.hanger = ss_hanger;
@@ -39,8 +40,8 @@ public class HangLevel2_cmd extends Command {
   @Override
   public boolean isFinished() {
     // idk 999 is my placeholder for all of this
-    if ((hanger.m_hangRight.getPosition().getValueAsDouble() < 999)) {
-      hanger.HangerStopRight();
+    if ((hanger.m_hangRight.getPosition().getValueAsDouble() >= 13) || (hanger.m_hangLeft.getPosition().getValueAsDouble() <= 0)) {
+      hanger.HangerStopLeft();
       return true;
     } else {
       return false;

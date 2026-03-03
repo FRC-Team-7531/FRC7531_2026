@@ -34,7 +34,8 @@ public class autoHangerStart_cmd extends Command {
   @Override
   public void execute() {
     if (hanger.m_hangLeft.getPosition().getValueAsDouble() >= hanger_rotation) {
-      hanger.HangerStop();
+      hanger.HangerStopLeft();
+      hanger.HangerStopRight();
     }
   }
 

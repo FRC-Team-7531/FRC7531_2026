@@ -40,7 +40,7 @@ public class HangReturn_cmd extends Command {
     // idk 999 is my placeholder for all of this
     if ((hanger.m_hangLeft.getPosition().getValueAsDouble() < 999)
         && (hanger.m_hangRight.getPosition().getValueAsDouble() < 999)) {
-      hanger.HangerStop();
+      hanger.HangerStopRight();
       return true;
     } else {
       return false;
