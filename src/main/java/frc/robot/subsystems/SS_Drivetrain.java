@@ -241,6 +241,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
+
         configureAutoBuilder();
 
         poseEstimateAntigua = limelightTableAntigua.getEntry("botpose_orb_wpiblue").getDoubleArray(new double[6]);
@@ -270,6 +271,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
             startSimThread();
         }
         configureAutoBuilder();
+
         // pigeonConfig.MountPose.MountPoseRoll = 0;
         // pigeonConfig.MountPose.MountPoseYaw = 0;
         // pidgey.getConfigurator().apply(pigeonConfig);
@@ -503,11 +505,6 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         return super.samplePoseAt(Utils.fpgaToCurrentTime(timestampSeconds));
     }
 
-    public Command pigeonCommand() {
-        System.out.println("-... .-. --- -.. . -.");
-        return run(() -> pidgey.setYaw(0));
-    }
-
     private void updateVisionFromLimelight(String limelightName) {
         LimelightHelpers.SetRobotOrientation(limelightName, 
             pidgey.getRotation2d().getDegrees(),
@@ -525,5 +522,9 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         // overwriting the estimator's heading, causing the rotated localization.
         Pose2d visionPoseUsingGyroHeading = new Pose2d(mt2.pose.getTranslation(), pidgey.getRotation2d());
         poseEstimator.addVisionMeasurement(visionPoseUsingGyroHeading, mt2.timestampSeconds);
+    }
+
+    public void pigeonCommand() {
+        pidgey.setYaw(0);
     }
 }

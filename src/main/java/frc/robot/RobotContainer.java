@@ -191,7 +191,7 @@ public class RobotContainer {
         
         joystick2.leftTrigger().whileTrue(fireShooterCommand);
         joystick2.rightTrigger().whileTrue(startThroatCommand);
-        joystick2.povDown().onTrue(lowerHoodCommand);
+        //joystick2.povDown().onTrue(lowerHoodCommand);
         joystick2.a().toggleOnTrue(aimCommand);
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);
