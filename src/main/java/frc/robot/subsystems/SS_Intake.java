@@ -18,14 +18,15 @@ public class SS_Intake extends SubsystemBase {
   /** Creates a new SS_Intake. */
   public TalonFX pivot = new TalonFX(20, "rio");
   public TalonFX roller = new TalonFX(25, "rio");
-  public NetworkTableInstance intakeTable = NetworkTableInstance.getDefault();
-  public NetworkTableEntry intakeTableEntry = intakeTable.getEntry("Encoder Position");
-  public DoublePublisher doubleIntakePublisher;
+  public NetworkTableInstance inst = NetworkTableInstance.getDefault();
+  public NetworkTableEntry intakeEntry = inst.getTable("Intake").getEntry("Rollers");
+  public NetworkTableEntry pivotEntry = inst.getTable("Intake").getEntry("Pivot Status");
   public boolean toggle = false;
 
   public SS_Intake() {
     pivot.setPosition(0);
-    doubleIntakePublisher = intakeTable.getDoubleTopic("Encoder Position").publish();
+    intakeEntry.setBoolean(false);
+    pivotEntry.setString("Up");
   }
 
   public void intakeRollersOn(double speed) {
@@ -57,6 +58,15 @@ public void intakeUnfold()  {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    doubleIntakePublisher.set(pivot.getPosition().getValueAsDouble());
+    intakeEntry.setBoolean(toggle);
+    if (pivot.getPosition().getValueAsDouble() > 14) {
+      pivotEntry.setString("Down");
+    }
+    else if (pivot.getPosition().getValueAsDouble() < 0.5) {
+      pivotEntry.setString("Up");
+    }
+    else {
+      pivotEntry.setString("Inbetween");
+    }
   }
 }

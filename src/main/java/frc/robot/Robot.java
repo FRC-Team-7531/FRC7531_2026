@@ -6,11 +6,13 @@ package frc.robot;
 
 import com.ctre.phoenix6.HootAutoReplay;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -20,6 +22,9 @@ public class Robot extends TimedRobot {
     private final RobotContainer m_robotContainer;
 
     PowerDistribution m_pdh = new PowerDistribution(1, ModuleType.kRev);
+
+    private NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    private NetworkTableEntry matchTimerEntry = inst.getTable("Timers").getEntry("Match Time");
 
     /* log and replay timestamp and joystick data */
     private final HootAutoReplay m_timeAndJoystickReplay = new HootAutoReplay()
@@ -31,12 +36,14 @@ public class Robot extends TimedRobot {
         DataLogManager.logNetworkTables(true);
         DataLogManager.start();
         m_pdh.setSwitchableChannel(true);
+        matchTimerEntry.setDouble(0);
     }
 
     @Override
     public void robotPeriodic() {
         m_timeAndJoystickReplay.update();
         CommandScheduler.getInstance().run();
+        matchTimerEntry.setDouble(Timer.getMatchTime());
 
         /*
          * This example of adding Limelight is very simple and may not be sufficient for on-field use.
