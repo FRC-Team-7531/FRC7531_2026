@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.925204819277107,
-        "y": 7.433518072289157
+        "x": 10.805977175463623,
+        "y": 5.477660485021398
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.976707439539569,
-        "y": 7.18888062604247
+        "x": 11.805977175463623,
+        "y": 5.477660485021398
       },
       "isLocked": false,
-      "linkedName": "RHumanTrench"
+      "linkedName": "RHumanBumpFront"
     },
     {
       "anchor": {
-        "x": 13.49344578313253,
-        "y": 6.231469879518072
+        "x": 13.38077032810271,
+        "y": 5.477660485021398
       },
       "prevControl": {
-        "x": 13.078192771084337,
-        "y": 7.029192771084338
+        "x": 12.38077032810271,
+        "y": 5.477660485021398
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "RNeutralShoot"
+      "linkedName": "RHumanBackBump"
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -120.80144597613685
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Red Human",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -42,7 +42,7 @@ public class AutoThroat_cmd extends Command {
   public void execute() {
     throat.throatMotor.set(0.7);
     hopper.hotDogRollersOn();
-    if(timer2.hasElapsed(5))
+    if(timer2.hasElapsed(3))
     {
       intake.intakeFold();
       if (intake.pivot.getPosition().getValueAsDouble() <= 8)

@@ -27,9 +27,9 @@
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "hotdogOn_cmd"
+                  "pathName": "Red Neutral to Human Bump"
                 }
               }
             ]
@@ -42,34 +42,41 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red Neutral to Human Trench"
+                  "pathName": "Red Human Over Bump"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "autoRev_cmd"
+                  "name": "autoShoot_cmd"
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "autoRev_cmd"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Red Human Trench to Shoot"
+            "pathName": "Red Human Bump to Shoot"
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "autoThroat_cmd"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoAimTurret_cmd"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoThroat_cmd"
+                }
+              }
+            ]
           }
         }
       ]

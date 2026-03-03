@@ -44,6 +44,7 @@ import frc.robot.commands.Throat.stopThroat;
 import frc.robot.commands.TurretShooter.AutoRev_cmd;
 import frc.robot.commands.TurretShooter.AutoShoot_cmd;
 import frc.robot.commands.TurretShooter.aimTurretToTarget;
+import frc.robot.commands.TurretShooter.autoAimTurretToTarget;
 import frc.robot.commands.TurretShooter.fireShooter;
 import frc.robot.commands.TurretShooter.manualHood_cmd;
 import frc.robot.commands.TurretShooter.manualShooter;
@@ -132,6 +133,7 @@ public class RobotContainer {
     public AutoThroat_cmd autoThroat = new AutoThroat_cmd(throat, hopper, intake);
     public AutoRev_cmd autoRev = new AutoRev_cmd(shooter); 
     public AutoShoot_cmd autoShoot = new AutoShoot_cmd(shooter);
+    public autoAimTurretToTarget autoAim = new autoAimTurretToTarget(drivetrain, turret);
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
@@ -156,6 +158,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("autoShoot_cmd", autoShoot);
         NamedCommands.registerCommand("HangLevel1_cmd", hangLevel1);
         NamedCommands.registerCommand("HangReturn_cmd", hangReturn);
+        NamedCommands.registerCommand("autoAimTurret_cmd", autoAim);
 
         autoChooser = AutoBuilder.buildAutoChooser("Blue Depot to Neutral");
         SmartDashboard.putData("Auto Mode", autoChooser);

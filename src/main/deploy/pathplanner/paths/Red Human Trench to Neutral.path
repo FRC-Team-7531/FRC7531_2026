@@ -3,53 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 12.925204819277107,
-        "y": 7.433518072289157
+        "x": 12.940855920114121,
+        "y": 7.302011412268189
       },
       "prevControl": null,
       "nextControl": {
-        "x": 12.280469879518071,
-        "y": 7.44444578313253
+        "x": 12.255106990014264,
+        "y": 7.185563480741797
       },
       "isLocked": false,
       "linkedName": "RHumanTrench"
     },
     {
       "anchor": {
-        "x": 11.078421686746987,
-        "y": 7.433518072289157
+        "x": 10.805977175463623,
+        "y": 7.302011412268189
       },
       "prevControl": {
-        "x": 12.395046466672254,
-        "y": 7.482891501536356
-      },
-      "nextControl": {
-        "x": 10.204204819277109,
-        "y": 7.400734939759036
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 9.100506024096385,
-        "y": 6.31889156626506
-      },
-      "prevControl": {
-        "x": 9.14421686746988,
-        "y": 6.6904337349397585
+        "x": 11.220014265335235,
+        "y": 7.237318116975748
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "RHumanNeutral"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1.1253112033195034,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -63,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -88.31531568210363
+    "rotation": -179.83235361926847
   },
   "reversed": false,
   "folder": "Red Human",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -179.82546696429867
   },
   "useDefaultConstraints": true
 }

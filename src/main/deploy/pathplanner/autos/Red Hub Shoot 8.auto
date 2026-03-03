@@ -30,6 +30,25 @@
               {
                 "type": "named",
                 "data": {
+                  "name": "pivotDown_cmd"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoAimTurret_cmd"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
                   "name": "autoThroat_cmd"
                 }
               }

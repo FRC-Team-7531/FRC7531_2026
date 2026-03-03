@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 13.38077032810271,
+        "y": 5.477660485021398
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 13.74305278174037,
+        "y": 5.632924393723252
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RHumanBackBump"
     },
     {
       "anchor": {
-        "x": 2.758131241084165,
-        "y": 7.0
+        "x": 14.48055634807418,
+        "y": 5.3353352353780314
       },
       "prevControl": {
-        "x": 1.7581312410841652,
-        "y": 7.0
+        "x": 14.157089871611982,
+        "y": 5.529415121255349
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "RNeutralShoot"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 42.3974377975001
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Red Human",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
