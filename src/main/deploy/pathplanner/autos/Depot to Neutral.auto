@@ -17,15 +17,15 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "autoIntake_cmd"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoIntake_cmd"
-                }
-              },
               {
                 "type": "path",
                 "data": {
@@ -68,12 +68,6 @@
                 "type": "named",
                 "data": {
                   "name": "autoThroat_cmd"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoAimTurret_cmd"
                 }
               }
             ]

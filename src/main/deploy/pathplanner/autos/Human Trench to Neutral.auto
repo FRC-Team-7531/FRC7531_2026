@@ -67,12 +67,6 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "autoAimTurret_cmd"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
                   "name": "autoThroat_cmd"
                 }
               }
