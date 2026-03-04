@@ -131,8 +131,6 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     NetworkTable limelightTableBarbuda = NetworkTableInstance.getDefault().getTable("limelight-barbuda");
     double[] limelightEstimateAntigua = new double[6];
     double[] limelightEstimateBarbuda = new double[6];
-    double[] poseEstimateAntigua;
-    double[] poseEstimateBarbuda;
     double stdDev;
 
     // Gyro Stuff
@@ -156,6 +154,8 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     public Translation2d neutralTarget = hubPose;
 
     public DriverStation.Alliance alliance;
+
+    public double orientationShift = 0;
 
     // Other Network Table Stuff
     NetworkTable shooter = NetworkTableInstance.getDefault().getTable("Shooter");
@@ -243,9 +243,6 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         }
 
         configureAutoBuilder();
-
-        poseEstimateAntigua = limelightTableAntigua.getEntry("botpose_orb_wpiblue").getDoubleArray(new double[6]);
-        poseEstimateBarbuda = limelightTableBarbuda.getEntry("botpose_orb_wpiblue").getDoubleArray(new double[6]);
     }
 
     /**
@@ -506,12 +503,26 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     }
 
     private void updateVisionFromLimelight(String limelightName) {
+        switch (alliance) {
+            case Blue:
+                orientationShift = 0;
+                break;
+            case Red:
+                orientationShift = 180;
+                break;
+        }
         LimelightHelpers.SetRobotOrientation(limelightName, 
-            pidgey.getRotation2d().getDegrees(),
+            pidgey.getRotation2d().getDegrees() + orientationShift,
             pidgey.getAngularVelocityZDevice().getValueAsDouble(), 0, 0, 0, 0);
-        
-        LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
-        
+        LimelightHelpers.PoseEstimate mt2 = null;
+        switch (alliance) {
+            case Blue:
+                mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(limelightName);
+            break;
+            case Red:
+                mt2 = LimelightHelpers.getBotPoseEstimate_wpiRed_MegaTag2(limelightName);
+            break;
+        }
         if (mt2 == null || mt2.tagCount == 0) return;
         if (Math.abs(pidgey.getAngularVelocityZDevice().getValueAsDouble()) > 720) return; // Reject during fast rotation
         
