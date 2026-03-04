@@ -9,6 +9,8 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -21,7 +23,7 @@ public class aimTurretToTarget extends Command {
   public SS_Drivetrain drivetrain;
   public SS_Turret turret;
 
-  PIDController rController = new PIDController(1.2, 1.2, 0); //3.2 0.2 0.002
+  PIDController rController = new PIDController(1.5, 1.2, 0); //3.2 0.2 0.002
   double pidSpeed;
 
   Translation2d estimatedPose;
@@ -44,12 +46,17 @@ public class aimTurretToTarget extends Command {
   public CommandXboxController controller;
   public CANcoder encoder;
 
+  public NetworkTableInstance inst = NetworkTableInstance.getDefault();
+  public NetworkTableEntry aligning = inst.getTable("Shooter").getEntry("Aligning Status");
+  public NetworkTableEntry turretEntry = inst.getTable("Shooter").getEntry("Turret Angle");
+
   public aimTurretToTarget(SS_Drivetrain ss_drivetrain, SS_Turret ss_turret) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_turret);
     this.drivetrain = ss_drivetrain;
     this.turret = ss_turret;
     this.encoder = ss_turret.encoder;
+    aligning.setBoolean(false);
   }
 
   // Called when the command is initially scheduled.
@@ -59,6 +66,7 @@ public class aimTurretToTarget extends Command {
     rController.setSetpoint(0);
     rController.setTolerance(0.01);
     targetPose = drivetrain.hubPose;
+    aligning.setBoolean(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -69,7 +77,7 @@ public class aimTurretToTarget extends Command {
     }
 
     estimatedPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
-    turretEstimate = estimatedPose.plus(turret.getTurretPosition(drivetrain.pidgey.getYaw().getValueAsDouble() + 180));
+    turretEstimate = estimatedPose.plus(turret.getTurretPosition(drivetrain.pidgey.getRotation2d().getRadians() + Math.PI));
 
     poseDifference = targetPose.minus(turretEstimate);
     targetAngle = poseDifference.getAngle().getDegrees();
@@ -104,11 +112,15 @@ public class aimTurretToTarget extends Command {
     SmartDashboard.putNumber("rotationsDifference", rotationsDifference);
     SmartDashboard.putString("flipStatus", flipStatus);
     SmartDashboard.putNumber("correctedAngle", adjustedTargetAngle + flipCorrection);
+
+    turretEntry.setDouble(targetAngle);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    aligning.setBoolean(false);
+  }
 
   // Returns true when the command should end.
   @Override
