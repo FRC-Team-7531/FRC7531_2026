@@ -22,12 +22,14 @@ public class HangLevel1_cmd extends Command {
   @Override
   public void initialize() {
     hanger.HangLeft();
+    hanger.HangRight();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     hanger.HangLeft();
+    hanger.HangRight();
   }
 
   // Called once the command ends or is interrupted.

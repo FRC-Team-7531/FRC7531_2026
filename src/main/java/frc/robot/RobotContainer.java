@@ -50,7 +50,6 @@ import frc.robot.commands.TurretShooter.manualHood_cmd;
 import frc.robot.commands.TurretShooter.manualShooter;
 import frc.robot.commands.TurretShooter.manualTurret;
 import frc.robot.commands.TurretShooter.stopTurret;
-import frc.robot.commands.TurretShooter.moveActuator;
 //import frc.robot.commands.TurretShooter.stopShooter; //someone needs to explain this
 import frc.robot.commands.TurretShooter.lowerHood;
 import frc.robot.generated.TunerConstants;
@@ -96,7 +95,6 @@ public class RobotContainer {
     public manualTurret manualTurret = new manualTurret(turret);
     public stopTurret stopCommand = new stopTurret(turret);
     public manualShooter shootCommand = new manualShooter(shooter);
-    public moveActuator moveActuatorCommand = new moveActuator(shooter);
     public stopThroat stopThroatCommand = new stopThroat(throat, hopper);
     public startThroat startThroatCommand = new startThroat(throat, hopper);
     public intakeToggle_cmd intakeToggle = new intakeToggle_cmd(intake);

@@ -34,6 +34,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -61,12 +62,17 @@ public class SS_Hanger extends SubsystemBase {
   public NetworkTableInstance hangerTable = NetworkTableInstance.getDefault();
   public NetworkTableEntry hangerTableEntry = hangerTable.getEntry("Encoder Position");
   public DoublePublisher hangerPublisher;
+  public NetworkTableInstance inst= NetworkTableInstance.getDefault();
+  public NetworkTableEntry rightPositionEntry = inst.getTable("Hanger").getEntry("Right Position");
+  public NetworkTableEntry leftPositionEntry = inst.getTable("Hanger").getEntry("Left Position");
 
   /** Creates a new SS_Hanger. */
   public SS_Hanger() {
     m_hangLeft.setPosition(0);
     m_hangRight.setPosition(0);
     hangerPublisher = hangerTable.getDoubleTopic("Encoder Position").publish();
+    rightPositionEntry.setDouble(0);
+    leftPositionEntry.setDouble(0);
   }
 
   @Override
@@ -78,18 +84,22 @@ public class SS_Hanger extends SubsystemBase {
 
   public void HangerStop() {
     m_hangLeft.set(0);
+    m_hangRight.set(0);
   }
 
   public void HangLeft() {
     double leftPosition = m_hangLeft.getPosition().getValueAsDouble();
-
+    //SmartDashboard.getPosition(leftPosition);
     m_hangLeft.set(0.1);
+    rightPositionEntry.setDouble(leftPosition);
   }
 
   public void HangRight() {
     double rightPosition = m_hangLeft.getPosition().getValueAsDouble();
 
     m_hangRight.set(0.1);
+    leftPositionEntry.setDouble(rightPosition);
+    
   }
 
   public void HangReturn() {
@@ -97,6 +107,7 @@ public class SS_Hanger extends SubsystemBase {
     double rightPosition = m_hangRight.getPosition().getValueAsDouble();
     m_hangLeft.set(-0.1);
     m_hangRight.set(-0.1);
+
   }
 
 }

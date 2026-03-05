@@ -23,7 +23,7 @@ public class aimTurretToTarget extends Command {
   public SS_Drivetrain drivetrain;
   public SS_Turret turret;
 
-  PIDController rController = new PIDController(1.7, 1.2, 0); //3.2 0.2 0.002
+  PIDController rController = new PIDController(1.8, 1.3, 0); //3.2 0.2 0.002 // 1.7, 1.2, 0
   double pidSpeed;
 
   Translation2d estimatedPose;
@@ -64,7 +64,7 @@ public class aimTurretToTarget extends Command {
   public void initialize() {
     rController.reset();
     rController.setSetpoint(0);
-    rController.setTolerance(0.01);
+    rController.setTolerance(0.005); // 0.01
     targetPose = drivetrain.hubPose;
     aligning.setBoolean(true);
   }
