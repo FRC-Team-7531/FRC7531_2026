@@ -20,13 +20,20 @@ public class HangReturn_cmd extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    hanger.HangReturn();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if(hanger.m_hangLeft.getPosition().getValueAsDouble() > 0)
+    {
+      hanger.HangReturn();
+    }
+    else
+    {
+      hanger.HangerStop();
+    }
+
   }
 
   // Called once the command ends or is interrupted.

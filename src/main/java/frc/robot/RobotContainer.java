@@ -197,7 +197,8 @@ public class RobotContainer {
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);
 
-       joystick2.start().onTrue(hangLevel1);
+        joystick2.start().onTrue(hangLevel1);
+        joystick2.y().onTrue(hangReturn);
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }
