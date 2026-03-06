@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.8708559201141237,
-        "y": 5.503537803138374
+        "x": 3.1462910128388017,
+        "y": 5.671740370898717
       },
       "isLocked": false,
       "linkedName": "BDepotBackBump"
     },
     {
       "anchor": {
-        "x": 1.7618544935805986,
-        "y": 4.766034236804566
+        "x": 2.874579172610556,
+        "y": 5.283580599144081
       },
       "prevControl": {
-        "x": 1.9559343794579167,
-        "y": 5.4517831669044226
+        "x": 2.9389948352506394,
+        "y": 5.525139334044392
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 157.0112831979193
+    "rotation": 139.76364169072608
   },
   "reversed": false,
   "folder": "Blue Depot",
