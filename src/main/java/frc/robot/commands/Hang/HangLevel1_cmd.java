@@ -41,7 +41,8 @@ public class HangLevel1_cmd extends Command {
   @Override
   public boolean isFinished() {
     // idk 999 is my placeholder for all of this
-    if ((hanger.m_hangLeft.getPosition().getValueAsDouble() >= 13) || hanger.m_hangLeft.getPosition().getValueAsDouble() < 0) {
+    //(hanger.m_hangLeft.getPosition().getValueAsDouble() >= 13) ||
+    if ( hanger.m_hangLeft.getPosition().getValueAsDouble() < -.8) {
       hanger.HangerStop();
       return true;
     } else {

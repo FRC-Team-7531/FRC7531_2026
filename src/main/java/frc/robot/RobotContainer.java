@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.Hang.HangLevel1_cmd;
 import frc.robot.commands.Hang.HangReturn_cmd;
+import frc.robot.commands.Hang.HangerDefault_cmd;
 import frc.robot.commands.Hang.alignTower;
 import frc.robot.commands.Intake.hopperDefault_cmd;
 import frc.robot.commands.Hopper.rollersForwardManual_cmd;
@@ -111,6 +112,8 @@ public class RobotContainer {
     public manualUnfoldIntake_cmd manualPivotDown = new manualUnfoldIntake_cmd(intake);
     public manualHood_cmd manualHood = new manualHood_cmd(shooter);
     public hopperDefault_cmd hopperDefault = new hopperDefault_cmd(hopper);
+    public HangerDefault_cmd hangerDefault = new HangerDefault_cmd(hanger);
+   
     public rollersForwardManual_cmd manualRollersForward = new rollersForwardManual_cmd(hopper);
     public rollersReverseManual_cmd manualRollersReverse = new rollersReverseManual_cmd(hopper);
     public HangLevel1_cmd hangLevel1 = new HangLevel1_cmd(hanger);
@@ -177,6 +180,7 @@ public class RobotContainer {
         turret.setDefaultCommand(manualTurret);
         shooter.setDefaultCommand(manualHood);
         throat.setDefaultCommand(stopThroatCommand);
+        hanger.setDefaultCommand(hangerDefault);
 
         ///// Joystick 1 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -197,8 +201,8 @@ public class RobotContainer {
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);
 
-        joystick2.start().onTrue(hangLevel1);
-        joystick2.y().onTrue(hangReturn);
+        joystick2.start().whileTrue(hangLevel1);
+        joystick2.y().whileTrue(hangReturn);
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }

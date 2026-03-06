@@ -7,44 +7,40 @@ package frc.robot.commands.Hang;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.SS_Hanger;
 
-/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class HangReturn_cmd extends Command {
-  /** Creates a new HangLevel1_cmd. */
-  public SS_Hanger hanger;
 
-  public HangReturn_cmd(SS_Hanger ss_hanger) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(ss_hanger);
+/* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
+public class HangerDefault_cmd extends Command {
+  /** Creates a new HangerDefault_cmd. */
+  public SS_Hanger hanger;
+  
+  public HangerDefault_cmd(SS_Hanger ss_hanger) {
+    
+  addRequirements(ss_hanger);
     this.hanger = ss_hanger;
+
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    hanger.HangLeft();
+    hanger.HangRight();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-      hanger.HangReturn();
-  
+hanger.HangerStop();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // idk 999 is my placeholder for all of this
-    // if ((hanger.m_hangLeft.getPosition().getValueAsDouble() < 999)
-    //     && (hanger.m_hangRight.getPosition().getValueAsDouble() < 999)) {
-    //   hanger.HangerStop();
-    //   return true;
-    // } else {
-      return false;
-    }
+    return false;
   }
-
+}
