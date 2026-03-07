@@ -66,11 +66,11 @@ public class AutoThroat_cmd extends Command {
     if (timer2.hasElapsed(timerSeconds)) {
       timer2.reset();
       timer2.stop();
-      hopper.hotDogRollersOff();
+      hopper.hotDogRollersOff(); 
       throat.throatMotor.set(0);
       return true;
     }
-    else {
+    else { 
       return false;
     }
   }
