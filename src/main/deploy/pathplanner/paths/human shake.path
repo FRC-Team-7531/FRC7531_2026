@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.38077032810271,
-        "y": 5.477660485021398
+        "x": 13.755991440798857,
+        "y": 4.727218259629101
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.781868758915833,
-        "y": 5.438844507845934
+        "x": 13.955991440798856,
+        "y": 4.877218259629101
       },
       "isLocked": false,
-      "linkedName": "RHumanBackBump"
+      "linkedName": "RNeutralShoot"
+    },
+    {
+      "anchor": {
+        "x": 13.56191155492154,
+        "y": 4.597831669044222
+      },
+      "prevControl": {
+        "x": 13.738688250218178,
+        "y": 4.774608364340859
+      },
+      "nextControl": {
+        "x": 13.385134859624902,
+        "y": 4.421054973747586
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,15 +36,20 @@
         "y": 4.727218259629101
       },
       "prevControl": {
-        "x": 14.286476462196857,
-        "y": 5.03774607703281
+        "x": 13.565144869456578,
+        "y": 4.565732699262558
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "RNeutralShoot"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2.0,
+      "rotationDegrees": 42.397
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -48,7 +69,7 @@
   "folder": "Red Human",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 42.397
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.4050641940085593,
-        "y": 5.503537803138374
+        "x": 0.43483132530120483,
+        "y": 7.269602409638554
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1462910128388017,
-        "y": 5.671740370898717
+        "x": 0.43483132530120483,
+        "y": 7.5318674698795185
       },
       "isLocked": false,
-      "linkedName": "BDepotBackBump"
+      "linkedName": "BDepotStart"
     },
     {
       "anchor": {
-        "x": 2.874579172610556,
-        "y": 5.283580599144081
+        "x": 0.43483132530120483,
+        "y": 4.952927710843373
       },
       "prevControl": {
-        "x": 2.9389948352506394,
-        "y": 5.525139334044392
+        "x": 0.4479710335818955,
+        "y": 5.202582168176501
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BDepotShoot"
+      "linkedName": "BDepotEnd"
     }
   ],
   "rotationTargets": [],
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 151.21338168998602
+    "rotation": -90.0
   },
   "reversed": false,
-  "folder": "Blue Depot",
+  "folder": "Hub to Human",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

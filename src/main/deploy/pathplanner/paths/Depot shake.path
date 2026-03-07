@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.4050641940085593,
-        "y": 5.503537803138374
+        "x": 2.874579172610556,
+        "y": 5.283580599144081
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1462910128388017,
-        "y": 5.671740370898717
+        "x": 2.6158059914407983,
+        "y": 5.438844507845934
       },
       "isLocked": false,
-      "linkedName": "BDepotBackBump"
+      "linkedName": "BDepotShoot"
+    },
+    {
+      "anchor": {
+        "x": 2.6416833095577745,
+        "y": 5.387089871611984
+      },
+      "prevControl": {
+        "x": 2.8496958831422363,
+        "y": 5.248414822555677
+      },
+      "nextControl": {
+        "x": 2.408787446504993,
+        "y": 5.542353780313837
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,15 +36,20 @@
         "y": 5.283580599144081
       },
       "prevControl": {
-        "x": 2.9389948352506394,
-        "y": 5.525139334044392
+        "x": 3.0660902833903,
+        "y": 5.122883696722446
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "BDepotShoot"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.2515991471215354,
+      "rotationDegrees": 151.213
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 151.21338168998602
+    "rotation": 151.213
   },
   "reversed": false,
   "folder": "Blue Depot",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 151.213
   },
   "useDefaultConstraints": true
 }

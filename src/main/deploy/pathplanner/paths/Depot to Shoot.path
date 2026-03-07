@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.4050641940085593,
-        "y": 5.503537803138374
+        "x": 0.43483132530120483,
+        "y": 4.952927710843373
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1462910128388017,
-        "y": 5.671740370898717
+        "x": 1.0577108433734939,
+        "y": 5.4883855421686745
       },
       "isLocked": false,
-      "linkedName": "BDepotBackBump"
+      "linkedName": "BDepotEnd"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 5.283580599144081
       },
       "prevControl": {
-        "x": 2.9389948352506394,
-        "y": 5.525139334044392
+        "x": 2.1723373493975906,
+        "y": 5.652301204819277
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 151.21338168998602
+    "rotation": 151.213
   },
   "reversed": false,
-  "folder": "Blue Depot",
+  "folder": "Hub to Human",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

@@ -90,14 +90,14 @@ public class SS_Hanger extends SubsystemBase {
   public void HangLeft() {
     double leftPosition = m_hangLeft.getPosition().getValueAsDouble();
     //SmartDashboard.getPosition(leftPosition);
-    m_hangLeft.set(0.2);
+    m_hangLeft.set(0.6);
     rightPositionEntry.setDouble(leftPosition);
   }
 
   public void HangRight() {
     double rightPosition = m_hangLeft.getPosition().getValueAsDouble();
 
-    m_hangRight.set(0.2);
+    m_hangRight.set(0.6);
     leftPositionEntry.setDouble(rightPosition);
     
   }
@@ -105,8 +105,8 @@ public class SS_Hanger extends SubsystemBase {
   public void HangReturn() {
     double leftPosition = m_hangLeft.getPosition().getValueAsDouble();
     double rightPosition = m_hangRight.getPosition().getValueAsDouble();
-    m_hangLeft.set(-0.2);
-    m_hangRight.set(-0.2);
+    m_hangLeft.set(-0.4);
+    m_hangRight.set(-0.4);
 
   }
 

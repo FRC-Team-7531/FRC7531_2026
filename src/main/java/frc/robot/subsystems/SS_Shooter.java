@@ -115,6 +115,7 @@ public class SS_Shooter extends SubsystemBase {
   public void setHoodAngle(double angle) {
     SmartDashboard.putNumber("targetingAngle", angle);
     targetPosition = (Math.sqrt(Math.pow(hoodRadius*Math.sin(angle) + shooterAxleY, 2) + Math.pow(shooterAxleX - hoodRadius*Math.cos(angle), 2)) - actuatorMinimum)/(maximumExtension);
-    hoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.8));
+    // hoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.8));
+    System.out.println(targetPosition);
   }
 }
