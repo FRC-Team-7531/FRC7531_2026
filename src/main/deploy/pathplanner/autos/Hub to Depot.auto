@@ -11,22 +11,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "pivotDown_cmd"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoIntake_cmd"
-                }
-              }
-            ]
+            "name": "pivotDown_cmd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake_cmd"
           }
         },
         {
@@ -42,7 +35,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "autoRev_cmd"
+                  "name": "autoShoot_cmd"
                 }
               },
               {
