@@ -4,8 +4,6 @@
 
 package frc.robot.commands.TurretShooter;
 
-import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -13,7 +11,7 @@ import frc.robot.subsystems.SS_Drivetrain;
 import frc.robot.subsystems.SS_Shooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class fireShooter extends Command {
+public class lobShooter extends Command {
   public SS_Shooter shooter;
   public SS_Drivetrain drivetrain;
 
@@ -22,9 +20,10 @@ public class fireShooter extends Command {
   public Translation2d botPose;
   public Translation2d targetPose;
   public double targetAngle;
+  double speed;
 
   /** Creates a new startShooter. */
-  public fireShooter(SS_Shooter ss_shooter, SS_Drivetrain ss_drivetrain) {
+  public lobShooter(SS_Shooter ss_shooter, SS_Drivetrain ss_drivetrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_shooter);
     this.shooter = ss_shooter;
@@ -45,18 +44,12 @@ public class fireShooter extends Command {
     }
     
     botPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
-    distance = 1.15*botPose.getDistance(targetPose) - 1.15;
-    SmartDashboard.putNumber("shootingDistance", distance);
-    Logger.recordOutput("shootingDistance", distance);
-    Logger.recordOutput("poseDistance", botPose.getDistance(targetPose));
-    SmartDashboard.putNumber("poseDistance", botPose.getDistance(targetPose));
-    targetAngle = shooter.calculateGoalAngle(distance);
-    shooter.setHoodAngle(Math.PI/2 - targetAngle + shooter.hoodAngleBack);
-    hoodAngle = shooter.hoodLifter.getPosition();
-    shooter.setVelocity(distance, hoodAngle);
-
-    // 7.156
-    // 62.053
+    distance = botPose.getDistance(targetPose);
+    shooter.hoodLifter.setPosition(0.65);
+    speed = (distance - 4.5)*0.4 + 0.6;
+    SmartDashboard.putNumber("lobSpeed", speed);
+    shooter.leftShooter.set(-speed);
+    shooter.rightShooter.set(speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -66,7 +59,7 @@ public class fireShooter extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (drivetrain.mode == SS_Drivetrain.ShootMode.LOB) {
+    if (drivetrain.mode == SS_Drivetrain.ShootMode.SCORE) {
       return true;
     } else {
       return false;

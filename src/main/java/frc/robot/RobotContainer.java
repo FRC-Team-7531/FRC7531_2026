@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
@@ -47,6 +48,7 @@ import frc.robot.commands.TurretShooter.AutoShoot_cmd;
 import frc.robot.commands.TurretShooter.aimTurretToTarget;
 import frc.robot.commands.TurretShooter.autoAimTurretToTarget;
 import frc.robot.commands.TurretShooter.fireShooter;
+import frc.robot.commands.TurretShooter.lobShooter;
 import frc.robot.commands.TurretShooter.manualHood_cmd;
 import frc.robot.commands.TurretShooter.manualShooter;
 import frc.robot.commands.TurretShooter.manualTurret;
@@ -61,6 +63,7 @@ import frc.robot.subsystems.SS_Shooter;
 import frc.robot.subsystems.SS_Throat;
 import frc.robot.subsystems.SS_Turret;
 import frc.robot.subsystems.SS_Hanger;
+import frc.robot.subsystems.SS_Drivetrain.ShootMode;
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top
@@ -107,6 +110,11 @@ public class RobotContainer {
     //public rollersOff_cmd hotdogOff = new rollersOff_cmd(hopper);
     public Command toggleBoolean = drivetrain.run(() -> {drivetrain.targetToggled = !drivetrain.targetToggled;});
     public fireShooter fireShooterCommand = new fireShooter(shooter, drivetrain);
+    public lobShooter lobShooterCommand = new lobShooter(shooter, drivetrain);
+    public Command shootingCommand = Commands.either(
+        fireShooterCommand, 
+        lobShooterCommand,
+        () -> (drivetrain.mode == SS_Drivetrain.ShootMode.SCORE));
     public lowerHood lowerHoodCommand = new lowerHood(shooter);
     public manualFoldIntake_cmd manualPivotUp = new manualFoldIntake_cmd(intake);
     public manualUnfoldIntake_cmd manualPivotDown = new manualUnfoldIntake_cmd(intake);
@@ -120,16 +128,16 @@ public class RobotContainer {
     public HangReturn_cmd hangReturn = new HangReturn_cmd(hanger);
 
 
-    public ConditionalCommand toggleDepot = new ConditionalCommand(
-        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
-        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.hubPose;}),
-        () -> drivetrain.targetToggled
-    );
-    public ConditionalCommand toggleStation = new ConditionalCommand(
-        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.stationPose;}),
-        drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.hubPose;}),
-        () -> drivetrain.targetToggled
-    );
+    // public ConditionalCommand toggleDepot = new ConditionalCommand(
+    //     drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
+    //     drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.hubPose;}),
+    //     () -> drivetrain.targetToggled
+    // );
+    // public ConditionalCommand toggleStation = new ConditionalCommand(
+    //     drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.stationPose;}),
+    //     drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.hubPose;}),
+    //     () -> drivetrain.targetToggled
+    // );
     public AutoIntake_cmd autoIntake = new AutoIntake_cmd(intake);
     public AutoThroat_cmd autoThroat = new AutoThroat_cmd(throat, hopper, intake);
     public AutoRev_cmd autoRev = new AutoRev_cmd(shooter); 
@@ -194,7 +202,7 @@ public class RobotContainer {
 
         ///// Joystick 2////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        joystick2.leftTrigger().whileTrue(fireShooterCommand);
+        joystick2.leftTrigger().whileTrue(shootingCommand);
         joystick2.rightTrigger().whileTrue(startThroatCommand);
         //joystick2.povDown().onTrue(lowerHoodCommand);
         joystick2.a().toggleOnTrue(aimCommand);

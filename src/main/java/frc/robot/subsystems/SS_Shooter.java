@@ -110,14 +110,19 @@ public class SS_Shooter extends SubsystemBase {
       rightShooter.set((2.27*targetVelocity - 10.87)/shooterMaxSpeed);
     }
     SmartDashboard.putNumber("targetVelocity", targetVelocity);
+    Logger.recordOutput("targetVelocity", targetVelocity);
     SmartDashboard.putNumber("setVelocity", (2.27*targetVelocity - 10.87));
+    Logger.recordOutput("setVelocity", (2.27*targetVelocity - 10.87));
     SmartDashboard.putNumber("shooterAngle", hoodAngle);
+    Logger.recordOutput("shooterAngle", hoodAngle);
   }
 
   public void setHoodAngle(double angle) {
     SmartDashboard.putNumber("targetingAngle", angle);
+    Logger.recordOutput("targetingAngle", angle);
     targetPosition = (Math.sqrt(Math.pow(hoodRadius*Math.sin(angle) + shooterAxleY, 2) + Math.pow(shooterAxleX - hoodRadius*Math.cos(angle), 2)) - actuatorMinimum)/(maximumExtension);
     hoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.8));
     SmartDashboard.putNumber("targetPosition", targetPosition);
+    Logger.recordOutput("targetPosition", targetPosition);
   }
 }

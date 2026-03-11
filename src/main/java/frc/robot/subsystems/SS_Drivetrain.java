@@ -101,12 +101,12 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         getModule(3).getPosition(true)
     };
 
-    public SwerveDriveOdometry poseOdometry = new SwerveDriveOdometry(
-        kinematics, 
-        kBlueAlliancePerspectiveRotation, 
-        modulePositions,
-        new Pose2d(4.625594, 3.043936, new Rotation2d(0))
-    );
+    // public SwerveDriveOdometry poseOdometry = new SwerveDriveOdometry(
+    //     kinematics, 
+    //     kBlueAlliancePerspectiveRotation, 
+    //     modulePositions,
+    //     new Pose2d(4.625594, 3.043936, new Rotation2d(0))
+    // );
 
     public SwerveDrivePoseEstimator poseEstimator = new SwerveDrivePoseEstimator(
         kinematics, 
@@ -119,7 +119,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
     // Poses for AdvantageScope
     Pose2d robotPoseEstimate;
-    Pose2d robotOdoPose;
+    // Pose2d robotOdoPose;
     Pose2d robotLLPoseAntigua;
     Pose2d robotLLPoseBarbuda;
     
@@ -127,7 +127,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     Field2d estimatedField = new Field2d();
     Field2d limelightFieldBarbuda = new Field2d();
     Field2d limelightFieldAntigua = new Field2d();
-    Field2d odometryField = new Field2d();
+    // Field2d odometryField = new Field2d();
     Field2d targetField = new Field2d();
 
     // Limelight Estimation
@@ -150,16 +150,23 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     // Potential Targets
     public Translation2d hubPose = new Translation2d(4.625594, 4.034536);
     public Translation2d towerPose = new Translation2d(1.7113, 4.162044);
-    public Translation2d depotPose = new Translation2d(1.3, 6.391656);
-    public Translation2d stationPose = new Translation2d(1.3, 1.651);
+    public Translation2d depotPose = new Translation2d(0.5, 6.391656);
+    public Translation2d stationPose = new Translation2d(0.5, 1.651);
 
     // Chosen Target
     public Translation2d targetPose = hubPose;
-    public Translation2d neutralTarget = hubPose;
+    public Translation2d neutralTarget = towerPose;
 
     public DriverStation.Alliance alliance;
 
     public double orientationShift = 0;
+
+    public enum ShootMode {
+        SCORE,
+        LOB
+    }
+
+    public ShootMode mode = ShootMode.SCORE;
 
     // Other Network Table Stuff
     NetworkTable shooter = NetworkTableInstance.getDefault().getTable("Shooter");
@@ -403,14 +410,22 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         // Update gyro values
         Rotation2d gyroAngle = pidgey.getRotation2d();
         poseEstimator.update(gyroAngle, modulePositions);
-        poseOdometry.update(gyroAngle, modulePositions);
+        // poseOdometry.update(gyroAngle, modulePositions);
         
         robotPoseEstimate = poseEstimator.getEstimatedPosition();
 
-        if (robotPoseEstimate.getY() > 4.611624) {
+        if (robotPoseEstimate.getY() > 4.034663) {
+            neutralTarget = depotPose;
+        } else {
+            neutralTarget = stationPose;
+        }
+
+        if (robotPoseEstimate.getX() > 4.7) {
             targetPose = neutralTarget;
+            mode = ShootMode.LOB;
         } else {
             targetPose = hubPose;
+            mode = ShootMode.SCORE;
         }
 
         switch (alliance) {
@@ -424,7 +439,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
         robotLLPoseAntigua = new Pose2d(limelightEstimateAntigua[0], limelightEstimateAntigua[1], new Rotation2d(Math.PI*limelightEstimateAntigua[5]/180));
         robotLLPoseBarbuda = new Pose2d(limelightEstimateBarbuda[0], limelightEstimateBarbuda[1], new Rotation2d(Math.PI*limelightEstimateBarbuda[5]/180));
-        robotOdoPose = poseOdometry.getPoseMeters();
+        // robotOdoPose = poseOdometry.getPoseMeters();
 
         updateVisionFromLimelight("limelight-barbuda");
         updateVisionFromLimelight("limelight-antigua");
@@ -433,16 +448,24 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         estimatedField.setRobotPose(robotPoseEstimate);
         limelightFieldAntigua.setRobotPose(robotLLPoseAntigua);
         limelightFieldBarbuda.setRobotPose(robotLLPoseBarbuda);
-        odometryField.setRobotPose(robotOdoPose);
-        targetField.setRobotPose(new Pose2d(towerPose, new Rotation2d(0)));
+        // odometryField.setRobotPose(robotOdoPose);
+        targetField.setRobotPose(new Pose2d(targetPose, new Rotation2d(0)));
 
         //Add stuff to SmartDashboard
         SmartDashboard.putData("poseField", estimatedField);
+        Logger.recordOutput("poseField", robotPoseEstimate);
         SmartDashboard.putData("limelightFieldAntigua", limelightFieldAntigua);
+        Logger.recordOutput("limelightFieldAntigua", robotLLPoseAntigua);
         SmartDashboard.putData("limelightFieldBarbuda", limelightFieldBarbuda);
+        Logger.recordOutput("limelightFieldBarbuda", robotLLPoseBarbuda);
         SmartDashboard.putData("targetField", targetField);
+        Logger.recordOutput("targetField", new Pose2d(targetPose, new Rotation2d(0)));
         SmartDashboard.putNumber("pidgeonYaw", pidgey.getYaw().getValueAsDouble());
+        Logger.recordOutput("pidgeonYaw", pidgey.getYaw().getValueAsDouble());
         SmartDashboard.putNumber("drivetrainYaw", this.getState().Pose.getRotation().getDegrees());
+        Logger.recordOutput("drivetrainYaw", this.getState().Pose.getRotation().getDegrees());
+        SmartDashboard.putString("shootMode", mode.name());
+        Logger.recordOutput("shootMode", mode.name());
     }
 
     private void startSimThread() {
