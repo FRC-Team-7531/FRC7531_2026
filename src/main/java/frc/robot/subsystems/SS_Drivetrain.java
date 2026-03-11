@@ -5,6 +5,8 @@ import static edu.wpi.first.units.Units.*;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
@@ -36,7 +38,9 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.StructPublisher;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -159,7 +163,9 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
     // Other Network Table Stuff
     NetworkTable shooter = NetworkTableInstance.getDefault().getTable("Shooter");
-    NetworkTable poseTable = NetworkTableInstance.getDefault().getTable("estimations");
+    NetworkTable poseTable = NetworkTableInstance.getDefault().getTable("Estimations");
+    public NetworkTableEntry poseEstimatorEntry = poseTable.getEntry("Pose Estimator");
+    public StructPublisher<Pose2d> posePublisher;
 
     /* SysId routine for characterizing translation. This is used to find PID gains for the drive motors. */
     private final SysIdRoutine m_sysIdRoutineTranslation = new SysIdRoutine(
@@ -268,10 +274,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
             startSimThread();
         }
         configureAutoBuilder();
-
-        // pigeonConfig.MountPose.MountPoseRoll = 0;
-        // pigeonConfig.MountPose.MountPoseYaw = 0;
-        // pidgey.getConfigurator().apply(pigeonConfig);
+        posePublisher = poseTable.getStructTopic("Pose Estimator", Pose2d.struct).publish();
     }
 
     /**
@@ -370,6 +373,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
     @Override
     public void periodic() {
+        Logger.recordOutput("Field", poseEstimator.getEstimatedPosition());
         /*
          * Periodically try to apply the operator perspective.
          * If we haven't applied the operator perspective before, then we should apply it regardless of DS state.
@@ -433,10 +437,9 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         targetField.setRobotPose(new Pose2d(towerPose, new Rotation2d(0)));
 
         //Add stuff to SmartDashboard
-        SmartDashboard.putData("estimationField", estimatedField);
+        SmartDashboard.putData("poseField", estimatedField);
         SmartDashboard.putData("limelightFieldAntigua", limelightFieldAntigua);
         SmartDashboard.putData("limelightFieldBarbuda", limelightFieldBarbuda);
-        SmartDashboard.putData("odometryField", odometryField);
         SmartDashboard.putData("targetField", targetField);
         SmartDashboard.putNumber("pidgeonYaw", pidgey.getYaw().getValueAsDouble());
         SmartDashboard.putNumber("drivetrainYaw", this.getState().Pose.getRotation().getDegrees());

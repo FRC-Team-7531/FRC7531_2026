@@ -43,10 +43,11 @@ public class fireShooter extends Command {
     }
     
     botPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
-    distance = botPose.getDistance(targetPose);
+    distance = 1.15*botPose.getDistance(targetPose) - 1.15;
     SmartDashboard.putNumber("shootingDistance", distance);
+    SmartDashboard.putNumber("poseDistance", botPose.getDistance(targetPose));
     targetAngle = shooter.calculateGoalAngle(distance);
-    shooter.setHoodAngle(Math.PI/2 - targetAngle);
+    shooter.setHoodAngle(Math.PI/2 - targetAngle + shooter.hoodAngleBack);
     hoodAngle = shooter.hoodLifter.getPosition();
     shooter.setVelocity(distance, hoodAngle);
 

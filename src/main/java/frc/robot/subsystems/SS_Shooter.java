@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -104,18 +106,18 @@ public class SS_Shooter extends SubsystemBase {
     if (lipDistance*Math.tan(hoodAngle) - (gravity*Math.pow(lipDistance, 2))/(Math.pow(targetVelocity, 2)*Math.pow(Math.cos(hoodAngle), 2)) < passableHeight) {
       System.out.println("Cannot shoot at this angle!!!");
     } else {
-      leftShooter.set(-1.1*targetVelocity/shooterMaxSpeed);
-      rightShooter.set(1.1*targetVelocity/shooterMaxSpeed);
+      leftShooter.set(-(2.27*targetVelocity - 10.87)/shooterMaxSpeed);
+      rightShooter.set((2.27*targetVelocity - 10.87)/shooterMaxSpeed);
     }
-
-    SmartDashboard.putNumber("shooterAngle", hoodAngle);
     SmartDashboard.putNumber("targetVelocity", targetVelocity);
+    SmartDashboard.putNumber("setVelocity", (2.27*targetVelocity - 10.87));
+    SmartDashboard.putNumber("shooterAngle", hoodAngle);
   }
 
   public void setHoodAngle(double angle) {
     SmartDashboard.putNumber("targetingAngle", angle);
     targetPosition = (Math.sqrt(Math.pow(hoodRadius*Math.sin(angle) + shooterAxleY, 2) + Math.pow(shooterAxleX - hoodRadius*Math.cos(angle), 2)) - actuatorMinimum)/(maximumExtension);
-    // hoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.8));
-    System.out.println(targetPosition);
+    hoodLifter.setPosition(MathUtil.clamp(targetPosition, 0.01, 0.8));
+    SmartDashboard.putNumber("targetPosition", targetPosition);
   }
 }
