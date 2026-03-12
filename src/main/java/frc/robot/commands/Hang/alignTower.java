@@ -25,9 +25,9 @@ public class alignTower extends Command {
   NetworkTable limelightTableBarbuda = NetworkTableInstance.getDefault().getTable("limelight-barbuda");
   Translation2d estimatedPose;
 
-  PIDController rController = new PIDController(0.08, 0, 0);
-  PIDController xController = new PIDController(1.6, 0, 0);
-  PIDController yController = new PIDController(1.6, 0, 0);
+  PIDController rController = new PIDController(0.008, 0.02, 0);
+  PIDController xController = new PIDController(3.5, 6.5, 0);
+  PIDController yController = new PIDController(3.5, 6.5, 0);
 
   Translation2d targetPose;
   Translation2d poseDifference;
@@ -51,21 +51,23 @@ public class alignTower extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    rController.setSetpoint(180);
-    rController.setTolerance(0.01);
+    rController.setSetpoint(0);
+    rController.setTolerance(0.2);
 
     xController.setSetpoint(0);
     xController.setTolerance(0.01);
+    xController.setIZone(0.35);
 
     yController.setSetpoint(0);
     yController.setTolerance(0.01);
+    yController.setIZone(0.35);
+
+    targetPose = drivetrain.towerPose;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    targetPose = drivetrain.towerPose;
-
     estimatedPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
     poseDifference = targetPose.minus(estimatedPose);
 
@@ -73,11 +75,25 @@ public class alignTower extends Command {
     targetXPoseDifference = poseDifference.getMeasureX().in(Meters);
     targetYPoseDifference = poseDifference.getMeasureY().in(Meters);
 
-    targetAngle = Math.floorMod((int) currentAngle, 360);
+    if (Math.floorMod((int) currentAngle, 360) < 180) {
+      targetAngle = Math.IEEEremainder(currentAngle, 360);
+    } else {
+      targetAngle = Math.IEEEremainder(currentAngle, 360) - 360;
+    }
 
     rSpeed = rController.calculate(targetAngle);
-    xSpeed = xController.calculate(targetXPoseDifference);
-    ySpeed = yController.calculate(targetYPoseDifference);
+    xSpeed = -xController.calculate(targetXPoseDifference);
+    ySpeed = -yController.calculate(targetYPoseDifference);
+
+    if (rController.atSetpoint()) {
+      rSpeed = 0;
+    }
+    if (xController.atSetpoint()) {
+      xSpeed = 0;
+    }
+    if (yController.atSetpoint()) {
+      ySpeed = 0;
+    }
 
     SmartDashboard.putNumber("rSpeed", rSpeed);
     SmartDashboard.putNumber("xSpeed", xSpeed);
@@ -96,6 +112,10 @@ public class alignTower extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (rController.atSetpoint() && xController.atSetpoint() && yController.atSetpoint()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

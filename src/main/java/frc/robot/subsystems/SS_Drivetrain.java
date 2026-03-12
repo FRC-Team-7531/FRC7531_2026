@@ -149,7 +149,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     
     // Potential Targets
     public Translation2d hubPose = new Translation2d(4.625594, 4.034536);
-    public Translation2d towerPose = new Translation2d(1.7113, 4.162044);
+    public Translation2d towerPose = new Translation2d(1.7113, 4.134044);
     public Translation2d depotPose = new Translation2d(0.5, 6.391656);
     public Translation2d stationPose = new Translation2d(0.5, 1.651);
 

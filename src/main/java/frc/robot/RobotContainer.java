@@ -124,7 +124,7 @@ public class RobotContainer {
    
     public rollersForwardManual_cmd manualRollersForward = new rollersForwardManual_cmd(hopper);
     public rollersReverseManual_cmd manualRollersReverse = new rollersReverseManual_cmd(hopper);
-    public HangLevel1_cmd hangLevel1 = new HangLevel1_cmd(hanger);
+    public HangLevel1_cmd hangLevel1 = new HangLevel1_cmd(hanger, turret);
     public HangReturn_cmd hangReturn = new HangReturn_cmd(hanger);
 
 
@@ -199,6 +199,7 @@ public class RobotContainer {
         joystick.leftBumper().onTrue(outakeToggle);
         joystick.leftTrigger().whileTrue(manualPivotUp); //Intake in manually
         joystick.rightTrigger().whileTrue(manualPivotDown); //Intake out manually
+        joystick.povRight().whileTrue(alignTowerCommand);
 
         ///// Joystick 2////////////////////////////////////////////////////////////////////////////////////////////////////
         
