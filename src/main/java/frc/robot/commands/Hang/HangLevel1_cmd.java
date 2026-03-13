@@ -42,7 +42,11 @@ public class HangLevel1_cmd extends Command {
   public boolean isFinished() {
     // idk 999 is my placeholder for all of this
     //(hanger.m_hangLeft.getPosition().getValueAsDouble() >= 13) ||
+    if (hanger.m_hangLeft.getPosition().getValueAsDouble() >= 175) {
+      return true;
+    } else {
       return false;
+    }
     }
   }
 

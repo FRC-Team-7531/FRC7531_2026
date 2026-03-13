@@ -57,6 +57,7 @@ public class SS_Hanger extends SubsystemBase {
   // should note that the hook is about 0.21 inches, so possibly add that but this
   // measurements may not be used at all
 
+
   public TalonFX m_hangLeft = new TalonFX(51, "rio"); // long
   public TalonFX m_hangRight = new TalonFX(50, "rio"); // short
   public NetworkTableInstance hangerTable = NetworkTableInstance.getDefault();
@@ -90,14 +91,14 @@ public class SS_Hanger extends SubsystemBase {
   public void HangLeft() {
     double leftPosition = m_hangLeft.getPosition().getValueAsDouble();
     //SmartDashboard.getPosition(leftPosition);
-    m_hangLeft.set(0.8);
+    m_hangLeft.set(0.4);
     rightPositionEntry.setDouble(leftPosition);
   }
 
   public void HangRight() {
     double rightPosition = m_hangLeft.getPosition().getValueAsDouble();
   
-    m_hangRight.set(0.8);
+    m_hangRight.set(0.4);
     leftPositionEntry.setDouble(rightPosition);
     
   }
