@@ -124,7 +124,7 @@ public class RobotContainer {
    
     public rollersForwardManual_cmd manualRollersForward = new rollersForwardManual_cmd(hopper);
     public rollersReverseManual_cmd manualRollersReverse = new rollersReverseManual_cmd(hopper);
-    public HangLevel1_cmd hangLevel1 = new HangLevel1_cmd(hanger, turret);
+    public HangLevel1_cmd hangLevel1 = new HangLevel1_cmd(hanger);
     public HangReturn_cmd hangReturn = new HangReturn_cmd(hanger);
 
 
