@@ -32,6 +32,7 @@ public class startThroat extends Command {
     throat.timer.start();
     hopper.hotDogRollersOn();
     throat.throatMotor.set(0.7);
+    hopper.carWashOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -54,6 +55,7 @@ public class startThroat extends Command {
     throat.timer.reset();
     hopper.hotDogRollersOff();
     throat.throatMotor.set(0);
+    hopper.carWashOff();
   }
 
   // Returns true when the command should end.

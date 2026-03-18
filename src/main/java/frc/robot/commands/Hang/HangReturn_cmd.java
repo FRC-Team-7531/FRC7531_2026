@@ -38,13 +38,12 @@ public class HangReturn_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // if ((hanger.m_hangLeft.getPosition().getValueAsDouble() < 0)
-    //     && (hanger.m_hangRight.getPosition().getValueAsDouble() < 0)) {
-    //   hanger.HangerStop();
-    //   return true;
-    //} else {
+    if ((hanger.m_hangLeft.getPosition().getValueAsDouble() < 2)
+        || (hanger.m_hangRight.getPosition().getValueAsDouble() < 2)) {
+      hanger.HangerStop();
+      return true;
+    } else {
       return false;
-
-    //}
+    }
   }
 }

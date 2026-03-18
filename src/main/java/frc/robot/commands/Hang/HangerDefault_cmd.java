@@ -24,14 +24,14 @@ public class HangerDefault_cmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    hanger.HangLeft();
-    hanger.HangRight();
+    //hanger.HangLeft();
+    //hanger.HangRight();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-hanger.HangerStop();
+    hanger.HangerStop();
   }
 
   // Called once the command ends or is interrupted.

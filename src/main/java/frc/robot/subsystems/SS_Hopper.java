@@ -13,6 +13,7 @@ public class SS_Hopper extends SubsystemBase {
   /** Creates a new SS_Hopper. */
   
   public TalonFX hotDogRoller = new TalonFX(21, "CANivore");
+  public TalonFX m_carWash = new TalonFX(22, "rio");
 
   public SS_Hopper() {
     //setDefaultCommand(new RunCommand(() -> hotDogRollersOff(), this));
@@ -31,6 +32,16 @@ public class SS_Hopper extends SubsystemBase {
   
   public void hotDogRollersOff() {
     hotDogRoller.set(0);
+  }
+
+  public void carWashOn()
+  {
+    m_carWash.set(-.5);
+  }
+
+  public void carWashOff()
+  {
+    m_carWash.set(0);
   }
 
   @Override

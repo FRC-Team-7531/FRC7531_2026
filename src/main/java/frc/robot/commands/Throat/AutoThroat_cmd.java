@@ -42,6 +42,7 @@ public class AutoThroat_cmd extends Command {
   public void execute() {
     throat.throatMotor.set(0.7);
     hopper.hotDogRollersOn();
+    hopper.carWashOn();
     // if(timer2.hasElapsed(3))
     // {
     //   intake.intakeFold();
@@ -68,6 +69,7 @@ public class AutoThroat_cmd extends Command {
       timer2.stop();
       hopper.hotDogRollersOff(); 
       throat.throatMotor.set(0);
+      hopper.carWashOff();
       return true;
     }
     else { 
