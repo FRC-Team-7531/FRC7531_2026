@@ -41,8 +41,9 @@ public class HangLevel1_cmd extends Command {
   @Override
   public boolean isFinished() {
     // idk 999 is my placeholder for all of this
-    //(hanger.m_hangLeft.getPosition().getValueAsDouble() >= 13) ||
+    // Remove encoder checks and make it all manual
     if (hanger.m_hangLeft.getPosition().getValueAsDouble() >= 175) {
+      hanger.HangerStop();
       return true;
     } else {
       return false;

@@ -120,7 +120,7 @@ public class RobotContainer {
     public manualUnfoldIntake_cmd manualPivotDown = new manualUnfoldIntake_cmd(intake);
     public manualHood_cmd manualHood = new manualHood_cmd(shooter);
     public hopperDefault_cmd hopperDefault = new hopperDefault_cmd(hopper);
-    //public HangerDefault_cmd hangerDefault = new HangerDefault_cmd(hanger);
+    public HangerDefault_cmd hangerDefault = new HangerDefault_cmd(hanger);
    
     public rollersForwardManual_cmd manualRollersForward = new rollersForwardManual_cmd(hopper);
     public rollersReverseManual_cmd manualRollersReverse = new rollersReverseManual_cmd(hopper);
@@ -188,7 +188,7 @@ public class RobotContainer {
         turret.setDefaultCommand(manualTurret);
         shooter.setDefaultCommand(manualHood);
         throat.setDefaultCommand(stopThroatCommand);
-        //hanger.setDefaultCommand(hangerDefault);
+        hanger.setDefaultCommand(hangerDefault);
 
         ///// Joystick 1 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
