@@ -48,12 +48,13 @@ public class fireShooter extends Command {
     distance = 1.15*botPose.getDistance(targetPose) - 1.15;
     SmartDashboard.putNumber("shootingDistance", distance);
     Logger.recordOutput("shootingDistance", distance);
-    Logger.recordOutput("poseDistance", botPose.getDistance(targetPose));
     SmartDashboard.putNumber("poseDistance", botPose.getDistance(targetPose));
+    Logger.recordOutput("poseDistance", botPose.getDistance(targetPose));
     targetAngle = shooter.calculateGoalAngle(distance);
     shooter.setHoodAngle(Math.PI/2 - targetAngle + shooter.hoodAngleBack);
     hoodAngle = shooter.hoodLifter.getPosition();
-    shooter.setVelocity(distance, hoodAngle);
+    drivetrain.calculateAimingVector();
+    shooter.setVelocity(distance, hoodAngle, drivetrain.aimingComponent);
 
     // 7.156
     // 62.053

@@ -161,6 +161,17 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
     public double orientationShift = 0;
 
+    public double aimingAngle = 0;
+
+    double basisX;
+    double basisY;
+
+    double xSpeed;
+    double ySpeed;
+
+    public double aimingComponent;
+    public double driftingComponent;
+
     public enum ShootMode {
         SCORE,
         LOB
@@ -563,5 +574,35 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
     public void pigeonCommand() {
         pidgey.setYaw(0);
+    }
+
+    public void updateAligningAngle() {
+        aimingAngle = poseEstimator.getEstimatedPosition().getTranslation().minus(targetPose).getAngle().getRadians();
+    }
+
+    public void calculateAimingVector() {
+        updateAligningAngle();
+        basisX = Math.cos(aimingAngle);
+        basisY = Math.sin(aimingAngle);
+
+        xSpeed = getState().Speeds.vxMetersPerSecond;
+        ySpeed = getState().Speeds.vyMetersPerSecond;
+
+        aimingComponent = basisX*xSpeed + basisY*ySpeed;
+
+        SmartDashboard.putNumber("aimingComponent", aimingComponent);
+    }
+
+    public void calculateDriftingVector() {
+        updateAligningAngle();
+        basisX = Math.cos(aimingAngle + Math.PI/2);
+        basisY = Math.sin(aimingAngle + Math.PI/2);
+
+        xSpeed = getState().Speeds.vxMetersPerSecond;
+        ySpeed = getState().Speeds.vyMetersPerSecond;
+
+        driftingComponent = basisX*xSpeed + basisY*ySpeed;
+
+        SmartDashboard.putNumber("driftingComponent", aimingComponent);
     }
 }

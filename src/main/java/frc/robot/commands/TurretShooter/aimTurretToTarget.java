@@ -4,6 +4,8 @@
 
 package frc.robot.commands.TurretShooter;
 
+import static edu.wpi.first.units.Units.*;
+
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
@@ -41,6 +43,8 @@ public class aimTurretToTarget extends Command {
   int flipCorrection = 0;
 
   String flipStatus = "";
+
+  double velocityAdjustment = 0;
 
   public SwerveRequest.RobotCentric driverequest = new SwerveRequest.RobotCentric();
   public CommandXboxController controller;
@@ -84,7 +88,11 @@ public class aimTurretToTarget extends Command {
 
     turretAngle = 360*turret.getTurretRotation();
 
-    adjustedTargetAngle = targetAngle - drivetrain.pidgey.getYaw().getValueAsDouble() - 180;
+    drivetrain.calculateAimingVector();
+    drivetrain.calculateDriftingVector();
+    velocityAdjustment = Radians.of(Math.atan2(drivetrain.driftingComponent, drivetrain.aimingComponent)).in(Degrees);
+
+    adjustedTargetAngle = targetAngle - drivetrain.pidgey.getYaw().getValueAsDouble() - 180 - velocityAdjustment;
 
     if ((adjustedTargetAngle + flipCorrection > 360*turret.leftMaximum) || (adjustedTargetAngle + flipCorrection < 360*turret.rightMaximum)) {
       if (adjustedTargetAngle + flipCorrection >= 0) {
