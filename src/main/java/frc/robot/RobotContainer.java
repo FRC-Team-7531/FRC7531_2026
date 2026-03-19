@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -124,7 +125,7 @@ public class RobotContainer {
    
     public rollersForwardManual_cmd manualRollersForward = new rollersForwardManual_cmd(hopper);
     public rollersReverseManual_cmd manualRollersReverse = new rollersReverseManual_cmd(hopper);
-    public HangLevel1_cmd hangLevel1 = new HangLevel1_cmd(hanger);
+    public SequentialCommandGroup hangLevel1 = new HangLevel1_cmd(hanger).andThen(new HangReturn_cmd(hanger));
     public HangReturn_cmd hangReturn = new HangReturn_cmd(hanger);
 
 
@@ -210,8 +211,11 @@ public class RobotContainer {
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);
 
-        joystick2.start().whileTrue(hangLevel1);
-        joystick2.y().whileTrue(hangReturn);
+        joystick2.start().onTrue(hangLevel1);
+        
+        
+
+
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }
