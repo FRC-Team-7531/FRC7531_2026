@@ -88,11 +88,15 @@ public class aimTurretToTarget extends Command {
 
     turretAngle = 360*turret.getTurretRotation();
 
-    drivetrain.calculateAimingVector();
-    drivetrain.calculateDriftingVector();
-    velocityAdjustment = Radians.of(Math.atan2(drivetrain.driftingComponent, drivetrain.aimingComponent)).in(Degrees);
+    // drivetrain.calculateAimingVector();
+    // drivetrain.calculateDriftingVector();
+    // velocityAdjustment = Radians.of(Math.atan2(drivetrain.driftingComponent, drivetrain.aimingComponent)).in(Degrees);
 
-    adjustedTargetAngle = targetAngle - drivetrain.pidgey.getYaw().getValueAsDouble() - 180 - velocityAdjustment;
+    // if (drivetrain.aimingComponent < 0.1) {
+    //   velocityAdjustment = 0;
+    // }
+
+    adjustedTargetAngle = targetAngle - drivetrain.pidgey.getYaw().getValueAsDouble() - 180;
 
     if ((adjustedTargetAngle + flipCorrection > 360*turret.leftMaximum) || (adjustedTargetAngle + flipCorrection < 360*turret.rightMaximum)) {
       if (adjustedTargetAngle + flipCorrection >= 0) {

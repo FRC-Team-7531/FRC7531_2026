@@ -106,13 +106,14 @@ public class SS_Shooter extends SubsystemBase {
     if (lipDistance*Math.tan(hoodAngle) - (gravity*Math.pow(lipDistance, 2))/(Math.pow(targetVelocity, 2)*Math.pow(Math.cos(hoodAngle), 2)) < passableHeight) {
       System.out.println("Cannot shoot at this angle!!!");
     } else {
-      leftShooter.set(-(1.54*(targetVelocity - drivetrainVelocity/Math.cos(hoodAngle)) - 4.99)/shooterMaxSpeed);
-      rightShooter.set((1.54*(targetVelocity - drivetrainVelocity/Math.cos(hoodAngle)) - 4.99)/shooterMaxSpeed);
+      leftShooter.set(-(1.54*(targetVelocity + drivetrainVelocity/Math.cos(hoodAngle)) - 4.9)/shooterMaxSpeed);
+      rightShooter.set((1.54*(targetVelocity + drivetrainVelocity/Math.cos(hoodAngle)) - 4.9)/shooterMaxSpeed);
     }
     SmartDashboard.putNumber("targetVelocity", targetVelocity);
     Logger.recordOutput("targetVelocity", targetVelocity);
-    SmartDashboard.putNumber("setVelocity", (1.54*(targetVelocity - drivetrainVelocity/Math.cos(hoodAngle)) - 4.99));
-    Logger.recordOutput("setVelocity", (1.54*(targetVelocity - drivetrainVelocity/Math.cos(hoodAngle)) - 4.99));
+    SmartDashboard.putNumber("setVelocity", (1.54*(targetVelocity + drivetrainVelocity/Math.cos(hoodAngle)) - 4.9));
+    Logger.recordOutput("setVelocity", (1.54*(targetVelocity + drivetrainVelocity/Math.cos(hoodAngle)) - 4.9));
+    SmartDashboard.putNumber("drivetrainVelocity", drivetrainVelocity);
     SmartDashboard.putNumber("shooterAngle", hoodAngle);
     Logger.recordOutput("shooterAngle", hoodAngle);
   }

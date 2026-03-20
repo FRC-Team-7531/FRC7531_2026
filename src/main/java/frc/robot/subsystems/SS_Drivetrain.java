@@ -577,7 +577,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     }
 
     public void updateAligningAngle() {
-        aimingAngle = poseEstimator.getEstimatedPosition().getTranslation().minus(targetPose).getAngle().getRadians();
+        aimingAngle = poseEstimator.getEstimatedPosition().getTranslation().minus(targetPose).getAngle().getRadians() + pidgey.getRotation2d().getRadians();
     }
 
     public void calculateAimingVector() {
