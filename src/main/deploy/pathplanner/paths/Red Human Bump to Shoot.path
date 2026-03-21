@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.781868758915833,
-        "y": 5.438844507845934
+        "x": 13.859500713266762,
+        "y": 5.34827389443652
       },
       "isLocked": false,
       "linkedName": "RHumanBackBump"
@@ -20,8 +20,8 @@
         "y": 4.727218259629101
       },
       "prevControl": {
-        "x": 14.286476462196857,
-        "y": 5.03774607703281
+        "x": 13.830560189082844,
+        "y": 4.965838254137858
       },
       "nextControl": null,
       "isLocked": false,

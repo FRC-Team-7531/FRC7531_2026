@@ -1,0 +1,43 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Hub to Depot Start"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "pivotDown_cmd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake_cmd"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Over Depot to Human"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoThroat_cmd"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

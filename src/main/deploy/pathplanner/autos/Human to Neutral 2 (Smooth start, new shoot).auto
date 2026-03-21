@@ -1,0 +1,74 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "pivotDown_cmd"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Start to Human Bump"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "revHumanClose"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red Human Over Bump"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Human Bump to New Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoThroat_cmd"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoThroatOff_cmd"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Done shooting to Neutral"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

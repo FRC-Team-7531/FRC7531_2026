@@ -42,6 +42,7 @@ import frc.robot.commands.Intake.outakeToggle_cmd;
 //import frc.robot.commands.Hopper.rollersOff_cmd;
 //import frc.robot.commands.Hopper.rollersOn_cmd;
 import frc.robot.commands.Intake.unfoldIntake_cmd;
+import frc.robot.commands.Throat.AutoThroatOff_cmd;
 import frc.robot.commands.Throat.AutoThroat_cmd;
 import frc.robot.commands.Throat.startThroat;
 import frc.robot.commands.Throat.stopThroat;
@@ -49,6 +50,7 @@ import frc.robot.commands.TurretShooter.AutoHardcodeDepotClose_cmd;
 import frc.robot.commands.TurretShooter.AutoHardcodeDepot_cmd;
 import frc.robot.commands.TurretShooter.AutoHardcodeHuman_cmd;
 import frc.robot.commands.TurretShooter.AutoRev_cmd;
+import frc.robot.commands.TurretShooter.AutoShootOff_cmd;
 import frc.robot.commands.TurretShooter.AutoShoot_cmd;
 import frc.robot.commands.TurretShooter.aimTurretToTarget;
 import frc.robot.commands.TurretShooter.autoAimTurretToTarget;
@@ -115,7 +117,7 @@ public class RobotContainer {
     //public rollersOff_cmd hotdogOff = new rollersOff_cmd(hopper);
     public Command toggleBoolean = drivetrain.run(() -> {drivetrain.targetToggled = !drivetrain.targetToggled;});
     public fireShooter fireShooterCommand = new fireShooter(shooter, drivetrain);
-    public lobShooter lobShooterCommand = new lobShooter(shooter, drivetrain);
+    public lobShooter lobShooterCommand = new lobShooter(shooter, drivetrain, turret);
     public Command shootingCommand = Commands.either(
         fireShooterCommand, 
         lobShooterCommand,
@@ -129,14 +131,15 @@ public class RobotContainer {
    
     public rollersForwardManual_cmd manualRollersForward = new rollersForwardManual_cmd(hopper);
     public rollersReverseManual_cmd manualRollersReverse = new rollersReverseManual_cmd(hopper);
-    public SequentialCommandGroup hangLevel1 = new HangLevel1_cmd(hanger).andThen(new HangReturn_cmd(hanger));
+    public SequentialCommandGroup hangLevel1Auto = new HangLevel1_cmd(hanger).andThen(new HangReturn_cmd(hanger));
+    public HangLevel1_cmd hangUp = new HangLevel1_cmd(hanger);
     public HangReturn_cmd hangReturn = new HangReturn_cmd(hanger);
     public HangLevel1_cmd hangeLevel1Manual = new HangLevel1_cmd(hanger);
     public HangReturnManual_cmd hangReturnManual = new HangReturnManual_cmd(hanger);
 
     public AutoHardcodeDepot_cmd autoDepot = new AutoHardcodeDepot_cmd(turret, shooter, drivetrain);
     public AutoHardcodeHuman_cmd autoHuman = new AutoHardcodeHuman_cmd(turret, shooter, drivetrain);
-    public AutoHardcodeDepotClose_cmd autoClose = new AutoHardcodeDepotClose_cmd(turret, shooter, drivetrain);
+    public AutoHardcodeDepotClose_cmd autoDepotClose = new AutoHardcodeDepotClose_cmd(turret, shooter, drivetrain);
 
     // public ConditionalCommand toggleDepot = new ConditionalCommand(
     //     drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
@@ -150,10 +153,15 @@ public class RobotContainer {
     // );
     public AutoIntake_cmd autoIntake = new AutoIntake_cmd(intake);
     public AutoThroat_cmd autoThroat = new AutoThroat_cmd(throat, hopper, intake);
+    public AutoThroatOff_cmd autoThroatOff = new AutoThroatOff_cmd(throat, hopper, intake);
     public AutoRev_cmd autoRev = new AutoRev_cmd(shooter); 
     public AutoShoot_cmd autoShoot = new AutoShoot_cmd(shooter);
+    public AutoShootOff_cmd autoShootOff = new AutoShootOff_cmd(shooter);
     public autoAimTurretToTarget autoAim = new autoAimTurretToTarget(drivetrain, turret);
-    public AutoHardcodeDepotClose_cmd autoDepotClose = new AutoHardcodeDepotClose_cmd(turret, shooter, drivetrain);
+    public AutoHardcodeDepot_cmd autoDepotRev = new AutoHardcodeDepot_cmd(turret, shooter, drivetrain);
+    public AutoHardcodeHuman_cmd autoHumanRev = new AutoHardcodeHuman_cmd(turret, shooter, drivetrain);
+    
+
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
@@ -176,10 +184,13 @@ public class RobotContainer {
         NamedCommands.registerCommand("pivotUp_cmd", pivotUp);
         NamedCommands.registerCommand("AlignTower_cmd", alignTowerCommand);
         NamedCommands.registerCommand("autoShoot_cmd", autoShoot);
-        //NamedCommands.registerCommand("HangLevel1_cmd", hangLevel1);
-        //NamedCommands.registerCommand("HangReturn_cmd", hangReturn);
+        NamedCommands.registerCommand("autoShootOff_cmd", autoShootOff);
+        NamedCommands.registerCommand("HangLevel1_cmd", hangLevel1Auto);
+        NamedCommands.registerCommand("HangReturn_cmd", hangReturn);
         NamedCommands.registerCommand("autoAimTurret_cmd", autoAim);
-        NamedCommands.registerCommand("RevDepotClose", autoDepotClose);
+        NamedCommands.registerCommand("revOnDepot", autoDepotRev); 
+        NamedCommands.registerCommand("revDepotClose", autoDepotClose);
+        NamedCommands.registerCommand("revHumanClose", autoHumanRev);
 
         autoChooser = AutoBuilder.buildAutoChooser("Blue Depot to Neutral");
         SmartDashboard.putData("Auto Mode", autoChooser);
@@ -218,7 +229,6 @@ public class RobotContainer {
         
         joystick2.leftTrigger().whileTrue(shootingCommand);
         joystick2.rightTrigger().whileTrue(startThroatCommand);
-        //joystick2.povDown().onTrue(lowerHoodCommand);
         joystick2.a().toggleOnTrue(aimCommand);
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);

@@ -1,0 +1,133 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 13.406647646219685,
+        "y": 7.302011412268189
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 13.156647646219685,
+        "y": 7.302011412268189
+      },
+      "isLocked": false,
+      "linkedName": "RHumanTrenchShoot"
+    },
+    {
+      "anchor": {
+        "x": 9.033380884450782,
+        "y": 6.978544935805992
+      },
+      "prevControl": {
+        "x": 9.007503566333806,
+        "y": 7.41845934379458
+      },
+      "nextControl": {
+        "x": 9.088824701089875,
+        "y": 6.036000052941417
+      },
+      "isLocked": false,
+      "linkedName": "RNeutralStart"
+    },
+    {
+      "anchor": {
+        "x": 9.201583452211127,
+        "y": 4.571954350927247
+      },
+      "prevControl": {
+        "x": 8.916932952924403,
+        "y": 4.571954350927247
+      },
+      "nextControl": {
+        "x": 9.745007132667615,
+        "y": 4.571954350927247
+      },
+      "isLocked": false,
+      "linkedName": "RNeutralEnd"
+    },
+    {
+      "anchor": {
+        "x": 10.184921540656205,
+        "y": 4.947175463623396
+      },
+      "prevControl": {
+        "x": 10.04259629101284,
+        "y": 4.6495863052781745
+      },
+      "nextControl": {
+        "x": 10.292785414982205,
+        "y": 5.172709019032308
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 10.805977175463623,
+        "y": 7.302011412268189
+      },
+      "prevControl": {
+        "x": 10.635864400621802,
+        "y": 7.118813039361615
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "RHumanNeutral"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.5565773690523796,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 1.1,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 3,
+      "rotationDegrees": 90.92736728661511
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 0.577397910731242,
+      "constraints": {
+        "maxVelocity": 3.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 2.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -179.83235361926847
+  },
+  "reversed": false,
+  "folder": "Human to Neutral",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -179.82546696429867
+  },
+  "useDefaultConstraints": false
+}

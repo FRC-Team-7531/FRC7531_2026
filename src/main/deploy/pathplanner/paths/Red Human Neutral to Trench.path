@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.36447931526390864,
-        "y": 0.6903566333808862
+        "x": 10.805977175463623,
+        "y": 7.302011412268189
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.16926211290315069,
-        "y": 0.5341828714922805
+        "x": 11.055977175463623,
+        "y": 7.302011412268189
       },
       "isLocked": false,
-      "linkedName": "BOutpost"
+      "linkedName": "RHumanNeutral"
     },
     {
       "anchor": {
-        "x": 1.298120481927711,
-        "y": 1.3467831325301212
+        "x": 13.406647646219685,
+        "y": 7.302011412268189
       },
       "prevControl": {
-        "x": 1.1014216867469877,
-        "y": 1.1719397590361438
+        "x": 13.147874465049929,
+        "y": 7.314950071326677
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BOutpostShoot"
+      "linkedName": "RHumanTrenchShoot"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 48.012787504183294
+    "rotation": -179.82546696429867
   },
   "reversed": false,
-  "folder": "Blue Hub",
+  "folder": "Human to Neutral",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -179.83235361926847
   },
   "useDefaultConstraints": true
 }

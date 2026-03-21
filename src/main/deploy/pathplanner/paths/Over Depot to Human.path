@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.43483132530120483,
-        "y": 7.5318674698795185
+        "x": 0.41174019251274296,
+        "y": 7.020671094640731
       },
       "isLocked": false,
       "linkedName": "BDepotStart"
@@ -17,21 +17,28 @@
     {
       "anchor": {
         "x": 0.43483132530120483,
-        "y": 4.952927710843373
+        "y": 0.6644793152639101
       },
       "prevControl": {
         "x": 0.4479710335818955,
-        "y": 5.202582168176501
+        "y": 0.9141337725970375
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BDepotEnd"
+      "linkedName": "BHuman"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "autoShoot_cmd",
+      "waypointRelativePos": 0.55,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 2.0,

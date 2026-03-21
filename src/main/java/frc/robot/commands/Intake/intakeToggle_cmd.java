@@ -26,7 +26,7 @@ public class intakeToggle_cmd extends Command {
       intake.toggle = false;
     }
     else {
-      intake.intakeRollersOn(1);
+      intake.intakeRollersOn(0.7);
       intake.toggle = true;
     }
   }

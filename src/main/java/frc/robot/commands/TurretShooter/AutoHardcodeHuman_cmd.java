@@ -12,6 +12,8 @@ import frc.robot.subsystems.SS_Turret;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutoHardcodeHuman_cmd extends Command {
+  //Hardcode for auto middle Human
+  
   SS_Turret turret;
   SS_Shooter shooter;
 
@@ -55,6 +57,11 @@ public class AutoHardcodeHuman_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if (tController.atSetpoint()) {
+      turret.setRawSpeed(0);
+      return true;
+    } else{
+      return false;
+    }
   }
 }

@@ -12,6 +12,8 @@ import frc.robot.subsystems.SS_Turret;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutoHardcodeDepotClose_cmd extends Command {
+  //Hardcode for auto closer Depot spot
+
   SS_Turret turret;
   SS_Shooter shooter;
 

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.298120481927711,
-        "y": 1.3467831325301212
+        "x": 3.5991440798858774,
+        "y": 4.209671897289586
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.1888433734939758,
-        "y": 0.9643132530120488
+        "x": 3.3491440798858774,
+        "y": 4.209671897289586
       },
       "isLocked": false,
-      "linkedName": "BOutpostShoot"
+      "linkedName": "BHub"
     },
     {
       "anchor": {
-        "x": 1.855433734939759,
-        "y": 3.6088192771084344
+        "x": 1.6712838801711838,
+        "y": 4.093223965763196
       },
       "prevControl": {
-        "x": 1.9647108433734939,
-        "y": 3.947578313253013
+        "x": 1.9207301696353358,
+        "y": 4.076594213132252
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Blue Hub",
+  "folder": "Blue Hub Hang",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 48.012787504183294
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

@@ -78,17 +78,11 @@
           "data": {
             "waitTime": 3.0
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "human shake"
-          }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "Worked (enough) at comp",
   "choreoAuto": false
 }

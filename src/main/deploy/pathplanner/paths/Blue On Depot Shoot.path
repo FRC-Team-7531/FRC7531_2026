@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5862054208273886,
-        "y": 4.054407988587732
+        "x": 0.567,
+        "y": 5.914
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.854048794321364,
-        "y": 4.056855421686747
+        "x": 1.5669999999999997,
+        "y": 5.914
       },
       "isLocked": false,
-      "linkedName": "BHub"
+      "linkedName": "BOnDepotShoot"
     },
     {
       "anchor": {
-        "x": 2.8280000000000003,
-        "y": 4.054407988587732
+        "x": 0.567,
+        "y": 5.914
       },
       "prevControl": {
-        "x": 3.1891363415913747,
-        "y": 4.054407988587732
+        "x": -0.43299999999999983,
+        "y": 5.914
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BOnDepotShoot"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -1.2015396851973281
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Blue Hub",
+  "folder": "Important Vison Spots",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

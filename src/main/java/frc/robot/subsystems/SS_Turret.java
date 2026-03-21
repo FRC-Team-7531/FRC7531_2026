@@ -17,6 +17,7 @@ public class SS_Turret extends SubsystemBase {
   public TalonFX turretMotor = new TalonFX(40, "rio");
   public final double leftMaximum = 0.5;
   public final double rightMaximum = -0.25;
+  public boolean lobToggle = false;
   Translation2d position;
 
   /** Creates a new SS_Turret. */

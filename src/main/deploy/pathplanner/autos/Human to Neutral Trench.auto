@@ -5,19 +5,31 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "pivotDown_cmd"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red Human Trench to Neutral"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Red Hub Shoot 8"
+                  "name": "autoIntake_cmd"
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "autoShoot_cmd"
+                  "pathName": "Red Neutral to Human Trench"
                 }
               }
             ]
@@ -30,7 +42,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "pivotDown_cmd"
+                  "name": "autoShoot_cmd"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red Human Neutral to Trench"
                 }
               }
             ]

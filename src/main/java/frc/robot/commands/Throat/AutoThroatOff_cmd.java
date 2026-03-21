@@ -11,7 +11,7 @@ import frc.robot.subsystems.SS_Intake;
 import frc.robot.subsystems.SS_Throat;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoThroat_cmd extends Command {
+public class AutoThroatOff_cmd extends Command {
   public SS_Throat throat;
   public SS_Hopper hopper;
   public SS_Intake intake;
@@ -19,7 +19,7 @@ public class AutoThroat_cmd extends Command {
   public double timerSeconds = 10;
 
   /** Creates a new startThroat. */
-  public AutoThroat_cmd(SS_Throat ss_throat, SS_Hopper hopper, SS_Intake intake) {
+  public AutoThroatOff_cmd(SS_Throat ss_throat, SS_Hopper hopper, SS_Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_throat);
     this.throat = ss_throat;
@@ -40,9 +40,9 @@ public class AutoThroat_cmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    throat.throatMotor.set(0.7);
-    hopper.hotDogRollersOn();
-    hopper.carWashOn();
+    throat.throatMotor.set(0);
+    hopper.hotDogRollersOff();
+    hopper.carWashOff();
     // if(timer2.hasElapsed(3))
     // {
     //   intake.intakeFold();
@@ -65,16 +65,5 @@ public class AutoThroat_cmd extends Command {
   @Override
   public boolean isFinished() {
     return true;
-    // if (timer2.hasElapsed(timerSeconds)) {
-    //   timer2.reset();
-    //   timer2.stop();
-    //   hopper.hotDogRollersOff(); 
-    //   throat.throatMotor.set(0);
-    //   hopper.carWashOff();
-    //   return true;
-    // }
-    // else { 
-    //   return false;
-    // }
   }
 }

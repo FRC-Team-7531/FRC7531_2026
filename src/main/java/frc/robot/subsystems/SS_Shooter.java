@@ -64,6 +64,8 @@ public class SS_Shooter extends SubsystemBase {
   public NetworkTableEntry shooterSpeed = inst.getTable("Shooter").getEntry("Shooter Speed");
   public NetworkTableEntry hoodEntry = inst.getTable("Shooter").getEntry("Hood Angle");
 
+  public boolean shooterToggle = false;
+
   /** Creates a new SS_Shooter. */
   public SS_Shooter() {
     actuatorPosition.setDouble(0.0);

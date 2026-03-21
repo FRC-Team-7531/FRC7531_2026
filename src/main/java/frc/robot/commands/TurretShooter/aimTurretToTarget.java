@@ -71,6 +71,7 @@ public class aimTurretToTarget extends Command {
     rController.setTolerance(0.005); // 0.01
     targetPose = drivetrain.hubPose;
     aligning.setBoolean(true);
+    turret.lobToggle = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -132,6 +133,7 @@ public class aimTurretToTarget extends Command {
   @Override
   public void end(boolean interrupted) {
     aligning.setBoolean(false);
+    turret.lobToggle = false;
   }
 
   // Returns true when the command should end.

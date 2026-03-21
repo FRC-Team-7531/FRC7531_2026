@@ -3,35 +3,48 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.43483132530120483,
-        "y": 4.952927710843373
+        "x": 3.5991440798858774,
+        "y": 4.209671897289586
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.0577108433734939,
-        "y": 5.4883855421686745
+        "x": 3.847359216674837,
+        "y": 4.179851671454798
       },
       "isLocked": false,
-      "linkedName": "BDepotEnd"
+      "linkedName": "BHub"
     },
     {
       "anchor": {
-        "x": 2.874579172610556,
-        "y": 5.283580599144081
+        "x": 0.567,
+        "y": 5.914
       },
       "prevControl": {
-        "x": 2.1723373493975906,
-        "y": 5.652301204819277
+        "x": 0.817,
+        "y": 5.914
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BDepotShoot"
+      "linkedName": "BOnDepotShoot"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "pivotDown_cmd",
+      "waypointRelativePos": 0.32336182336182095,
+      "endWaypointRelativePos": null,
+      "command": null
+    },
+    {
+      "name": "autoIntake_cmd",
+      "waypointRelativePos": 0.6291547958214617,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -42,13 +55,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 151.213
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Hub to Depot",
+  "folder": "Blue Hub Hang",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

@@ -3,15 +3,18 @@
   "robotLength": 0.8382,
   "holonomicMode": true,
   "pathFolders": [
-    "Depot to Neutral",
-    "Blue Hub",
+    "Blue Hub Hang",
     "Blue Human",
-    "Hub to Human",
+    "Depot to Neutral",
+    "Hub to Depot",
+    "Human to Neutral",
+    "Important Vison Spots",
     "Red Depot",
-    "Red Hub",
-    "Human to Neutral"
+    "Red Hub"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "Worked (enough) at comp"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,

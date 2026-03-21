@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5862054208273886,
-        "y": 4.054407988587732
+        "x": 2.33,
+        "y": 2.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.486419400855919,
-        "y": 3.071069900142657
+        "x": 2.113690308464576,
+        "y": 1.874659993027566
       },
       "isLocked": false,
-      "linkedName": "BHub"
+      "linkedName": "BHumanGoodShoot"
     },
     {
       "anchor": {
-        "x": 0.36447931526390864,
-        "y": 0.6903566333808862
+        "x": 2.33,
+        "y": 2.0
       },
       "prevControl": {
-        "x": 1.3964698795180723,
-        "y": 0.7239036144578312
+        "x": 2.5380125735844605,
+        "y": 2.1386750490563085
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BOutpost"
+      "linkedName": "BHumanGoodShoot"
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Blue Hub",
+  "folder": "Important Vison Spots",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
