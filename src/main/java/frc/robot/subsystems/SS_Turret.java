@@ -29,6 +29,7 @@ public class SS_Turret extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("TurretRotation", -36*encoder.getPosition().getValueAsDouble());
+    SmartDashboard.putNumber("TurretPosition", -0.1*encoder.getPosition().getValueAsDouble());
     getTurretRotation();
   }
 

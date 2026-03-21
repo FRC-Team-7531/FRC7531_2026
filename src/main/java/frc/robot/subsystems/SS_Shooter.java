@@ -126,4 +126,9 @@ public class SS_Shooter extends SubsystemBase {
     SmartDashboard.putNumber("targetPosition", targetPosition);
     Logger.recordOutput("targetPosition", targetPosition);
   }
+
+  public void setSpeed(double speed) {
+    leftShooter.set(-speed);
+    rightShooter.set(speed);
+  }
 }

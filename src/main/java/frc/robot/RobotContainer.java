@@ -44,6 +44,9 @@ import frc.robot.commands.Intake.unfoldIntake_cmd;
 import frc.robot.commands.Throat.AutoThroat_cmd;
 import frc.robot.commands.Throat.startThroat;
 import frc.robot.commands.Throat.stopThroat;
+import frc.robot.commands.TurretShooter.AutoHardcodeDepotClose_cmd;
+import frc.robot.commands.TurretShooter.AutoHardcodeDepot_cmd;
+import frc.robot.commands.TurretShooter.AutoHardcodeHuman_cmd;
 import frc.robot.commands.TurretShooter.AutoRev_cmd;
 import frc.robot.commands.TurretShooter.AutoShoot_cmd;
 import frc.robot.commands.TurretShooter.aimTurretToTarget;
@@ -128,6 +131,9 @@ public class RobotContainer {
     public SequentialCommandGroup hangLevel1 = new HangLevel1_cmd(hanger).andThen(new HangReturn_cmd(hanger));
     public HangReturn_cmd hangReturn = new HangReturn_cmd(hanger);
 
+    public AutoHardcodeDepot_cmd autoDepot = new AutoHardcodeDepot_cmd(turret, shooter, drivetrain);
+    public AutoHardcodeHuman_cmd autoHuman = new AutoHardcodeHuman_cmd(turret, shooter, drivetrain);
+    public AutoHardcodeDepotClose_cmd autoClose = new AutoHardcodeDepotClose_cmd(turret, shooter, drivetrain);
 
     // public ConditionalCommand toggleDepot = new ConditionalCommand(
     //     drivetrain.run(() -> {drivetrain.neutralTarget = drivetrain.depotPose;}), 
@@ -213,10 +219,6 @@ public class RobotContainer {
 
         joystick2.start().onTrue(hangLevel1);
         
-        
-
-
-
         drivetrain.registerTelemetry(logger::telemeterize);
     }
 
