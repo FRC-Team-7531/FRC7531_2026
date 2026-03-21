@@ -605,4 +605,9 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
         SmartDashboard.putNumber("driftingComponent", aimingComponent);
     }
+
+    public double PoseEstimaterGetX()
+    {
+        return robotPoseEstimate.getX();
+    }
 }

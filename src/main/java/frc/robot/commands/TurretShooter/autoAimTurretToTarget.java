@@ -113,8 +113,8 @@ public class autoAimTurretToTarget extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (rController.atSetpoint()){
-    return true;
+    if (drivetrain.PoseEstimaterGetX() >= 5.747){
+      return true;
     } else {
       return false;
     }

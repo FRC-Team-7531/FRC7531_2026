@@ -43,7 +43,7 @@ public class SS_Intake extends SubsystemBase {
  
 
 public void intakeUnfold()  {
-  pivot.set(0.1);
+  pivot.set(0.2);
 }
 
   public void PivotStop()  {
@@ -51,7 +51,7 @@ public void intakeUnfold()  {
   }
 
   public void intakeFold()  {
-    pivot.set(-0.1);
+    pivot.set(-0.2);
   }
 
 

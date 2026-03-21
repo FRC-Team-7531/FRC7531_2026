@@ -27,7 +27,7 @@ public class SS_Hopper extends SubsystemBase {
 
   public void hotDogRollersBack()
   {
-    hotDogRoller.set(.5);
+    hotDogRoller.set(.8);
   }
   
   public void hotDogRollersOff() {
@@ -37,6 +37,11 @@ public class SS_Hopper extends SubsystemBase {
   public void carWashOn()
   {
     m_carWash.set(-.5);
+  }
+
+  public void carWashBack()
+  {
+    m_carWash.set(.5);
   }
 
   public void carWashOff()

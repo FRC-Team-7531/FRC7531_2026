@@ -2,35 +2,44 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Hopper;
+package frc.robot.commands.Hang;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SS_Hopper;
+import frc.robot.subsystems.SS_Hanger;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class rollersReverseManual_cmd extends Command {
-  public SS_Hopper hopper;
-  /** Creates a new rollersReverseManual_cmd. */
-  public rollersReverseManual_cmd(SS_Hopper ss_hopper) {
+public class HangReturnManual_cmd extends Command {
+  /** Creates a new HangLevel1_cmd. */
+  public SS_Hanger hanger;
+  private Timer timer = new Timer();
+
+  public HangReturnManual_cmd(SS_Hanger ss_hanger) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.hopper = ss_hopper;
+    addRequirements(ss_hanger);
+    this.hanger = ss_hanger;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.stop();
+    timer.reset();
+    timer.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    hopper.hotDogRollersBack();
-    hopper.carWashBack();
+  
+    hanger.HangReturn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    hopper.carWashOff();
+    timer.stop();
+    timer.reset();
   }
 
   // Returns true when the command should end.

@@ -24,10 +24,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.Hang.HangLevel1_cmd;
+import frc.robot.commands.Hang.HangReturnManual_cmd;
 import frc.robot.commands.Hang.HangReturn_cmd;
 import frc.robot.commands.Hang.HangerDefault_cmd;
-import frc.robot.commands.Hang.alignTower;
-import frc.robot.commands.Intake.hopperDefault_cmd;
+import frc.robot.commands.Hang.alignTower; 
+import frc.robot.commands.Hopper.hopperDefault_cmd;
 import frc.robot.commands.Hopper.rollersForwardManual_cmd;
 //import frc.robot.commands.Hopper.rollersOff_cmd;
 //import frc.robot.commands.Hopper.rollersOn_cmd;
@@ -130,6 +131,8 @@ public class RobotContainer {
     public rollersReverseManual_cmd manualRollersReverse = new rollersReverseManual_cmd(hopper);
     public SequentialCommandGroup hangLevel1 = new HangLevel1_cmd(hanger).andThen(new HangReturn_cmd(hanger));
     public HangReturn_cmd hangReturn = new HangReturn_cmd(hanger);
+    public HangLevel1_cmd hangeLevel1Manual = new HangLevel1_cmd(hanger);
+    public HangReturnManual_cmd hangReturnManual = new HangReturnManual_cmd(hanger);
 
     public AutoHardcodeDepot_cmd autoDepot = new AutoHardcodeDepot_cmd(turret, shooter, drivetrain);
     public AutoHardcodeHuman_cmd autoHuman = new AutoHardcodeHuman_cmd(turret, shooter, drivetrain);
@@ -150,6 +153,7 @@ public class RobotContainer {
     public AutoRev_cmd autoRev = new AutoRev_cmd(shooter); 
     public AutoShoot_cmd autoShoot = new AutoShoot_cmd(shooter);
     public autoAimTurretToTarget autoAim = new autoAimTurretToTarget(drivetrain, turret);
+    public AutoHardcodeDepotClose_cmd autoDepotClose = new AutoHardcodeDepotClose_cmd(turret, shooter, drivetrain);
 
     /* Path follower */
     private final SendableChooser<Command> autoChooser;
@@ -175,6 +179,7 @@ public class RobotContainer {
         //NamedCommands.registerCommand("HangLevel1_cmd", hangLevel1);
         //NamedCommands.registerCommand("HangReturn_cmd", hangReturn);
         NamedCommands.registerCommand("autoAimTurret_cmd", autoAim);
+        NamedCommands.registerCommand("RevDepotClose", autoDepotClose);
 
         autoChooser = AutoBuilder.buildAutoChooser("Blue Depot to Neutral");
         SmartDashboard.putData("Auto Mode", autoChooser);
@@ -196,6 +201,7 @@ public class RobotContainer {
         shooter.setDefaultCommand(manualHood);
         throat.setDefaultCommand(stopThroatCommand);
         hanger.setDefaultCommand(hangerDefault);
+        hopper.setDefaultCommand(hopperDefault);
 
         ///// Joystick 1 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -217,7 +223,8 @@ public class RobotContainer {
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);
 
-        joystick2.start().onTrue(hangLevel1);
+        joystick2.start().whileTrue(hangeLevel1Manual);
+        joystick2.y().whileTrue(hangReturnManual);
         
         drivetrain.registerTelemetry(logger::telemeterize);
     }
