@@ -3,42 +3,70 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.43483132530120483,
-        "y": 7.269602409638554
+        "x": 0.32566333808844494,
+        "y": 7.2890727532097
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.41174019251274296,
-        "y": 7.020671094640731
+        "x": 0.3025722052999831,
+        "y": 7.040141438211877
       },
       "isLocked": false,
       "linkedName": "BDepotStart"
     },
     {
       "anchor": {
-        "x": 0.43483132530120483,
-        "y": 0.6644793152639101
+        "x": 0.32566333808844494,
+        "y": 2.8122967189728967
       },
       "prevControl": {
-        "x": 0.4479710335818955,
-        "y": 0.9141337725970375
+        "x": 0.33476873854896,
+        "y": 3.0621308473109874
+      },
+      "nextControl": {
+        "x": 0.31655793762792994,
+        "y": 2.562462590634806
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.32566333808844494,
+        "y": 0.9879457917261072
+      },
+      "prevControl": {
+        "x": 0.3629283533629539,
+        "y": 1.2351528277032222
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "BHuman"
     }
   ],
-  "rotationTargets": [],
-  "constraintZones": [],
-  "pointTowardsZones": [],
-  "eventMarkers": [
+  "rotationTargets": [
     {
-      "name": "autoShoot_cmd",
-      "waypointRelativePos": 0.55,
-      "endWaypointRelativePos": null,
-      "command": null
+      "waypointRelativePos": 1,
+      "rotationDegrees": -90.0
     }
   ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 0.5185685347738056,
+      "constraints": {
+        "maxVelocity": 0.5,
+        "maxAcceleration": 0.5,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 2.0,

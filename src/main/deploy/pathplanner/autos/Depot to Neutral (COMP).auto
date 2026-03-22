@@ -36,6 +36,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "autoIntakeOff_cmd"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
@@ -61,22 +67,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "autoThroat_cmd"
-                }
-              }
-            ]
+            "name": "autoThroat_cmd"
           }
         },
         {
-          "type": "deadline",
+          "type": "wait",
           "data": {
-            "commands": []
+            "waitTime": 0
           }
         }
       ]

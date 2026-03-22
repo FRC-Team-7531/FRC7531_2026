@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.43483132530120483,
-        "y": 7.269602409638554
+        "x": 0.32566333808844494,
+        "y": 7.2890727532097
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.43483132530120483,
-        "y": 7.5318674698795185
+        "x": 0.32566333808844494,
+        "y": 7.551337813450664
       },
       "isLocked": false,
       "linkedName": "BDepotStart"
@@ -33,8 +33,8 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 0.5,
+    "maxAcceleration": 0.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,

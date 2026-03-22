@@ -11,9 +11,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Red Start to Human Bump"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoIntake_cmd"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Red Start to Human Bump"
+                }
+              }
+            ]
           }
         },
         {
@@ -23,7 +36,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "revHumanClose"
+                  "name": "autoShoot_cmd"
                 }
               },
               {
@@ -38,7 +51,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Red Human Bump to New Shoot"
+            "pathName": "Red Human Bump to Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntakeOff_cmd"
           }
         },
         {
@@ -51,18 +70,6 @@
           "type": "wait",
           "data": {
             "waitTime": 5.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoThroatOff_cmd"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Done shooting to Neutral"
           }
         }
       ]

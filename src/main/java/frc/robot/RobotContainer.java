@@ -33,6 +33,7 @@ import frc.robot.commands.Hopper.rollersForwardManual_cmd;
 //import frc.robot.commands.Hopper.rollersOff_cmd;
 //import frc.robot.commands.Hopper.rollersOn_cmd;
 import frc.robot.commands.Hopper.rollersReverseManual_cmd;
+import frc.robot.commands.Intake.AutoIntakeOff_cmd;
 import frc.robot.commands.Intake.AutoIntake_cmd;
 import frc.robot.commands.Intake.foldIntake_cmd;
 import frc.robot.commands.Intake.intakeToggle_cmd;
@@ -42,6 +43,7 @@ import frc.robot.commands.Intake.outakeToggle_cmd;
 //import frc.robot.commands.Hopper.rollersOff_cmd;
 //import frc.robot.commands.Hopper.rollersOn_cmd;
 import frc.robot.commands.Intake.unfoldIntake_cmd;
+import frc.robot.commands.Throat.AutoThroatHuman_cmd;
 import frc.robot.commands.Throat.AutoThroatOff_cmd;
 import frc.robot.commands.Throat.AutoThroat_cmd;
 import frc.robot.commands.Throat.startThroat;
@@ -152,6 +154,7 @@ public class RobotContainer {
     //     () -> drivetrain.targetToggled
     // );
     public AutoIntake_cmd autoIntake = new AutoIntake_cmd(intake);
+    public AutoIntakeOff_cmd autoIntakeOff = new AutoIntakeOff_cmd(intake);
     public AutoThroat_cmd autoThroat = new AutoThroat_cmd(throat, hopper, intake);
     public AutoThroatOff_cmd autoThroatOff = new AutoThroatOff_cmd(throat, hopper, intake);
     public AutoRev_cmd autoRev = new AutoRev_cmd(shooter); 
@@ -160,6 +163,7 @@ public class RobotContainer {
     public autoAimTurretToTarget autoAim = new autoAimTurretToTarget(drivetrain, turret);
     public AutoHardcodeDepot_cmd autoDepotRev = new AutoHardcodeDepot_cmd(turret, shooter, drivetrain);
     public AutoHardcodeHuman_cmd autoHumanRev = new AutoHardcodeHuman_cmd(turret, shooter, drivetrain);
+    public AutoThroatHuman_cmd autothroathuman = new AutoThroatHuman_cmd(throat, hopper, intake);
     
 
 
@@ -178,6 +182,7 @@ public class RobotContainer {
         FollowPathCommand.warmupCommand().schedule();
 
         NamedCommands.registerCommand("autoIntake_cmd", autoIntake);
+        NamedCommands.registerCommand("autoIntakeOff_cmd", autoIntakeOff);
         NamedCommands.registerCommand("autoRev_cmd", autoRev);
         NamedCommands.registerCommand("autoThroat_cmd", autoThroat);
         NamedCommands.registerCommand("pivotDown_cmd", pivotDown);
@@ -191,6 +196,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("revOnDepot", autoDepotRev); 
         NamedCommands.registerCommand("revDepotClose", autoDepotClose);
         NamedCommands.registerCommand("revHumanClose", autoHumanRev);
+        NamedCommands.registerCommand("autoThroatHuman", autothroathuman);
 
         autoChooser = AutoBuilder.buildAutoChooser("Blue Depot to Neutral");
         SmartDashboard.putData("Auto Mode", autoChooser);
@@ -210,7 +216,7 @@ public class RobotContainer {
 
         turret.setDefaultCommand(manualTurret);
         shooter.setDefaultCommand(manualHood);
-        throat.setDefaultCommand(stopThroatCommand);
+        //throat.setDefaultCommand(stopThroatCommand);
         hanger.setDefaultCommand(hangerDefault);
         hopper.setDefaultCommand(hopperDefault);
 
@@ -227,7 +233,7 @@ public class RobotContainer {
 
         ///// Joystick 2////////////////////////////////////////////////////////////////////////////////////////////////////
         
-        joystick2.leftTrigger().whileTrue(shootingCommand);
+        joystick2.leftTrigger().onTrue(shootingCommand); //shootingCommand
         joystick2.rightTrigger().whileTrue(startThroatCommand);
         joystick2.a().toggleOnTrue(aimCommand);
         joystick2.leftBumper().whileTrue(manualRollersForward);

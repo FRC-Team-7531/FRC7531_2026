@@ -56,6 +56,10 @@ public class lobShooter extends Command {
       shooter.leftShooter.set(-speed);
       shooter.rightShooter.set(speed);
     }
+    else{
+      shooter.leftShooter.set(-1);
+      shooter.rightShooter.set(1);
+    }
   }
 
   // Called once the command ends or is interrupted.

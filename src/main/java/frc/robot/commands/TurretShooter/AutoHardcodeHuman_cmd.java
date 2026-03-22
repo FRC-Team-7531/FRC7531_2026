@@ -17,8 +17,9 @@ public class AutoHardcodeHuman_cmd extends Command {
   SS_Turret turret;
   SS_Shooter shooter;
 
-  PIDController tController = new PIDController(3, 0, 0);
+  PIDController tController = new PIDController(7, 0, 0);
   double tSpeed;
+  int counter;
 
   /** Creates a new AutoHardcodedScore_cmd. */
   public AutoHardcodeHuman_cmd(SS_Turret ss_turret, SS_Shooter ss_shooter, SS_Drivetrain ss_drivetrain) {
@@ -31,8 +32,8 @@ public class AutoHardcodeHuman_cmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    tController.setSetpoint(0.13);
-    tController.setTolerance(0.001);
+    tController.setSetpoint(-0.132);
+    tController.setTolerance(0.01);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,9 +46,10 @@ public class AutoHardcodeHuman_cmd extends Command {
       turret.setRawSpeed(tSpeed);
     }
     
-    shooter.setSpeed(6.476 / 9);
+    shooter.setSpeed(0.8); // 6.476/9
 
-    shooter.hoodLifter.setPosition(0.147);
+    shooter.hoodLifter.setPosition(0.52);
+    counter++;
   }
 
   // Called once the command ends or is interrupted.
@@ -57,7 +59,7 @@ public class AutoHardcodeHuman_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (tController.atSetpoint()) {
+    if (tController.atSetpoint() || counter > 2*1000 / 20.0) {
       turret.setRawSpeed(0);
       return true;
     } else{

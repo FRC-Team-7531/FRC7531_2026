@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.859500713266762,
-        "y": 5.34827389443652
+        "x": 13.498417386926238,
+        "y": 5.698248720315516
       },
       "isLocked": false,
       "linkedName": "RHumanBackBump"
     },
     {
       "anchor": {
-        "x": 13.755991440798857,
-        "y": 4.727218259629101
+        "x": 14.118273894436518,
+        "y": 6.0081455064194005
       },
       "prevControl": {
-        "x": 13.830560189082844,
-        "y": 4.965838254137858
+        "x": 13.887504663667288,
+        "y": 6.104299352573249
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 42.3974377975001
+    "rotation": 43.87669728592458
   },
   "reversed": false,
   "folder": "Human to Neutral",

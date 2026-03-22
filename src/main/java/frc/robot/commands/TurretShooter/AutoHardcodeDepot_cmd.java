@@ -57,6 +57,11 @@ public class AutoHardcodeDepot_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+     if (tController.atSetpoint()) { //shooter.hoodLifter.getPosition() >= 0.09
+      turret.setRawSpeed(0);
+      return true;
+    } else{
+      return false;
+    }
   }
 }

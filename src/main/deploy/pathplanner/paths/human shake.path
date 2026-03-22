@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 13.755991440798857,
-        "y": 4.727218259629101
+        "x": 14.118273894436518,
+        "y": 6.0081455064194005
       },
       "prevControl": null,
       "nextControl": {
-        "x": 13.955991440798856,
-        "y": 4.877218259629101
+        "x": 14.318273894436517,
+        "y": 6.158145506419401
       },
       "isLocked": false,
       "linkedName": "RNeutralShoot"
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 13.755991440798857,
-        "y": 4.727218259629101
+        "x": 14.118273894436518,
+        "y": 6.0081455064194005
       },
       "prevControl": {
-        "x": 13.565144869456578,
-        "y": 4.565732699262558
+        "x": 13.92742732309424,
+        "y": 5.846659946052857
       },
       "nextControl": null,
       "isLocked": false,
@@ -63,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 42.3974377975001
+    "rotation": 43.87669728592458
   },
   "reversed": false,
   "folder": "Human to Neutral",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 42.397
+    "rotation": 43.87669728592458
   },
   "useDefaultConstraints": false
 }

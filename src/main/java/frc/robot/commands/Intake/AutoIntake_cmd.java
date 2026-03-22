@@ -30,7 +30,7 @@ public class AutoIntake_cmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.intakeRollersOn(0.7);
+    intake.intakeRollersOn(1);
   }
 
   // Called once the command ends or is interrupted.

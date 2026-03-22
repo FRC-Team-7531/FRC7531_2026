@@ -22,7 +22,7 @@ public class SS_Hopper extends SubsystemBase {
 
 
   public void hotDogRollersOn() {
-    hotDogRoller.set(-0.5);
+    hotDogRoller.set(-1);
   }
 
   public void hotDogRollersBack()

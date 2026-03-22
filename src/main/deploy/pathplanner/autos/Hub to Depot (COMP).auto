@@ -50,6 +50,12 @@
         {
           "type": "named",
           "data": {
+            "name": "autoIntakeOff_cmd"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "autoThroat_cmd"
           }
         }

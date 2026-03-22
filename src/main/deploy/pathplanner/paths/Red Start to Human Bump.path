@@ -48,16 +48,16 @@
     },
     {
       "anchor": {
-        "x": 9.201583452211127,
-        "y": 4.571954350927247
+        "x": 9.033380884450782,
+        "y": 5.6070470756062765
       },
       "prevControl": {
-        "x": 8.967681930356338,
-        "y": 4.734176374149117
+        "x": 8.933176175945855,
+        "y": 5.8360864093318225
       },
       "nextControl": {
-        "x": 10.003780313837373,
-        "y": 4.015592011412269
+        "x": 9.214522111269615,
+        "y": 5.1930099857346645
       },
       "isLocked": false,
       "linkedName": "RNeutralEnd"
@@ -92,12 +92,25 @@
   ],
   "constraintZones": [
     {
-      "name": "Constraints Zone",
+      "name": "Under Trench",
       "minWaypointRelativePos": 0.0,
-      "maxWaypointRelativePos": 1.4055080721747424,
+      "maxWaypointRelativePos": 1.2316002700877777,
       "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 2.0,
+        "maxVelocity": 3.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1.91222147197838,
+      "maxWaypointRelativePos": 2.938555030384885,
+      "constraints": {
+        "maxVelocity": 0.5,
+        "maxAcceleration": 0.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -106,14 +119,7 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [
-    {
-      "name": "autoIntake_cmd",
-      "waypointRelativePos": 1.0028490028490034,
-      "endWaypointRelativePos": null,
-      "command": null
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 2.0,

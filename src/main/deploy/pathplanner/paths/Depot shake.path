@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.874579172610556,
-        "y": 5.283580599144081
+        "x": 2.2923395149786017,
+        "y": 5.801126961483595
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.6158059914407983,
-        "y": 5.438844507845934
+        "x": 2.0335663338088437,
+        "y": 5.956390870185448
       },
       "isLocked": false,
       "linkedName": "BDepotShoot"
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 2.874579172610556,
-        "y": 5.283580599144081
+        "x": 2.2923395149786017,
+        "y": 5.801126961483595
       },
       "prevControl": {
-        "x": 3.0660902833903,
-        "y": 5.122883696722446
+        "x": 2.4838506257583464,
+        "y": 5.64043005906196
       },
       "nextControl": null,
       "isLocked": false,
@@ -63,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 151.213
+    "rotation": 137.7263109939061
   },
   "reversed": false,
   "folder": "Depot to Neutral",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 151.213
+    "rotation": 137.7263109939061
   },
   "useDefaultConstraints": true
 }

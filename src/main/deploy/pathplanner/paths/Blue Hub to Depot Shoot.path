@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.5991440798858774,
-        "y": 4.209671897289586
+        "x": 3.650898716119829,
+        "y": 4.222610556348074
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.847359216674837,
-        "y": 4.179851671454798
+        "x": 3.899113852908789,
+        "y": 4.192790330513286
       },
       "isLocked": false,
       "linkedName": "BHub"
@@ -58,7 +58,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Blue Hub Hang",
+  "folder": "Hub to Depot",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

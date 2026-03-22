@@ -11,7 +11,7 @@ import frc.robot.subsystems.SS_Intake;
 import frc.robot.subsystems.SS_Throat;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class AutoThroat_cmd extends Command {
+public class AutoThroatHuman_cmd extends Command {
   public SS_Throat throat;
   public SS_Hopper hopper;
   public SS_Intake intake;
@@ -20,7 +20,7 @@ public class AutoThroat_cmd extends Command {
   public int counter = 0;
 
   /** Creates a new startThroat. */
-  public AutoThroat_cmd(SS_Throat ss_throat, SS_Hopper hopper, SS_Intake intake) {
+  public AutoThroatHuman_cmd(SS_Throat ss_throat, SS_Hopper hopper, SS_Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ss_throat);
     this.throat = ss_throat;
@@ -58,22 +58,22 @@ public class AutoThroat_cmd extends Command {
       hopper.carWashOn();
       hopper.hotDogRollersOn();
     }
-    if(timer2.hasElapsed(7) && counter < 10)
-    {
-      if (intake.pivot.getPosition().getValueAsDouble() > 13) {
-        intake.intakeFold();
-        counter++;
-      }
-      if (intake.pivot.getPosition().getValueAsDouble() < 7) {
-        intake.intakeUnfold();
-        counter++;
-      }
+    // if(timer2.hasElapsed(7) && counter < 10)
+    // {
+    //   if (intake.pivot.getPosition().getValueAsDouble() > 13) {
+    //     intake.intakeFold();
+    //     counter++;
+    //   }
+    //   if (intake.pivot.getPosition().getValueAsDouble() < 7) {
+    //     intake.intakeUnfold();
+    //     counter++;
+    //   }
       
-    }
-    else
-    {
-      intake.PivotStop();
-    }
+    // }
+    // else
+    // {
+    //   intake.PivotStop();
+    // }
     
     System.out.println(counter);
   }

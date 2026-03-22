@@ -5,15 +5,22 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Hub to Depot Start"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "pivotDown_cmd"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Hub to Depot Start"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "pivotDown_cmd"
+                }
+              }
+            ]
           }
         },
         {
@@ -31,7 +38,25 @@
         {
           "type": "named",
           "data": {
-            "name": "autoThroat_cmd"
+            "name": "revHumanClose"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntakeOff_cmd"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 5.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoThroatHuman"
           }
         }
       ]
