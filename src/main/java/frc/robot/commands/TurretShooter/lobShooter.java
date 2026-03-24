@@ -42,24 +42,17 @@ public class lobShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(turret.lobToggle)
-    {
-      if (targetPose != drivetrain.targetPose) {
-        targetPose = drivetrain.targetPose;
-      }
-      
-      botPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
-      distance = botPose.getDistance(targetPose);
-      shooter.hoodLifter.setPosition(0.65);
-      speed = (distance - 4.5)*0.4 + 0.6;
-      SmartDashboard.putNumber("lobSpeed", speed);
-      shooter.leftShooter.set(-speed);
-      shooter.rightShooter.set(speed);
+    if (targetPose != drivetrain.targetPose) {
+      targetPose = drivetrain.targetPose;
     }
-    else{
-      shooter.leftShooter.set(-1);
-      shooter.rightShooter.set(1);
-    }
+    
+    botPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
+    distance = botPose.getDistance(targetPose);
+    shooter.hoodLifter.setPosition(0.65);
+    speed = (distance - 4.5)*0.4 + 0.6;
+    SmartDashboard.putNumber("lobSpeed", speed);
+    shooter.leftShooter.set(-speed);
+    shooter.rightShooter.set(speed);
   }
 
   // Called once the command ends or is interrupted.

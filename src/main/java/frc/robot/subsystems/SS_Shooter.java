@@ -66,13 +66,6 @@ public class SS_Shooter extends SubsystemBase {
 
   public boolean shooterToggle = false;
 
-  public enum ShootMode {
-    AUTO,
-    MANUAL
-  }
-
-  public ShootMode mode = ShootMode.MANUAL;
-
   /** Creates a new SS_Shooter. */
   public SS_Shooter() {
     actuatorPosition.setDouble(0.0);
@@ -88,7 +81,6 @@ public class SS_Shooter extends SubsystemBase {
     actuatorPosition = inst.getTable("Shooter").getEntry("Actuator Position");
     shooterSpeed = inst.getTable("Shooter").getEntry("Shooter Speed");
     hoodEntry.setDouble(180 / Math.PI * hoodAngle);
-    SmartDashboard.putString("Shooter Mode 2", mode.name());
   }
 
   public double calculateGoalAngle(double distance) {

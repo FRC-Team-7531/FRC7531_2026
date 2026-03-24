@@ -20,6 +20,13 @@ public class SS_Turret extends SubsystemBase {
   public boolean lobToggle = false;
   Translation2d position;
 
+  public enum ShootMode {
+    AUTO,
+    MANUAL
+  }
+
+  public ShootMode mode = ShootMode.MANUAL;
+
   /** Creates a new SS_Turret. */
   public SS_Turret() {
     encoder.setPosition(0);

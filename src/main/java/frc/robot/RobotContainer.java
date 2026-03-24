@@ -63,7 +63,6 @@ import frc.robot.commands.TurretShooter.manualHood_cmd;
 import frc.robot.commands.TurretShooter.manualShooter;
 import frc.robot.commands.TurretShooter.manualTurret;
 import frc.robot.commands.TurretShooter.stopTurret;
-import frc.robot.commands.TurretShooter.toggleAutoShooter;
 //import frc.robot.commands.TurretShooter.stopShooter; //someone needs to explain this
 import frc.robot.commands.TurretShooter.lowerHood;
 import frc.robot.generated.TunerConstants;
@@ -119,14 +118,13 @@ public class RobotContainer {
     public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);
     public unfoldIntake_cmd pivotDown = new unfoldIntake_cmd(intake);
     //public rollersOff_cmd hotdogOff = new rollersOff_cmd(hopper);
-    public toggleAutoShooter toggleShooter = new toggleAutoShooter(shooter);
     public fireShooter autoShooterCommand = new fireShooter(shooter, drivetrain);
     public manualShooter manualShooterCommand = new manualShooter(shooter);
     public lobShooter lobShooterCommand = new lobShooter(shooter, drivetrain, turret);
     public Command fireShooterCommand = Commands.either(
         autoShooterCommand,
         manualShooterCommand,
-        () -> (shooter.mode == SS_Shooter.ShootMode.AUTO)
+        () -> (turret.mode == SS_Turret.ShootMode.AUTO)
     );
     public Command shootingCommand = Commands.either(
         fireShooterCommand,
@@ -245,7 +243,7 @@ public class RobotContainer {
         
         joystick2.leftTrigger().whileTrue(shootingCommand); //shootingCommand
         joystick2.rightTrigger().whileTrue(startThroatCommand);
-        joystick2.a().toggleOnTrue(aimCommand).onTrue(toggleShooter);
+        joystick2.a().toggleOnTrue(aimCommand); 
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);
 
