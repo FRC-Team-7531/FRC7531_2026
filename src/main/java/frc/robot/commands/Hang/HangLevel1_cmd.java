@@ -11,6 +11,7 @@ import frc.robot.subsystems.SS_Hanger;
 public class HangLevel1_cmd extends Command {
   /** Creates a new HangLevel1_cmd. */
   public SS_Hanger hanger;
+  public int counter;
 
   public HangLevel1_cmd(SS_Hanger ss_hanger) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -30,6 +31,7 @@ public class HangLevel1_cmd extends Command {
   public void execute() {
     hanger.HangLeft();
     hanger.HangRight();
+    counter++;
   }
 
   // Called once the command ends or is interrupted.
@@ -41,7 +43,7 @@ public class HangLevel1_cmd extends Command {
   @Override
   public boolean isFinished() {
     // Remove encoder checks and make it all manual
-    if (hanger.m_hangLeft.getPosition().getValueAsDouble() >= 176) {
+    if (hanger.m_hangLeft.getPosition().getValueAsDouble() >= 176 || counter > 3*1000 / 20) {
       hanger.HangerStop();
       return true;
     } else {

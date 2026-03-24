@@ -17,7 +17,7 @@ public class AutoHardcodeDepotClose_cmd extends Command {
   SS_Turret turret;
   SS_Shooter shooter;
 
-  PIDController tController = new PIDController(3, 0, 0);
+  PIDController tController = new PIDController(5, 0, 0);
   double tSpeed;
 
   /** Creates a new AutoHardcodedScore_cmd. */

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.650898716119829,
-        "y": 4.222610556348074
+        "x": 3.5820120481927713,
+        "y": 4.045927710843373
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.400898716119829,
-        "y": 4.222610556348074
+        "x": 3.3320120481927713,
+        "y": 4.045927710843373
       },
       "isLocked": false,
       "linkedName": "BHub"
     },
     {
       "anchor": {
-        "x": 1.6712838801711838,
-        "y": 4.093223965763196
+        "x": 1.942855421686747,
+        "y": 4.045927710843373
       },
       "prevControl": {
-        "x": 1.920730169635336,
-        "y": 4.076594213132252
+        "x": 2.1928554216867475,
+        "y": 4.045927710843373
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BHang"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": "Blue Hub Hang",

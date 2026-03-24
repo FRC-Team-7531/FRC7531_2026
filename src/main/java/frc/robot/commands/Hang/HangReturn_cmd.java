@@ -31,11 +31,11 @@ public class HangReturn_cmd extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (timer.hasElapsed(3)) {
+    //if (timer.hasElapsed(3)) {
       hanger.HangReturn();
       timer.stop();
       timer.reset();
-    }
+    //}
   }
 
   // Called once the command ends or is interrupted.
@@ -48,7 +48,7 @@ public class HangReturn_cmd extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ((hanger.m_hangLeft.getPosition().getValueAsDouble() <= 0) || (hanger.m_hangRight.getPosition().getValueAsDouble() <= 0)) {
+    if ((hanger.m_hangLeft.getPosition().getValueAsDouble() <= 50) || (hanger.m_hangRight.getPosition().getValueAsDouble() <= 50) || timer.hasElapsed(3)) {
       hanger.HangerStop();
       return true;
     } else {

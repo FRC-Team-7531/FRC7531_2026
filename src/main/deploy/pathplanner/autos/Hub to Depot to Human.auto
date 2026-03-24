@@ -30,27 +30,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Over Depot to Human"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "revHumanClose"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoIntakeOff_cmd"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 5.0
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "revHumanClose"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Over Depot to Human"
+                }
+              }
+            ]
           }
         },
         {
