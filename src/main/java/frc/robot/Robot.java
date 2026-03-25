@@ -8,7 +8,9 @@ import com.ctre.phoenix6.HootAutoReplay;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.util.datalog.DataLog;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -73,7 +75,9 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void disabledInit() {}
+    public void disabledInit() {
+        DataLogManager.stop();  
+    }
 
     @Override
     public void disabledPeriodic() {
@@ -86,6 +90,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        DataLogManager.start();
+        DriverStation.startDataLog(DataLogManager.getLog());
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         if (m_autonomousCommand != null) {
@@ -106,6 +112,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        DataLogManager.start();
+        DriverStation.startDataLog(DataLogManager.getLog());
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().cancel(m_autonomousCommand);
         }
