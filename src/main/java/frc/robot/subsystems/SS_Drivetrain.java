@@ -75,7 +75,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
     private static final Rotation2d kBlueAlliancePerspectiveRotation = Rotation2d.kZero;
     /* Red alliance sees forward as 180 degrees (toward blue alliance wall) */
-    private static final Rotation2d kRedAlliancePerspectiveRotation = Rotation2d.k180deg;
+    private static final Rotation2d kRedAlliancePerspectiveRotation = Rotation2d.kZero; //k180deg
     /* Keep track if we've ever applied the operator perspective before or not */
     private boolean m_hasAppliedOperatorPerspective = false;
 
@@ -412,6 +412,17 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
 
         alliance = DriverStation.getAlliance().get();
 
+        switch (alliance) {
+            case Red:
+                limelightEstimateAntigua = limelightTableAntigua.getEntry("botpose_orb_wpired").getDoubleArray(limelightEstimateAntigua);
+                limelightEstimateBarbuda = limelightTableBarbuda.getEntry("botpose_orb_wpired").getDoubleArray(limelightEstimateBarbuda);
+                break;
+            case Blue:
+                limelightEstimateAntigua = limelightTableAntigua.getEntry("botpose_orb_wpiblue").getDoubleArray(limelightEstimateAntigua);
+                limelightEstimateBarbuda = limelightTableBarbuda.getEntry("botpose_orb_wpiblue").getDoubleArray(limelightEstimateBarbuda);
+                break;
+        }
+
         // Refresh module positions
         modulePositions[0] = module0.getPosition(true);
         modulePositions[1] = module1.getPosition(true);
@@ -437,15 +448,6 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         } else {
             targetPose = hubPose;
             mode = ShootMode.SCORE;
-        }
-
-        switch (alliance) {
-            case Red:
-                limelightEstimateAntigua = limelightTableAntigua.getEntry("botpose_orb_wpired").getDoubleArray(limelightEstimateAntigua);
-                limelightEstimateBarbuda = limelightTableBarbuda.getEntry("botpose_orb_wpired").getDoubleArray(limelightEstimateBarbuda);
-            case Blue:
-                limelightEstimateAntigua = limelightTableAntigua.getEntry("botpose_orb_wpiblue").getDoubleArray(limelightEstimateAntigua);
-                limelightEstimateBarbuda = limelightTableBarbuda.getEntry("botpose_orb_wpiblue").getDoubleArray(limelightEstimateBarbuda);
         }
 
         robotLLPoseAntigua = new Pose2d(limelightEstimateAntigua[0], limelightEstimateAntigua[1], new Rotation2d(Math.PI*limelightEstimateAntigua[5]/180));

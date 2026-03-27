@@ -99,7 +99,7 @@ public class SS_Shooter extends SubsystemBase {
   public void setVelocity(double distance, double shooterPosition, double drivetrainVelocity) {
     lipDistance = distance - hoopRadius;
     nearDistance = distance - hoopRadius - lipClearance;
-    hoodAngle = Math.PI/2 - 0.591377*shooterPosition - 0.380351 + hoodAngleBack; // This is a HEAVY approximation (will work fine hopefully)
+    hoodAngle = 1.2*(Math.PI/2 - 0.591377*shooterPosition - 0.380351 + hoodAngleBack); // This is a HEAVY approximation (will work fine hopefully)
     targetVelocity = (distance/Math.cos(hoodAngle))*Math.sqrt(gravity/(distance*Math.tan(hoodAngle) - targetHeight));
     // System.out.println(Math.cos(hoodAngle));
     // System.out.println(Math.tan(hoodAngle));

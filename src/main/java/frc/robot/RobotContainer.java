@@ -23,9 +23,11 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.commands.joystickInversion;
 import frc.robot.commands.Hang.HangLevel1_cmd;
 import frc.robot.commands.Hang.HangReturnManual_cmd;
 import frc.robot.commands.Hang.HangReturn_cmd;
+import frc.robot.commands.Hang.HangUpManual_cmd;
 import frc.robot.commands.Hang.HangerDefault_cmd;
 import frc.robot.commands.Hang.alignTower; 
 import frc.robot.commands.Hopper.hopperDefault_cmd;
@@ -73,6 +75,7 @@ import frc.robot.subsystems.SS_Shooter;
 import frc.robot.subsystems.SS_Throat;
 import frc.robot.subsystems.SS_Turret;
 import frc.robot.subsystems.SS_Hanger;
+import frc.robot.subsystems.SS_Vision;
 import frc.robot.subsystems.SS_Drivetrain.ShootMode;
 
 public class RobotContainer {
@@ -103,6 +106,7 @@ public class RobotContainer {
     private final SS_Intake intake = new SS_Intake();
     private final SS_Hopper hopper = new SS_Hopper();
     private final SS_Hanger hanger = new SS_Hanger();
+    private final SS_Vision vision = new SS_Vision();
 
     public aimTurretToTarget aimCommand = new aimTurretToTarget(drivetrain, turret);
     public alignTower alignTowerCommand = new alignTower(drivetrain);
@@ -144,6 +148,7 @@ public class RobotContainer {
     public HangReturn_cmd hangReturn = new HangReturn_cmd(hanger);
     public HangLevel1_cmd hangeLevel1Manual = new HangLevel1_cmd(hanger);
     public HangReturnManual_cmd hangReturnManual = new HangReturnManual_cmd(hanger);
+    public HangUpManual_cmd hangupMan = new HangUpManual_cmd(hanger);
 
     public AutoHardcodeDepot_cmd autoDepot = new AutoHardcodeDepot_cmd(turret, shooter, drivetrain);
     public AutoHardcodeHuman_cmd autoHuman = new AutoHardcodeHuman_cmd(turret, shooter, drivetrain);
@@ -171,6 +176,7 @@ public class RobotContainer {
     public AutoHardcodeHuman_cmd autoHumanRev = new AutoHardcodeHuman_cmd(turret, shooter, drivetrain);
     public AutoThroatHuman_cmd autothroathuman = new AutoThroatHuman_cmd(throat, hopper);
     public AutoThroatHang_cmd autoThroatHang = new AutoThroatHang_cmd(throat, hopper);
+    public joystickInversion joystickInversion = new joystickInversion(vision);
     
 
 
@@ -180,6 +186,15 @@ public class RobotContainer {
     
 
     public RobotContainer() {
+        // switch (drivetrain.alliance) {
+        //     case Red:
+        //     joystickInvert = 1;
+        //     break;
+        //     case Blue:
+        //     joystickInvert = -1;
+        //     break;
+        // }
+
 
         configureBindings();
 
@@ -217,8 +232,8 @@ public class RobotContainer {
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
                 // Drivetrain will execute this command periodically
-                drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                        .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
+                drivetrain.applyRequest(() -> drive.withVelocityX(-joystickInversion.joystickInvert*joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+                        .withVelocityY(-joystickInversion.joystickInvert*joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
                         .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
                 ));
 
@@ -230,6 +245,7 @@ public class RobotContainer {
 
         ///// Joystick 1 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+        joystick.b().onTrue(joystickInversion);
         joystick.x().onTrue(pivotUp);
         joystick.a().onTrue(pivotDown);
         joystick.y().whileTrue(drivetrain.run(() -> drivetrain.pigeonCommand())); // Reset Gyro
@@ -247,7 +263,7 @@ public class RobotContainer {
         joystick2.leftBumper().whileTrue(manualRollersForward);
         joystick2.rightBumper().whileTrue(manualRollersReverse);
 
-        joystick2.start().whileTrue(hangeLevel1Manual);
+        joystick2.start().whileTrue(hangupMan);
         joystick2.y().whileTrue(hangReturnManual);
         
         drivetrain.registerTelemetry(logger::telemeterize);

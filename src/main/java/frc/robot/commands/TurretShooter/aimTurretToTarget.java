@@ -13,6 +13,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -24,6 +25,8 @@ public class aimTurretToTarget extends Command {
   /** Creates a new aimTurretToTarget. */
   public SS_Drivetrain drivetrain;
   public SS_Turret turret;
+
+  private final CommandXboxController joystick2 = new CommandXboxController(1);
 
   PIDController rController = new PIDController(7, 0, 0); //3.2 0.2 0.002 // 1.7, 1.2, 0
   double pidSpeed;
@@ -97,7 +100,7 @@ public class aimTurretToTarget extends Command {
     //   velocityAdjustment = 0;
     // }
 
-    adjustedTargetAngle = targetAngle - drivetrain.pidgey.getYaw().getValueAsDouble() - 180;
+    adjustedTargetAngle = (targetAngle - drivetrain.pidgey.getYaw().getValueAsDouble() - 180) + -joystick2.getRightX()*15;
 
     if ((adjustedTargetAngle + flipCorrection > 360*turret.leftMaximum) || (adjustedTargetAngle + flipCorrection < 360*turret.rightMaximum)) {
       if (adjustedTargetAngle + flipCorrection >= 0) {

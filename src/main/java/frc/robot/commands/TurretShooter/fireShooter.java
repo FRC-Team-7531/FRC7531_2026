@@ -45,7 +45,7 @@ public class fireShooter extends Command {
     }
     
     botPose = drivetrain.poseEstimator.getEstimatedPosition().getTranslation();
-    distance = 1.2*botPose.getDistance(targetPose) - 1.2;
+    distance = 1.4*botPose.getDistance(targetPose) - 1.2;
     SmartDashboard.putNumber("shootingDistance", distance);
     Logger.recordOutput("shootingDistance", distance);
     SmartDashboard.putNumber("poseDistance", botPose.getDistance(targetPose));
