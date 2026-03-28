@@ -76,7 +76,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledInit() {
-        DataLogManager.stop();  
+        // DataLogManager.stop();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
-        DataLogManager.start();
+        // DataLogManager.start();
         DriverStation.startDataLog(DataLogManager.getLog());
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        DataLogManager.start();
+        // DataLogManager.start();
         DriverStation.startDataLog(DataLogManager.getLog());
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().cancel(m_autonomousCommand);

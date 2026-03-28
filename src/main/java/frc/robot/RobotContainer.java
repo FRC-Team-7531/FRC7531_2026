@@ -77,6 +77,7 @@ import frc.robot.subsystems.SS_Turret;
 import frc.robot.subsystems.SS_Hanger;
 import frc.robot.subsystems.SS_Vision;
 import frc.robot.subsystems.SS_Drivetrain.ShootMode;
+import frc.robot.commands.TurretShooter.setTurretAngle_cmd;
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top
@@ -117,6 +118,7 @@ public class RobotContainer {
     public startThroat startThroatCommand = new startThroat(throat, hopper);
     public intakeToggle_cmd intakeToggle = new intakeToggle_cmd(intake);
     public outakeToggle_cmd outakeToggle = new outakeToggle_cmd(intake);
+    public setTurretAngle_cmd setTurretAngle = new setTurretAngle_cmd(turret, 180);
     //public rollersOn_cmd hotdogOn = new rollersOn_cmd(hopper);
     //public rollersOn_cmd hotdogOnNoTimer = new rollersOn_cmd(hopper);
     public foldIntake_cmd pivotUp = new foldIntake_cmd(intake);

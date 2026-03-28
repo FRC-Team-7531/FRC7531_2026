@@ -58,7 +58,7 @@ public class AutoThroat_cmd extends Command {
       hopper.carWashOn();
       hopper.hotDogRollersOn();
     }
-    if(timer2.hasElapsed(7) && counter < 10)
+    if(timer2.hasElapsed(5) && counter < 10)
     {
       if (intake.pivot.getPosition().getValueAsDouble() > 13) {
         intake.intakeFold();
