@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SS_Intake extends SubsystemBase {
   /** Creates a new SS_Intake. */
-  public TalonFX pivot = new TalonFX(20, "rio");
-  public TalonFX roller = new TalonFX(25, "rio");
+  public TalonFX pivot = new TalonFX(20, "CANivore");
+  public TalonFX roller = new TalonFX(25, "CANivore");
   public NetworkTableInstance inst = NetworkTableInstance.getDefault();
   public NetworkTableEntry intakeEntry = inst.getTable("Intake").getEntry("Rollers");
   public NetworkTableEntry pivotEntry = inst.getTable("Intake").getEntry("Pivot Status");

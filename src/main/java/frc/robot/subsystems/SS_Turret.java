@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SS_Turret extends SubsystemBase {
-  public CANcoder encoder = new CANcoder(44, "rio");
-  public TalonFX turretMotor = new TalonFX(40, "rio");
+  public CANcoder encoder = new CANcoder(44, "CANivore");
+  public TalonFX turretMotor = new TalonFX(40, "CANivore");
   public final double leftMaximum = 0.5;
   public final double rightMaximum = -0.25;
   public boolean lobToggle = false;

@@ -61,11 +61,11 @@ import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
  * https://v6.docs.ctr-electronics.com/en/stable/docs/tuner/tuner-swerve/index.html
  */
 public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
-    public CANBus canivore = new CANBus("CANivore");
+    public CANBus canivore = new CANBus("rio");
     private static final double kSimLoopPeriod = 0.004; // 4 ms
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
-    public final Pigeon2 pidgey = new Pigeon2(0, canivore);
+    public final Pigeon2 pidgey = new Pigeon2(0);
     public Pigeon2Configuration pigeonConfig = new Pigeon2Configuration();
 
     public boolean targetToggled = false;
