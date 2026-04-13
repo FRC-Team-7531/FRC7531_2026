@@ -55,8 +55,8 @@ public class SS_Shooter extends SubsystemBase {
 
   // Hard goods
   public PWM hoodLifter = new PWM(9);
-  public TalonFX leftShooter = new TalonFX(42, "rio");
-  public TalonFX rightShooter = new TalonFX(41, "rio");
+  public TalonFX leftShooter = new TalonFX(42, "CANivore");
+  public TalonFX rightShooter = new TalonFX(41, "CANivore");
 
   // NetworkTable stuff
   public NetworkTableInstance inst = NetworkTableInstance.getDefault();
@@ -99,7 +99,7 @@ public class SS_Shooter extends SubsystemBase {
   public void setVelocity(double distance, double shooterPosition, double drivetrainVelocity) {
     lipDistance = distance - hoopRadius;
     nearDistance = distance - hoopRadius - lipClearance;
-    hoodAngle = 1.2*(Math.PI/2 - 0.591377*shooterPosition - 0.380351 + hoodAngleBack); // This is a HEAVY approximation (will work fine hopefully)
+    hoodAngle = Math.PI/2 - 0.591377*shooterPosition - 0.380351 + hoodAngleBack; // This is a HEAVY approximation (will work fine hopefully)
     targetVelocity = (distance/Math.cos(hoodAngle))*Math.sqrt(gravity/(distance*Math.tan(hoodAngle) - targetHeight));
     // System.out.println(Math.cos(hoodAngle));
     // System.out.println(Math.tan(hoodAngle));

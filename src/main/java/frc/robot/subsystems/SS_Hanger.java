@@ -58,8 +58,8 @@ public class SS_Hanger extends SubsystemBase {
   // measurements may not be used at all
 
 
-  public TalonFX m_hangLeft = new TalonFX(51, "rio"); // long
-  public TalonFX m_hangRight = new TalonFX(50, "rio"); // short
+  public TalonFX m_hangLeft = new TalonFX(51, "CANivore"); // long
+  public TalonFX m_hangRight = new TalonFX(50, "CANivore"); // short
   public NetworkTableInstance hangerTable = NetworkTableInstance.getDefault();
   public NetworkTableEntry hangerTableEntry = hangerTable.getEntry("Encoder Position");
   public DoublePublisher hangerPublisher;
