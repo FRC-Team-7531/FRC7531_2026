@@ -4,46 +4,12 @@
 
 package frc.robot.subsystems;
 
-import java.util.*;
-import java.io.*;
-import static edu.wpi.first.units.Units.*;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import java.util.Optional;
-import java.util.function.Supplier;
-
-import com.ctre.phoenix6.SignalLogger;
-import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
-import com.ctre.phoenix6.swerve.SwerveModuleConstants;
-import com.ctre.phoenix6.swerve.SwerveRequest;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.config.PIDConstants;
-import com.pathplanner.lib.config.RobotConfig;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
-
-import edu.wpi.first.math.Matrix;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.networktables.DoublePublisher;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.RobotController;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-
-import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
-//Idk what needs to be imported so I imported a bunch of stuff I found
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SS_Hanger extends SubsystemBase {
   // height is measured from ground to top of bar + 2.108
@@ -104,11 +70,8 @@ public class SS_Hanger extends SubsystemBase {
   }
 
   public void HangReturn() {
-    double leftPosition = m_hangLeft.getPosition().getValueAsDouble();
-    double rightPosition = m_hangRight.getPosition().getValueAsDouble();
     m_hangLeft.set(-0.6);
     m_hangRight.set(-0.6);
-
   }
 
 }

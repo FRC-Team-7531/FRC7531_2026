@@ -4,15 +4,12 @@
 
 package frc.robot.commands.TurretShooter;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.SS_Hopper;
 import frc.robot.subsystems.SS_Shooter;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class AutoShootOff_cmd extends Command {
   public SS_Shooter shooter;
-  public SS_Hopper hopper;
   //public Timer timer2 = new Timer();
   //public double timerSeconds = 10;
   
