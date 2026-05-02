@@ -172,6 +172,8 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     public double aimingComponent;
     public double driftingComponent;
 
+    public NetworkTableEntry driveOn = NetworkTableInstance.getDefault().getTable("Drivetrain").getEntry("drivetrain");
+
     public enum ShootMode {
         SCORE,
         LOB
@@ -260,14 +262,15 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
     public SS_Drivetrain(
         SwerveDrivetrainConstants drivetrainConstants,
         SwerveModuleConstants<?, ?, ?>... modules
-    ) {
-        super(drivetrainConstants, modules);
+    ) { 
+        super(drivetrainConstants, modules); 
         if (Utils.isSimulation()) {
             startSimThread();
         }
 
         configureAutoBuilder();
     }
+
 
     /**
      * Constructs a CTRE SwerveDrivetrain using the specified constants.
@@ -291,6 +294,7 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
         if (Utils.isSimulation()) {
             startSimThread();
         }
+        driveOn.setBoolean(true);
         configureAutoBuilder();
         posePublisher = poseTable.getStructTopic("Pose Estimator", Pose2d.struct).publish();
     }
@@ -364,7 +368,12 @@ public class SS_Drivetrain extends TunerSwerveDrivetrain implements Subsystem {
      * @return Command to run
      */
     public Command applyRequest(Supplier<SwerveRequest> request) {
-        return run(() -> this.setControl(request.get()));
+        if(driveOn.getBoolean(true))
+        {
+           return run(() -> this.setControl(request.get())); 
+        }
+        else
+            return run(() -> this.setControl(new SwerveRequest.Idle()));
     }
 
     /**

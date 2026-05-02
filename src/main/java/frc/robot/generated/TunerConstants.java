@@ -71,7 +71,7 @@ public class TunerConstants {
     // CAN bus that the devices are located on;
     // All swerve devices must share the same CAN bus
     public static final CANBus kCANBus = new CANBus("rio", "./logs/example.hoot");
-
+    
     // Theoretical free speed (m/s) at 12 V applied output;
     // This needs to be tuned to your individual robot
     public static final LinearVelocity kSpeedAt12Volts = MetersPerSecond.of(5.79);
@@ -202,6 +202,7 @@ public class TunerConstants {
     }
 
 
+
     /**
      * Swerve Drive class utilizing CTR Electronics' Phoenix 6 API with the selected device types.
      */
@@ -224,6 +225,7 @@ public class TunerConstants {
                 TalonFX::new, TalonFX::new, CANcoder::new,
                 drivetrainConstants, modules
             );
+            //kCANBus = new CANBus("rio");
         }
 
         /**
